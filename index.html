@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horlona Montre | Montres de qualité pour Hommes, Femmes & Enfants</title>
+  <meta name="description" content="Découvrez la collection Horlona Montre — des montres élégantes pour hommes, femmes et enfants. Chaque montre est une œuvre d'art." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===== ANNONCE ===== -->
+<div class="announcement-bar">
+  🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Découvrir la collection →</a>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+
+      <a href="index.html" class="logo">
+        <div class="logo-mark">⌚</div>
+        <div class="logo-text">Horlona <span>Montre</span></div>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html" class="active">Accueil</a>
+        <a href="collection.html">Collection</a>
+        <a href="a-propos.html">Notre histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="hdr-btn" id="searchBtn" title="Rechercher">🔍</button>
+        <button class="hdr-btn" id="cartBtn" title="Panier">
+          🛍️
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+        <button class="hdr-btn hamburger" id="menuBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- ===== MOBILE MENU ===== -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">⌚</div>
+      <div class="logo-text">Horlona <span>Montre</span></div>
+    </a>
+    <button class="hdr-btn" id="menuClose">✕</button>
+  </div>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="collection.html">Collection</a>
+    <a href="a-propos.html">Notre histoire</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</div>
+
+<!-- ===== SEARCH OVERLAY ===== -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span>🔍</span>
+      <input type="text" placeholder="Rechercher une montre…" id="searchInput" />
+      <button id="searchClose">✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Nouvelle collection 2025</div>
+    <h1 class="hero-title">
+      L'art du temps<br>à votre <em>poignet</em>
+    </h1>
+    <p class="hero-desc">
+      Chaque montre Horlona est bien plus qu'un simple instrument pour mesurer le temps — c'est une œuvre d'art, un compagnon quotidien qui reflète votre personnalité.
+    </p>
+    <div class="hero-btns">
+      <a href="collection.html" class="btn btn-gold">Découvrir la collection</a>
+      <a href="a-propos.html" class="btn btn-outline-white">Notre histoire</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">+500</span>
+      <span class="hero-stat-lbl">Modèles</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">5⭐</span>
+      <span class="hero-stat-lbl">Avis clients</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">8+</span>
+      <span class="hero-stat-lbl">Ans d'expertise</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-arrow">↓</span>
+    <span>Défiler</span>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features-section">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature reveal">
+        <div class="feature-icon">🚚</div>
+        <h4>Livraison offerte</h4>
+        <p>Livraison gratuite en France dès 80€ d'achat, en 2–4 jours ouvrés.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon">🔄</div>
+        <h4>Retours 30 jours</h4>
+        <p>Pas satisfait ? Retournez votre montre sans frais sous 30 jours.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon">🛡️</div>
+        <h4>Garantie 2 ans</h4>
+        <p>Toutes nos montres sont couvertes par une garantie fabricant de 2 ans.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon">💎</div>
+        <h4>Qualité premium</h4>
+        <p>Sélection rigoureuse de matériaux nobles pour chaque création.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATÉGORIES ===== -->
+<section class="categories-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Explorer par univers</p>
+    <h2 class="section-title reveal">Nos collections</h2>
+    <p class="section-subtitle reveal">Des montres pensées pour chaque personnalité, chaque occasion et chaque âge.</p>
+    <div class="categories-grid">
+
+      <a href="collection.html?cat=homme" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=600&h=750&fit=crop&q=80" alt="Montres Homme" loading="lazy" />
+        <div class="cat-overlay">
+          <div class="cat-name">Homme</div>
+          <div class="cat-count">87 modèles</div>
+          <div class="cat-cta">Voir la collection →</div>
+        </div>
+      </a>
+
+      <a href="collection.html?cat=femme" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=600&h=750&fit=crop&q=80" alt="Montres Femme" loading="lazy" />
+        <div class="cat-overlay">
+          <div class="cat-name">Femme</div>
+          <div class="cat-count">94 modèles</div>
+          <div class="cat-cta">Voir la collection →</div>
+        </div>
+      </a>
+
+      <a href="collection.html?cat=enfant" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=600&h=750&fit=crop&q=80" alt="Montres Enfant" loading="lazy" />
+        <div class="cat-overlay">
+          <div class="cat-name">Enfant</div>
+          <div class="cat-count">42 modèles</div>
+          <div class="cat-cta">Voir la collection →</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUITS ===== -->
+<section class="products-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Sélection du moment</p>
+    <h2 class="section-title reveal">Nouveautés & Best-sellers</h2>
+    <p class="section-subtitle reveal">Découvrez nos modèles les plus appréciés et nos dernières créations.</p>
+
+    <div class="products-tabs">
+      <button class="tab-btn active" data-filter="all">Tous</button>
+      <button class="tab-btn" data-filter="homme">Homme</button>
+      <button class="tab-btn" data-filter="femme">Femme</button>
+      <button class="tab-btn" data-filter="enfant">Enfant</button>
+      <button class="tab-btn" data-filter="vintage">Vintage</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <!-- Produit 1 -->
+      <div class="product-card reveal" data-cat="homme">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80" alt="Montre Classic Heritage" loading="lazy" />
+          <span class="product-badge badge-new">Nouveau</span>
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Homme</div>
+          <div class="product-name">Classic Heritage</div>
+          <div class="product-stars">★★★★★ <span>(24)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">189 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Classic Heritage', 189, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 2 -->
+      <div class="product-card reveal" data-cat="femme">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80" alt="Montre Élégance Dorée" loading="lazy" />
+          <span class="product-badge badge-best">Best-seller</span>
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Femme</div>
+          <div class="product-name">Élégance Dorée</div>
+          <div class="product-stars">★★★★★ <span>(41)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">149 €</span>
+              <span class="price-was">179 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Élégance Dorée', 149, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 3 -->
+      <div class="product-card reveal" data-cat="homme">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Montre Aventure Sport" loading="lazy" />
+          <span class="product-badge badge-new">Nouveau</span>
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Homme</div>
+          <div class="product-name">Aventure Sport</div>
+          <div class="product-stars">★★★★☆ <span>(18)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">229 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Aventure Sport', 229, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 4 -->
+      <div class="product-card reveal" data-cat="femme">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80" alt="Montre Perle Rose" loading="lazy" />
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Femme</div>
+          <div class="product-name">Perle Rose</div>
+          <div class="product-stars">★★★★★ <span>(31)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">179 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Perle Rose', 179, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 5 -->
+      <div class="product-card reveal" data-cat="enfant">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80" alt="Montre Enfant Arc-en-ciel" loading="lazy" />
+          <span class="product-badge badge-promo">-20%</span>
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Enfant</div>
+          <div class="product-name">Arc-en-ciel Junior</div>
+          <div class="product-stars">★★★★★ <span>(55)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">55 €</span>
+              <span class="price-was">69 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Arc-en-ciel Junior', 55, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 6 -->
+      <div class="product-card reveal" data-cat="vintage">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80" alt="Montre Vintage Cuir" loading="lazy" />
+          <span class="product-badge badge-best">Coup de cœur</span>
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Vintage</div>
+          <div class="product-name">Vintage Cuir Cognac</div>
+          <div class="product-stars">★★★★★ <span>(62)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">259 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Vintage Cuir Cognac', 259, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 7 -->
+      <div class="product-card reveal" data-cat="homme">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop&q=80" alt="Montre Swiss Precision" loading="lazy" />
+          <span class="product-badge badge-new">Premium</span>
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Homme — Suisse</div>
+          <div class="product-name">Swiss Precision</div>
+          <div class="product-stars">★★★★★ <span>(29)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">349 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Swiss Precision', 349, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 8 -->
+      <div class="product-card reveal" data-cat="femme">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80" alt="Montre Géométrique" loading="lazy" />
+          <div class="product-quick-actions">
+            <button class="qa-btn" title="Coup de cœur">♡</button>
+            <button class="qa-btn" title="Aperçu rapide">👁</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Femme</div>
+          <div class="product-name">Géométrique Ivoire</div>
+          <div class="product-stars">★★★★☆ <span>(14)</span></div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-now">199 €</span>
+            </div>
+            <button class="atc-btn" onclick="addToCart('Géométrique Ivoire', 199, this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /products-grid -->
+
+    <div class="view-all">
+      <a href="collection.html" class="btn btn-outline-dark">Voir toute la collection →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BRAND STORY ===== -->
+<section class="brand-section">
+  <div class="container">
+    <div class="brand-grid">
+
+      <div class="brand-content">
+        <p class="section-tag">Notre histoire</p>
+        <h2 class="section-title reveal">Passionnés d'horlogerie depuis 2016</h2>
+        <p class="brand-desc reveal">
+          Horlona est née d'une conviction simple : chaque moment mérite d'être célébré avec style. Fondée par Nathan, la marque combine savoir-faire traditionnel et design contemporain pour créer des montres qui durent.
+        </p>
+        <p class="brand-desc reveal">
+          Basée à Bruz, en France, Horlona sélectionne avec soin chaque pièce pour vous offrir le meilleur rapport qualité-prix du marché.
+        </p>
+
+        <div class="brand-values reveal">
+          <div class="brand-val">
+            <div class="brand-val-icon">⚙️</div>
+            <div>
+              <h4>Mécanismes de précision</h4>
+              <p>Mouvements testés et certifiés pour une fiabilité maximale.</p>
+            </div>
+          </div>
+          <div class="brand-val">
+            <div class="brand-val-icon">🌿</div>
+            <div>
+              <h4>Matériaux responsables</h4>
+              <p>Sélection de matériaux durables et respectueux de l'environnement.</p>
+            </div>
+          </div>
+          <div class="brand-val">
+            <div class="brand-val-icon">✨</div>
+            <div>
+              <h4>Design distinctif</h4>
+              <p>Des formes géométriques audacieuses qui marquent les esprits.</p>
+            </div>
+          </div>
+          <div class="brand-val">
+            <div class="brand-val-icon">❤️</div>
+            <div>
+              <h4>Service client 5★</h4>
+              <p>Une équipe dédiée pour vous accompagner avant et après l'achat.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="a-propos.html" class="btn btn-gold reveal">Découvrir notre histoire</a>
+      </div>
+
+      <div class="brand-img-stack reveal">
+        <img class="brand-img-main"
+          src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=700&h=875&fit=crop&q=80"
+          alt="Atelier Horlona" />
+        <img class="brand-img-accent"
+          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80"
+          alt="Détail montre" />
+        <div class="brand-badge">
+          <span class="brand-badge-num">8+</span>
+          <div class="brand-badge-lbl">Ans d'expérience</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== TÉMOIGNAGES ===== -->
+<section class="testimonials-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Ils nous font confiance</p>
+    <h2 class="section-title reveal">Ce que disent nos clients</h2>
+    <p class="section-subtitle reveal">Plus de 1 000 clients satisfaits dans toute la France et à l'international.</p>
+
+    <div class="testimonials-grid">
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">« J'ai offert la Vintage Cuir Cognac à mon père pour son anniversaire. Il est absolument ravi — la qualité dépasse largement les attentes pour ce prix. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Sophie M.</div>
+            <div class="testi-loc">Lyon, France</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">« La Swiss Precision est un vrai bijou. Livraison rapide, emballage soigné, et la montre est tout simplement magnifique. Je recommande Horlona à 100%. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨</div>
+          <div>
+            <div class="testi-name">Julien T.</div>
+            <div class="testi-loc">Paris, France</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">« Ma fille adore sa montre Arc-en-ciel ! Elle ne veut plus l'enlever. Le service client est aussi très réactif, j'ai été bien accompagnée dans mon choix. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Camille D.</div>
+            <div class="testi-loc">Nantes, France</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter-section">
+  <div class="container">
+    <p class="section-tag">Restez connecté</p>
+    <h2 class="section-title reveal">Recevez nos nouveautés</h2>
+    <p class="section-subtitle reveal">Inscrivez-vous et obtenez <strong style="color:var(--gold)">-10%</strong> sur votre première commande.</p>
+    <form class="newsletter-form reveal" onsubmit="handleNewsletter(event)">
+      <input class="nl-input" type="email" placeholder="Votre adresse email" required />
+      <button class="btn btn-gold" type="submit">S'inscrire</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-mark">⌚</div>
+          <div class="logo-text">Horlona <span>Montre</span></div>
+        </a>
+        <p>Montres de qualité pour hommes, femmes et enfants. Chaque pièce est sélectionnée avec passion depuis Bruz, France.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn" title="Instagram">📸</a>
+          <a href="#" class="footer-social-btn" title="Facebook">📘</a>
+          <a href="#" class="footer-social-btn" title="YouTube">▶️</a>
+          <a href="#" class="footer-social-btn" title="TikTok">🎵</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html?cat=homme">Montres Homme</a></li>
+          <li><a href="collection.html?cat=femme">Montres Femme</a></li>
+          <li><a href="collection.html?cat=enfant">Montres Enfant</a></li>
+          <li><a href="collection.html?cat=vintage">Montres Vintage</a></li>
+          <li><a href="collection.html?cat=suisse">Montres Suisse</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Informations</div>
+        <ul class="footer-links">
+          <li><a href="a-propos.html">Qui sommes-nous ?</a></li>
+          <li><a href="#">Livraison & retours</a></li>
+          <li><a href="#">Garantie</a></li>
+          <li><a href="#">Guide des tailles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li>📍 18 Rue du Landanier<br>35170 Bruz, France</li>
+          <li><a href="mailto:contact@horlona-montre.com">contact@horlona-montre.com</a></li>
+          <li><a href="tel:+33XXXXXXXXX">+33 (0)X XX XX XX XX</a></li>
+          <li>Lun–Ven : 9h–18h</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Horlona Montre. Tous droits réservés.</span>
+      <div class="footer-payments">
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">PayPal</span>
+        <span class="pay-icon">Apple Pay</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== CART SIDEBAR ===== -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr">
+    <h2>Mon panier (<span id="cartItemCount">0</span>)</h2>
+    <button class="cart-hdr-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="cart-empty-icon">🛍️</div>
+      <p>Votre panier est vide.<br>Commencez à explorer nos montres !</p>
+    </div>
+  </div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">0 €</span>
+    </div>
+    <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a>
+    <p class="cart-note">🔒 Paiement sécurisé — Livraison gratuite dès 80€</p>
+  </div>
+</aside>
+
+<script src="js/main.js"></script>
+</body>
+</html>

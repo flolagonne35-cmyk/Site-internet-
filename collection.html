@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collection — Horlona Montre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      background: var(--dark); color: var(--white);
+      padding: 80px 0 60px; text-align: center;
+    }
+    .page-hero h1 { font-family: var(--font-serif); font-size: clamp(2rem,4vw,3.2rem); margin-bottom: 14px; }
+    .page-hero p { color: rgba(255,255,255,0.6); font-size: 1rem; }
+    .breadcrumb { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--gold); }
+
+    .collection-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 60px 0; }
+    .filters-sidebar { position: sticky; top: 100px; align-self: start; }
+    .filter-group { margin-bottom: 32px; }
+    .filter-group h3 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .filter-options { display: flex; flex-direction: column; gap: 8px; }
+    .filter-option { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.88rem; color: var(--text-grey); transition: var(--transition); }
+    .filter-option:hover { color: var(--text-dark); }
+    .filter-option input { accent-color: var(--gold); width: 16px; height: 16px; }
+    .filter-count { margin-left: auto; font-size: 0.75rem; color: var(--text-muted); }
+    .price-range { display: flex; gap: 10px; align-items: center; }
+    .price-input { width: 80px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; }
+    .price-input:focus { border-color: var(--gold); }
+
+    .collection-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: gap; gap: 12px; }
+    .collection-count { font-size: 0.88rem; color: var(--text-grey); }
+    .sort-select { padding: 9px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: var(--font-sans); outline: none; cursor: pointer; }
+    .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    @media (max-width: 900px) {
+      .collection-layout { grid-template-columns: 1fr; }
+      .filters-sidebar { position: static; }
+      .collection-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .collection-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar">
+  🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a>
+</div>
+
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-mark">⌚</div>
+        <div class="logo-text">Horlona <span>Montre</span></div>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Accueil</a>
+        <a href="collection.html" class="active">Collection</a>
+        <a href="a-propos.html">Notre histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="hdr-btn" id="searchBtn">🔍</button>
+        <button class="hdr-btn" id="cartBtn">🛍️ <span class="cart-badge" id="cartCount">0</span></button>
+        <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr">
+    <a href="index.html" class="logo"><div class="logo-mark">⌚</div><div class="logo-text">Horlona <span>Montre</span></div></a>
+    <button class="hdr-btn" id="menuClose">✕</button>
+  </div>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="collection.html">Collection</a>
+    <a href="a-propos.html">Notre histoire</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</div>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span>🔍</span>
+      <input type="text" placeholder="Rechercher une montre…" id="searchInput" />
+      <button id="searchClose">✕</button>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Collection</div>
+    <h1>Notre Collection</h1>
+    <p>Plus de 200 montres sélectionnées pour hommes, femmes et enfants</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="collection-layout">
+
+    <!-- FILTRES -->
+    <aside class="filters-sidebar">
+      <div class="filter-group">
+        <h3>Catégorie</h3>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" checked /> Tous <span class="filter-count">223</span></label>
+          <label class="filter-option"><input type="checkbox" /> Homme <span class="filter-count">87</span></label>
+          <label class="filter-option"><input type="checkbox" /> Femme <span class="filter-count">94</span></label>
+          <label class="filter-option"><input type="checkbox" /> Enfant <span class="filter-count">42</span></label>
+          <label class="filter-option"><input type="checkbox" /> Vintage <span class="filter-count">31</span></label>
+          <label class="filter-option"><input type="checkbox" /> Suisse <span class="filter-count">28</span></label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Prix</h3>
+        <div class="price-range">
+          <input class="price-input" type="number" placeholder="Min" value="0" />
+          <span>—</span>
+          <input class="price-input" type="number" placeholder="Max" value="500" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Couleur</h3>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" /> Or</label>
+          <label class="filter-option"><input type="checkbox" /> Argent</label>
+          <label class="filter-option"><input type="checkbox" /> Noir</label>
+          <label class="filter-option"><input type="checkbox" /> Rose</label>
+          <label class="filter-option"><input type="checkbox" /> Blanc</label>
+          <label class="filter-option"><input type="checkbox" /> Vert</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Bracelet</h3>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" /> Cuir</label>
+          <label class="filter-option"><input type="checkbox" /> Acier</label>
+          <label class="filter-option"><input type="checkbox" /> Silicone</label>
+          <label class="filter-option"><input type="checkbox" /> Tissu</label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- PRODUITS -->
+    <div>
+      <div class="collection-header">
+        <span class="collection-count">223 montres</span>
+        <select class="sort-select">
+          <option>Tri : Pertinence</option>
+          <option>Prix croissant</option>
+          <option>Prix décroissant</option>
+          <option>Nouveautés</option>
+          <option>Meilleures ventes</option>
+        </select>
+      </div>
+
+      <div class="collection-grid" id="productsGrid">
+
+        <div class="product-card reveal" data-cat="homme">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80" alt="Classic Heritage" loading="lazy" />
+            <span class="product-badge badge-new">Nouveau</span>
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Homme</div>
+            <div class="product-name">Classic Heritage</div>
+            <div class="product-stars">★★★★★ <span>(24)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">189 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Classic Heritage', 189, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="femme">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80" alt="Élégance Dorée" loading="lazy" />
+            <span class="product-badge badge-best">Best-seller</span>
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Femme</div>
+            <div class="product-name">Élégance Dorée</div>
+            <div class="product-stars">★★★★★ <span>(41)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">149 €</span><span class="price-was">179 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Élégance Dorée', 149, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="homme">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Aventure Sport" loading="lazy" />
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Homme</div>
+            <div class="product-name">Aventure Sport</div>
+            <div class="product-stars">★★★★☆ <span>(18)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">229 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Aventure Sport', 229, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="femme">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80" alt="Perle Rose" loading="lazy" />
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Femme</div>
+            <div class="product-name">Perle Rose</div>
+            <div class="product-stars">★★★★★ <span>(31)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">179 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Perle Rose', 179, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="enfant">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80" alt="Arc-en-ciel Junior" loading="lazy" />
+            <span class="product-badge badge-promo">-20%</span>
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Enfant</div>
+            <div class="product-name">Arc-en-ciel Junior</div>
+            <div class="product-stars">★★★★★ <span>(55)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">55 €</span><span class="price-was">69 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Arc-en-ciel Junior', 55, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="vintage">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80" alt="Vintage Cuir Cognac" loading="lazy" />
+            <span class="product-badge badge-best">Coup de cœur</span>
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Vintage</div>
+            <div class="product-name">Vintage Cuir Cognac</div>
+            <div class="product-stars">★★★★★ <span>(62)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">259 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Vintage Cuir Cognac', 259, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="homme">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop&q=80" alt="Swiss Precision" loading="lazy" />
+            <span class="product-badge badge-new">Premium</span>
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Homme — Suisse</div>
+            <div class="product-name">Swiss Precision</div>
+            <div class="product-stars">★★★★★ <span>(29)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">349 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Swiss Precision', 349, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="femme">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80" alt="Géométrique Ivoire" loading="lazy" />
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Femme</div>
+            <div class="product-name">Géométrique Ivoire</div>
+            <div class="product-stars">★★★★☆ <span>(14)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">199 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Géométrique Ivoire', 199, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="homme">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80" alt="Montre Élite Noir" loading="lazy" />
+            <span class="product-badge badge-new">Nouveau</span>
+            <div class="product-quick-actions">
+              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Homme</div>
+            <div class="product-name">Élite Noir Minuit</div>
+            <div class="product-stars">★★★★★ <span>(7)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">289 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Élite Noir Minuit', 289, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="newsletter-section" style="margin-top:0">
+  <div class="container">
+    <p class="section-tag">Offre exclusive</p>
+    <h2 class="section-title reveal">Recevez nos nouveautés</h2>
+    <p class="section-subtitle reveal">Inscrivez-vous et obtenez <strong style="color:var(--gold)">-10%</strong> sur votre première commande.</p>
+    <form class="newsletter-form reveal" onsubmit="handleNewsletter(event)">
+      <input class="nl-input" type="email" placeholder="Votre adresse email" required />
+      <button class="btn btn-gold" type="submit">S'inscrire</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-mark">⌚</div><div class="logo-text">Horlona <span>Montre</span></div></a>
+        <p>Montres de qualité pour hommes, femmes et enfants. Basés à Bruz, France.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn">📸</a>
+          <a href="#" class="footer-social-btn">📘</a>
+          <a href="#" class="footer-social-btn">▶️</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html">Homme</a></li>
+          <li><a href="collection.html">Femme</a></li>
+          <li><a href="collection.html">Enfant</a></li>
+          <li><a href="collection.html">Vintage</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Informations</div>
+        <ul class="footer-links">
+          <li><a href="a-propos.html">Qui sommes-nous ?</a></li>
+          <li><a href="#">Livraison</a></li>
+          <li><a href="#">Garantie</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li>📍 Bruz, 35170, France</li>
+          <li><a href="mailto:contact@horlona-montre.com">contact@horlona-montre.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Horlona Montre. Tous droits réservés.</span>
+      <div class="footer-payments">
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">PayPal</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr">
+    <h2>Mon panier (<span id="cartItemCount">0</span>)</h2>
+    <button class="cart-hdr-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="cart-empty-icon">🛍️</div>
+      <p>Votre panier est vide.</p>
+    </div>
+  </div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>
+    <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a>
+    <p class="cart-note">🔒 Paiement sécurisé</p>
+  </div>
+</aside>
+
+<script src="js/main.js"></script>
+</body>
+</html>

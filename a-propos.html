@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notre Histoire — Horlona Montre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero { background: var(--dark); color: var(--white); padding: 80px 0 60px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-serif); font-size: clamp(2rem,4vw,3.2rem); margin-bottom: 14px; }
+    .page-hero p { color: rgba(255,255,255,0.6); }
+    .breadcrumb { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--gold); }
+
+    .about-intro { padding: 80px 0; }
+    .about-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-intro-img { border-radius: var(--radius); aspect-ratio: 4/3; object-fit: cover; width: 100%; }
+    .about-intro-content h2 { font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 20px; }
+    .about-intro-content p { color: var(--text-grey); line-height: 1.85; margin-bottom: 16px; }
+
+    .timeline-section { padding: 80px 0; background: var(--bg-light); }
+    .timeline { position: relative; max-width: 720px; margin: 0 auto; }
+    .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--border); transform: translateX(-50%); }
+    .tl-item { display: flex; gap: 32px; margin-bottom: 48px; position: relative; }
+    .tl-item:nth-child(odd) { flex-direction: row-reverse; text-align: right; }
+    .tl-dot { position: absolute; left: 50%; top: 8px; transform: translateX(-50%); width: 14px; height: 14px; background: var(--gold); border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--gold); }
+    .tl-content { flex: 1; background: var(--white); padding: 22px 24px; border-radius: var(--radius); border: 1px solid var(--border); max-width: calc(50% - 28px); }
+    .tl-year { font-size: 0.75rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .tl-title { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .tl-desc { font-size: 0.88rem; color: var(--text-grey); line-height: 1.65; }
+
+    .team-section { padding: 80px 0; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+    .team-card { text-align: center; }
+    .team-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 16px; border: 4px solid var(--border); }
+    .team-name { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .team-role { font-size: 0.8rem; color: var(--gold); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .team-bio { font-size: 0.85rem; color: var(--text-grey); line-height: 1.65; }
+
+    .values-section { padding: 80px 0; background: var(--dark); color: var(--white); }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 52px; }
+    .value-card { text-align: center; padding: 32px 20px; background: rgba(255,255,255,0.05); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.08); transition: var(--transition); }
+    .value-card:hover { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .value-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .value-title { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .value-desc { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+    @media (max-width: 768px) {
+      .about-intro-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 16px; }
+      .tl-item, .tl-item:nth-child(odd) { flex-direction: column; text-align: left; padding-left: 44px; }
+      .tl-dot { left: 10px; }
+      .tl-content { max-width: 100%; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar">
+  🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a>
+</div>
+
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">⌚</div><div class="logo-text">Horlona <span>Montre</span></div></a>
+      <nav class="nav">
+        <a href="index.html">Accueil</a>
+        <a href="collection.html">Collection</a>
+        <a href="a-propos.html" class="active">Notre histoire</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="hdr-btn" id="searchBtn">🔍</button>
+        <button class="hdr-btn" id="cartBtn">🛍️ <span class="cart-badge" id="cartCount">0</span></button>
+        <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr">
+    <a href="index.html" class="logo"><div class="logo-mark">⌚</div><div class="logo-text">Horlona <span>Montre</span></div></a>
+    <button class="hdr-btn" id="menuClose">✕</button>
+  </div>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="collection.html">Collection</a>
+    <a href="a-propos.html">Notre histoire</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</div>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span>🔍</span>
+      <input type="text" placeholder="Rechercher une montre…" id="searchInput" />
+      <button id="searchClose">✕</button>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Notre histoire</div>
+    <h1>Qui est Horlona Montre ?</h1>
+    <p>Une passion pour l'horlogerie, une marque née en France</p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="about-intro">
+  <div class="container">
+    <div class="about-intro-grid">
+      <img class="about-intro-img reveal"
+        src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=700&h=525&fit=crop&q=80"
+        alt="Atelier Horlona" />
+      <div class="about-intro-content reveal">
+        <p class="section-tag">Notre philosophie</p>
+        <h2>Bien plus qu'une montre</h2>
+        <p>Chez Horlona, nous croyons que chaque montre est bien plus qu'un simple instrument pour mesurer le temps — c'est une <strong>œuvre d'art</strong>, un compagnon quotidien qui reflète votre personnalité et accompagne vos moments les plus précieux.</p>
+        <p>Le nom <strong>« Horlona »</strong> combine deux éléments : <em>« Horlo »</em>, qui fait écho à l'horlogerie, notre cœur de métier, et <em>« na »</em>, qui représente Nathan, le fondateur passionné derrière cette aventure.</p>
+        <p>Depuis notre création, nous sélectionnons avec soin chaque modèle pour vous offrir le meilleur de l'horlogerie à des prix accessibles, depuis notre atelier de <strong>Bruz, en France</strong>.</p>
+        <a href="collection.html" class="btn btn-dark" style="margin-top:16px">Voir nos montres →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Notre parcours</p>
+    <h2 class="section-title reveal">Une belle aventure depuis 2016</h2>
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2016</div>
+          <div class="tl-title">Les débuts</div>
+          <p class="tl-desc">Nathan crée Horlona dans sa ville de Bruz avec une vision claire : rendre l'horlogerie de qualité accessible à tous.</p>
+        </div>
+        <div class="tl-content" style="background:transparent;border:none"></div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-content" style="background:transparent;border:none"></div>
+        <div class="tl-content">
+          <div class="tl-year">2018</div>
+          <div class="tl-title">Première boutique en ligne</div>
+          <p class="tl-desc">Lancement de horlona-montre.com et premières expéditions vers toute la France. La communauté grandit rapidement.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2020</div>
+          <div class="tl-title">Expansion internationale</div>
+          <p class="tl-desc">Horlona commence à expédier en Europe et développe sa première collection « Géométrique », devenue emblématique.</p>
+        </div>
+        <div class="tl-content" style="background:transparent;border:none"></div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-content" style="background:transparent;border:none"></div>
+        <div class="tl-content">
+          <div class="tl-year">2022</div>
+          <div class="tl-title">+200 modèles</div>
+          <p class="tl-desc">Le catalogue dépasse les 200 modèles avec de nouvelles gammes Vintage, Suisse et Enfant. 5 étoiles sur Google.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2025</div>
+          <div class="tl-title">Nouvelle ère</div>
+          <p class="tl-desc">Refonte complète du site, nouvelles collections premium et partenariats horlogers suisses pour passer à l'étape supérieure.</p>
+        </div>
+        <div class="tl-content" style="background:transparent;border:none"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="values-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Ce qui nous définit</p>
+    <h2 class="section-title reveal" style="color:var(--white)">Nos valeurs</h2>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon">⚙️</div>
+        <div class="value-title">Précision</div>
+        <p class="value-desc">Chaque mécanisme est testé et certifié avant d'intégrer notre catalogue.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">✨</div>
+        <div class="value-title">Élégance</div>
+        <p class="value-desc">Des designs contemporains qui traversent les tendances et le temps.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🌿</div>
+        <div class="value-title">Responsabilité</div>
+        <p class="value-desc">Matériaux durables et packaging éco-responsable pour chaque commande.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">❤️</div>
+        <div class="value-title">Passion</div>
+        <p class="value-desc">Une équipe qui aime les montres et ça se ressent dans chaque détail.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter-section">
+  <div class="container">
+    <h2 class="section-title reveal" style="color:var(--white)">Rejoignez la communauté Horlona</h2>
+    <p class="section-subtitle reveal" style="color:rgba(255,255,255,0.55)">Inscrivez-vous et recevez <strong style="color:var(--gold)">-10%</strong> sur votre première commande.</p>
+    <form class="newsletter-form reveal" onsubmit="handleNewsletter(event)">
+      <input class="nl-input" type="email" placeholder="Votre adresse email" required />
+      <button class="btn btn-gold" type="submit">S'inscrire</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-mark">⌚</div><div class="logo-text">Horlona <span>Montre</span></div></a>
+        <p>Montres de qualité pour hommes, femmes et enfants. Basés à Bruz, France.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn">📸</a>
+          <a href="#" class="footer-social-btn">📘</a>
+          <a href="#" class="footer-social-btn">▶️</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html">Homme</a></li>
+          <li><a href="collection.html">Femme</a></li>
+          <li><a href="collection.html">Enfant</a></li>
+          <li><a href="collection.html">Vintage</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Informations</div>
+        <ul class="footer-links">
+          <li><a href="a-propos.html">Qui sommes-nous ?</a></li>
+          <li><a href="#">Livraison</a></li>
+          <li><a href="#">Garantie</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li>📍 Bruz, 35170, France</li>
+          <li><a href="mailto:contact@horlona-montre.com">contact@horlona-montre.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Horlona Montre. Tous droits réservés.</span>
+      <div class="footer-payments">
+        <span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">PayPal</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr">
+    <h2>Mon panier (<span id="cartItemCount">0</span>)</h2>
+    <button class="cart-hdr-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon">🛍️</div><p>Votre panier est vide.</p></div>
+  </div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>
+    <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a>
+  </div>
+</aside>
+
+<script src="js/main.js"></script>
+</body>
+</html>
