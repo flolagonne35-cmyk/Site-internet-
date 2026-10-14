@@ -2,7 +2,7 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ["claude/keke-ekene-4encmd"]
+    branches: ["main", "claude/keke-ekene-4encmd"]
   workflow_dispatch:
 
 permissions:
