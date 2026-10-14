@@ -173,5 +173,109 @@ function handleNewsletter(e) {
   setTimeout(() => { btn.textContent = "S'inscrire"; btn.style.background = ''; }, 3000);
 }
 
+/* ========== COUNTDOWN ========== */
+function initCountdown(elId, endsAt) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const target = new Date(endsAt).getTime();
+  function tick() {
+    const diff = Math.max(0, target - Date.now());
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    el.querySelectorAll('[data-u]').forEach(u => {
+      const map = { d, h, m, s };
+      u.textContent = String(map[u.dataset.u]).padStart(2, '0');
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* ========== PARRAINAGE ========== */
+function copyReferralCode(code, btn) {
+  navigator.clipboard?.writeText(code).catch(() => {});
+  if (btn) {
+    const original = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => { btn.textContent = original; }, 2000);
+  }
+}
+
+/* ========== PRODUCT GALLERY ========== */
+function switchProductImg(src, thumb) {
+  const main = document.getElementById('productMainImg');
+  if (main) main.src = src;
+  document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+  thumb?.classList.add('active');
+}
+
+/* ========== CATALOG FILTERS ========== */
+function applyCatalogFilters() {
+  const cards = document.querySelectorAll('#productsGrid .product-card[data-type]');
+  if (!cards.length) return;
+
+  const checked = {};
+  document.querySelectorAll('.filters-sidebar input[type=checkbox][data-group]:checked').forEach(cb => {
+    if (!checked[cb.dataset.group]) checked[cb.dataset.group] = [];
+    checked[cb.dataset.group].push(cb.value);
+  });
+
+  const priceMin = parseFloat(document.getElementById('priceMin')?.value) || 0;
+  const priceMax = parseFloat(document.getElementById('priceMax')?.value) || Infinity;
+
+  let visibleCount = 0;
+  cards.forEach(card => {
+    let visible = true;
+    for (const group in checked) {
+      if (!checked[group].includes(card.dataset[group])) { visible = false; break; }
+    }
+    const price = parseFloat(card.dataset.price);
+    if (visible && (price < priceMin || price > priceMax)) visible = false;
+    card.classList.toggle('hidden', !visible);
+    if (visible) visibleCount++;
+  });
+
+  const countEl = document.getElementById('resultCount');
+  if (countEl) countEl.textContent = visibleCount;
+  const noResults = document.getElementById('noResults');
+  if (noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+function clearCatalogFilters() {
+  document.querySelectorAll('.filters-sidebar input[type=checkbox][data-group]').forEach(cb => cb.checked = false);
+  const min = document.getElementById('priceMin'), max = document.getElementById('priceMax');
+  if (min) min.value = 0;
+  if (max) max.value = 500;
+  applyCatalogFilters();
+}
+
+function initCatalogFromURL() {
+  if (!document.querySelector('.filters-sidebar')) return;
+  const params = new URLSearchParams(location.search);
+  const type = params.get('type');
+  const pub = params.get('public');
+  const cat = params.get('cat');
+  const bijouxTypes = ['bagues', 'bracelets', 'colliers', 'pendentifs', 'boucles'];
+
+  function check(group, value) {
+    const box = document.querySelector(`.filters-sidebar input[data-group="${group}"][value="${value}"]`);
+    if (box) box.checked = true;
+  }
+
+  if (type) check('type', type);
+  if (pub) check('public', pub);
+  if (cat === 'montres') check('type', 'montres');
+  if (cat === 'bijoux') bijouxTypes.forEach(t => check('type', t));
+
+  document.querySelectorAll('.filters-sidebar input[type=checkbox][data-group]').forEach(cb => cb.addEventListener('change', applyCatalogFilters));
+  document.getElementById('priceMin')?.addEventListener('input', applyCatalogFilters);
+  document.getElementById('priceMax')?.addEventListener('input', applyCatalogFilters);
+
+  applyCatalogFilters();
+}
+
 /* ========== INIT ========== */
 updateCartUI();
+initCatalogFromURL();

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Collection — Horlona Montre</title>
+  <title>Collection — Montres & Bijoux | ROLF</title>
+  <meta name="description" content="Toute la collection ROLF : montres, bagues, bracelets, colliers, pendentifs et boucles d'oreilles pour hommes, femmes et enfants." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
@@ -17,8 +18,12 @@
     .breadcrumb { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
     .breadcrumb a { color: var(--gold); }
 
-    .collection-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 60px 0; }
+    .collection-intro { padding: 36px 0 0; font-size: 0.92rem; color: var(--text-grey); max-width: 760px; line-height: 1.7; }
+
+    .collection-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 36px 0 60px; }
     .filters-sidebar { position: sticky; top: 100px; align-self: start; }
+    .filters-sidebar-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .filters-sidebar-hdr button { font-size: 0.75rem; color: var(--gold); font-weight: 600; }
     .filter-group { margin-bottom: 32px; }
     .filter-group h3 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
     .filter-options { display: flex; flex-direction: column; gap: 8px; }
@@ -30,10 +35,11 @@
     .price-input { width: 80px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; }
     .price-input:focus { border-color: var(--gold); }
 
-    .collection-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: gap; gap: 12px; }
+    .collection-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
     .collection-count { font-size: 0.88rem; color: var(--text-grey); }
     .sort-select { padding: 9px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: var(--font-sans); outline: none; cursor: pointer; }
     .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .no-results { display: none; text-align: center; padding: 60px 20px; color: var(--text-muted); }
 
     @media (max-width: 900px) {
       .collection-layout { grid-template-columns: 1fr; }
@@ -54,18 +60,18 @@
 <header class="header" id="header">
   <div class="container">
     <div class="header-inner">
-      <a href="index.html" class="logo">
-        <div class="logo-mark">⌚</div>
-        <div class="logo-text">Horlona <span>Montre</span></div>
-      </a>
+      <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
       <nav class="nav">
         <a href="index.html">Accueil</a>
-        <a href="collection.html" class="active">Collection</a>
+        <a href="collection.html?cat=montres">Montres</a>
+        <a href="collection.html?cat=bijoux">Bijoux</a>
+        <a href="blog.html">Idées cadeaux</a>
         <a href="a-propos.html">Notre histoire</a>
         <a href="contact.html">Contact</a>
       </nav>
       <div class="header-actions">
         <button class="hdr-btn" id="searchBtn">🔍</button>
+        <a href="fidelite.html" class="hdr-btn" title="Mon compte & fidélité">👤</a>
         <button class="hdr-btn" id="cartBtn">🛍️ <span class="cart-badge" id="cartCount">0</span></button>
         <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
       </div>
@@ -75,12 +81,15 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-hdr">
-    <a href="index.html" class="logo"><div class="logo-mark">⌚</div><div class="logo-text">Horlona <span>Montre</span></div></a>
+    <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
     <button class="hdr-btn" id="menuClose">✕</button>
   </div>
   <nav class="mobile-nav-links">
     <a href="index.html">Accueil</a>
-    <a href="collection.html">Collection</a>
+    <a href="collection.html?cat=montres">Montres</a>
+    <a href="collection.html?cat=bijoux">Bijoux</a>
+    <a href="blog.html">Idées cadeaux</a>
+    <a href="fidelite.html">Fidélité & parrainage</a>
     <a href="a-propos.html">Notre histoire</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -90,7 +99,7 @@
   <div class="search-box">
     <div class="search-input-wrap">
       <span>🔍</span>
-      <input type="text" placeholder="Rechercher une montre…" id="searchInput" />
+      <input type="text" placeholder="Rechercher une montre, une bague, un collier…" id="searchInput" />
       <button id="searchClose">✕</button>
     </div>
   </div>
@@ -100,55 +109,92 @@
   <div class="container">
     <div class="breadcrumb"><a href="index.html">Accueil</a> / Collection</div>
     <h1>Notre Collection</h1>
-    <p>Plus de 200 montres sélectionnées pour hommes, femmes et enfants</p>
+    <p>Montres et bijoux multi-marques pour hommes, femmes et enfants</p>
   </div>
 </div>
 
 <div class="container">
+  <p class="collection-intro">Chaque pièce ROLF est choisie pour son rapport qualité-prix et sa qualité de fabrication — montres certifiées, bijoux poinçonnés et tracés. Affinez votre recherche avec les filtres ci-dessous, ou laissez-vous guider par nos best-sellers.</p>
+
   <div class="collection-layout">
 
     <!-- FILTRES -->
     <aside class="filters-sidebar">
+      <div class="filters-sidebar-hdr">
+        <h2 style="font-size:1rem;font-family:var(--font-serif)">Filtrer</h2>
+        <button onclick="clearCatalogFilters()">Réinitialiser</button>
+      </div>
+
       <div class="filter-group">
-        <h3>Catégorie</h3>
+        <h3>Type de produit</h3>
         <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" checked /> Tous <span class="filter-count">223</span></label>
-          <label class="filter-option"><input type="checkbox" /> Homme <span class="filter-count">87</span></label>
-          <label class="filter-option"><input type="checkbox" /> Femme <span class="filter-count">94</span></label>
-          <label class="filter-option"><input type="checkbox" /> Enfant <span class="filter-count">42</span></label>
-          <label class="filter-option"><input type="checkbox" /> Vintage <span class="filter-count">31</span></label>
-          <label class="filter-option"><input type="checkbox" /> Suisse <span class="filter-count">28</span></label>
+          <label class="filter-option"><input type="checkbox" data-group="type" value="montres" /> Montres <span class="filter-count">9</span></label>
+          <label class="filter-option"><input type="checkbox" data-group="type" value="bagues" /> Bagues <span class="filter-count">2</span></label>
+          <label class="filter-option"><input type="checkbox" data-group="type" value="bracelets" /> Bracelets <span class="filter-count">1</span></label>
+          <label class="filter-option"><input type="checkbox" data-group="type" value="colliers" /> Colliers <span class="filter-count">1</span></label>
+          <label class="filter-option"><input type="checkbox" data-group="type" value="pendentifs" /> Pendentifs <span class="filter-count">1</span></label>
+          <label class="filter-option"><input type="checkbox" data-group="type" value="boucles" /> Boucles d'oreilles <span class="filter-count">1</span></label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Public</h3>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" data-group="public" value="homme" /> Homme</label>
+          <label class="filter-option"><input type="checkbox" data-group="public" value="femme" /> Femme</label>
+          <label class="filter-option"><input type="checkbox" data-group="public" value="enfant" /> Enfant</label>
         </div>
       </div>
 
       <div class="filter-group">
         <h3>Prix</h3>
         <div class="price-range">
-          <input class="price-input" type="number" placeholder="Min" value="0" />
+          <input class="price-input" type="number" id="priceMin" placeholder="Min" value="0" />
           <span>—</span>
-          <input class="price-input" type="number" placeholder="Max" value="500" />
+          <input class="price-input" type="number" id="priceMax" placeholder="Max" value="500" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Marque</h3>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" data-group="brand" value="rolf" /> ROLF (marque propre)</label>
+          <label class="filter-option"><input type="checkbox" data-group="brand" value="helvetia" /> Helvetia Time</label>
+          <label class="filter-option"><input type="checkbox" data-group="brand" value="atelier-nord" /> Atelier Nord</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Matière</h3>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" data-group="material" value="acier" /> Acier</label>
+          <label class="filter-option"><input type="checkbox" data-group="material" value="or" /> Plaqué or</label>
+          <label class="filter-option"><input type="checkbox" data-group="material" value="argent" /> Argent</label>
+          <label class="filter-option"><input type="checkbox" data-group="material" value="cuir" /> Cuir</label>
+          <label class="filter-option"><input type="checkbox" data-group="material" value="silicone" /> Silicone</label>
         </div>
       </div>
 
       <div class="filter-group">
         <h3>Couleur</h3>
         <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" /> Or</label>
-          <label class="filter-option"><input type="checkbox" /> Argent</label>
-          <label class="filter-option"><input type="checkbox" /> Noir</label>
-          <label class="filter-option"><input type="checkbox" /> Rose</label>
-          <label class="filter-option"><input type="checkbox" /> Blanc</label>
-          <label class="filter-option"><input type="checkbox" /> Vert</label>
+          <label class="filter-option"><input type="checkbox" data-group="color" value="or" /> Or</label>
+          <label class="filter-option"><input type="checkbox" data-group="color" value="argent" /> Argent</label>
+          <label class="filter-option"><input type="checkbox" data-group="color" value="noir" /> Noir</label>
+          <label class="filter-option"><input type="checkbox" data-group="color" value="rose" /> Rose</label>
+          <label class="filter-option"><input type="checkbox" data-group="color" value="blanc" /> Blanc</label>
+          <label class="filter-option"><input type="checkbox" data-group="color" value="multicolore" /> Multicolore</label>
         </div>
       </div>
 
       <div class="filter-group">
-        <h3>Bracelet</h3>
+        <h3>Style</h3>
         <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" /> Cuir</label>
-          <label class="filter-option"><input type="checkbox" /> Acier</label>
-          <label class="filter-option"><input type="checkbox" /> Silicone</label>
-          <label class="filter-option"><input type="checkbox" /> Tissu</label>
+          <label class="filter-option"><input type="checkbox" data-group="style" value="classique" /> Classique</label>
+          <label class="filter-option"><input type="checkbox" data-group="style" value="moderne" /> Moderne</label>
+          <label class="filter-option"><input type="checkbox" data-group="style" value="vintage" /> Vintage</label>
+          <label class="filter-option"><input type="checkbox" data-group="style" value="sportif" /> Sportif</label>
+          <label class="filter-option"><input type="checkbox" data-group="style" value="romantique" /> Romantique</label>
         </div>
       </div>
     </aside>
@@ -156,7 +202,7 @@
     <!-- PRODUITS -->
     <div>
       <div class="collection-header">
-        <span class="collection-count">223 montres</span>
+        <span class="collection-count"><span id="resultCount">15</span> articles</span>
         <select class="sort-select">
           <option>Tri : Pertinence</option>
           <option>Prix croissant</option>
@@ -168,16 +214,14 @@
 
       <div class="collection-grid" id="productsGrid">
 
-        <div class="product-card reveal" data-cat="homme">
+        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="rolf" data-material="acier" data-color="noir" data-shape="ronde" data-style="classique" data-price="189">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80" alt="Classic Heritage" loading="lazy" />
             <span class="product-badge badge-new">Nouveau</span>
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Homme</div>
+            <div class="product-cat">Homme — Montre</div>
             <div class="product-name">Classic Heritage</div>
             <div class="product-stars">★★★★★ <span>(24)</span></div>
             <div class="product-footer">
@@ -187,16 +231,14 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="femme">
+        <div class="product-card reveal" data-type="montres" data-public="femme" data-brand="rolf" data-material="acier" data-color="or" data-shape="ronde" data-style="classique" data-price="149">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80" alt="Élégance Dorée" loading="lazy" />
             <span class="product-badge badge-best">Best-seller</span>
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Femme</div>
+            <div class="product-cat">Femme — Montre</div>
             <div class="product-name">Élégance Dorée</div>
             <div class="product-stars">★★★★★ <span>(41)</span></div>
             <div class="product-footer">
@@ -206,15 +248,13 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="homme">
+        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="rolf" data-material="silicone" data-color="noir" data-shape="ronde" data-style="sportif" data-price="229">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Aventure Sport" loading="lazy" />
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Homme</div>
+            <div class="product-cat">Homme — Montre</div>
             <div class="product-name">Aventure Sport</div>
             <div class="product-stars">★★★★☆ <span>(18)</span></div>
             <div class="product-footer">
@@ -224,15 +264,13 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="femme">
+        <div class="product-card reveal" data-type="montres" data-public="femme" data-brand="rolf" data-material="acier" data-color="rose" data-shape="ovale" data-style="classique" data-price="179">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80" alt="Perle Rose" loading="lazy" />
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Femme</div>
+            <div class="product-cat">Femme — Montre</div>
             <div class="product-name">Perle Rose</div>
             <div class="product-stars">★★★★★ <span>(31)</span></div>
             <div class="product-footer">
@@ -242,16 +280,14 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="enfant">
+        <div class="product-card reveal" data-type="montres" data-public="enfant" data-brand="rolf" data-material="silicone" data-color="multicolore" data-shape="ronde" data-style="sportif" data-price="55">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80" alt="Arc-en-ciel Junior" loading="lazy" />
             <span class="product-badge badge-promo">-20%</span>
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Enfant</div>
+            <div class="product-cat">Enfant — Montre</div>
             <div class="product-name">Arc-en-ciel Junior</div>
             <div class="product-stars">★★★★★ <span>(55)</span></div>
             <div class="product-footer">
@@ -261,16 +297,14 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="vintage">
+        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="atelier-nord" data-material="cuir" data-color="noir" data-shape="ronde" data-style="vintage" data-price="259">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80" alt="Vintage Cuir Cognac" loading="lazy" />
             <span class="product-badge badge-best">Coup de cœur</span>
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Vintage</div>
+            <div class="product-cat">Homme — Montre — Atelier Nord</div>
             <div class="product-name">Vintage Cuir Cognac</div>
             <div class="product-stars">★★★★★ <span>(62)</span></div>
             <div class="product-footer">
@@ -280,16 +314,14 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="homme">
+        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="helvetia" data-material="acier" data-color="argent" data-shape="ronde" data-style="classique" data-price="349">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop&q=80" alt="Swiss Precision" loading="lazy" />
             <span class="product-badge badge-new">Premium</span>
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Homme — Suisse</div>
+            <div class="product-cat">Homme — Montre — Helvetia Time</div>
             <div class="product-name">Swiss Precision</div>
             <div class="product-stars">★★★★★ <span>(29)</span></div>
             <div class="product-footer">
@@ -299,15 +331,13 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="femme">
+        <div class="product-card reveal" data-type="montres" data-public="femme" data-brand="rolf" data-material="acier" data-color="blanc" data-shape="carree" data-style="moderne" data-price="199">
           <div class="product-img-wrap">
             <img src="https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80" alt="Géométrique Ivoire" loading="lazy" />
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Femme</div>
+            <div class="product-cat">Femme — Montre</div>
             <div class="product-name">Géométrique Ivoire</div>
             <div class="product-stars">★★★★☆ <span>(14)</span></div>
             <div class="product-footer">
@@ -317,16 +347,14 @@
           </div>
         </div>
 
-        <div class="product-card reveal" data-cat="homme">
+        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="rolf" data-material="acier" data-color="noir" data-shape="ronde" data-style="moderne" data-price="289">
           <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80" alt="Montre Élite Noir" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80" alt="Élite Noir Minuit" loading="lazy" />
             <span class="product-badge badge-new">Nouveau</span>
-            <div class="product-quick-actions">
-              <button class="qa-btn">♡</button><button class="qa-btn">👁</button>
-            </div>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
           <div class="product-info">
-            <div class="product-cat">Homme</div>
+            <div class="product-cat">Homme — Montre</div>
             <div class="product-name">Élite Noir Minuit</div>
             <div class="product-stars">★★★★★ <span>(7)</span></div>
             <div class="product-footer">
@@ -336,7 +364,107 @@
           </div>
         </div>
 
+        <div class="product-card reveal" data-type="bagues" data-public="femme" data-brand="rolf" data-material="or" data-color="blanc" data-style="classique" data-price="129">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80" alt="Solitaire Clarté" loading="lazy" />
+            <span class="product-badge badge-new">Nouveau</span>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Femme — Bague</div>
+            <div class="product-name">Solitaire Clarté</div>
+            <div class="product-stars">★★★★★ <span>(31)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">129 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Solitaire Clarté', 129, this)">+</button>
+            </div>
+            <div class="stock-urgency">Plus que 4 en stock</div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-type="colliers" data-public="femme" data-brand="rolf" data-material="or" data-color="or" data-style="classique" data-price="89">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop&q=80" alt="Chaîne Maille Or" loading="lazy" />
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Femme — Collier</div>
+            <div class="product-name">Chaîne Maille Or</div>
+            <div class="product-stars">★★★★★ <span>(29)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">89 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Chaîne Maille Or', 89, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-type="bracelets" data-public="homme" data-brand="rolf" data-material="argent" data-color="argent" data-style="moderne" data-price="69">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop&q=80" alt="Jonc Argent Brossé" loading="lazy" />
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Homme — Bracelet</div>
+            <div class="product-name">Jonc Argent Brossé</div>
+            <div class="product-stars">★★★★☆ <span>(14)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">69 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Jonc Argent Brossé', 69, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-type="pendentifs" data-public="femme" data-brand="rolf" data-material="argent" data-color="blanc" data-style="romantique" data-price="59">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=400&h=400&fit=crop&q=80" alt="Pendentif Goutte Nacre" loading="lazy" />
+            <span class="product-badge badge-new">Nouveau</span>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Femme — Pendentif</div>
+            <div class="product-name">Goutte de Nacre</div>
+            <div class="product-stars">★★★★★ <span>(9)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">59 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Goutte de Nacre', 59, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-type="boucles" data-public="femme" data-brand="rolf" data-material="or" data-color="or" data-style="moderne" data-price="49">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=400&h=400&fit=crop&q=80" alt="Créoles Dorées" loading="lazy" />
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Femme — Boucles d'oreilles</div>
+            <div class="product-name">Créoles Dorées</div>
+            <div class="product-stars">★★★★★ <span>(21)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">49 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Créoles Dorées', 49, this)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-type="bagues" data-public="homme" data-brand="rolf" data-material="acier" data-color="noir" data-style="moderne" data-price="79">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&q=80" alt="Chevalière Acier" loading="lazy" />
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Homme — Bague</div>
+            <div class="product-name">Chevalière Acier</div>
+            <div class="product-stars">★★★★☆ <span>(11)</span></div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">79 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Chevalière Acier', 79, this)">+</button>
+            </div>
+          </div>
+        </div>
+
       </div>
+      <div class="no-results" id="noResults">Aucun article ne correspond à ces filtres. <button onclick="clearCatalogFilters()" style="color:var(--gold);font-weight:600">Réinitialiser les filtres</button></div>
     </div>
   </div>
 </div>
@@ -357,8 +485,8 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><div class="logo-mark">⌚</div><div class="logo-text">Horlona <span>Montre</span></div></a>
-        <p>Montres de qualité pour hommes, femmes et enfants. Basés à Bruz, France.</p>
+        <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+        <p>Montres et bijoux multi-marques pour hommes, femmes et enfants. Basés à Bruz, France.</p>
         <div class="footer-socials">
           <a href="#" class="footer-social-btn">📸</a>
           <a href="#" class="footer-social-btn">📘</a>
@@ -368,18 +496,18 @@
       <div>
         <div class="footer-heading">Collections</div>
         <ul class="footer-links">
-          <li><a href="collection.html">Homme</a></li>
-          <li><a href="collection.html">Femme</a></li>
-          <li><a href="collection.html">Enfant</a></li>
-          <li><a href="collection.html">Vintage</a></li>
+          <li><a href="collection.html?type=montres">Montres</a></li>
+          <li><a href="collection.html?type=bagues">Bagues</a></li>
+          <li><a href="collection.html?type=colliers">Colliers</a></li>
+          <li><a href="collection.html?type=bracelets">Bracelets</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-heading">Informations</div>
         <ul class="footer-links">
           <li><a href="a-propos.html">Qui sommes-nous ?</a></li>
-          <li><a href="#">Livraison</a></li>
-          <li><a href="#">Garantie</a></li>
+          <li><a href="retours.html">Livraison & retours</a></li>
+          <li><a href="cgv.html">CGV</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -387,16 +515,14 @@
         <div class="footer-heading">Contact</div>
         <ul class="footer-links">
           <li>📍 Bruz, 35170, France</li>
-          <li><a href="mailto:contact@horlona-montre.com">contact@horlona-montre.com</a></li>
+          <li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Horlona Montre. Tous droits réservés.</span>
+      <span>© 2026 ROLF. Tous droits réservés.</span>
       <div class="footer-payments">
-        <span class="pay-icon">VISA</span>
-        <span class="pay-icon">MC</span>
-        <span class="pay-icon">PayPal</span>
+        <span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">PayPal</span>
       </div>
     </div>
   </div>
@@ -409,15 +535,11 @@
     <button class="cart-hdr-close" id="cartClose">✕</button>
   </div>
   <div class="cart-body" id="cartBody">
-    <div class="cart-empty" id="cartEmpty">
-      <div class="cart-empty-icon">🛍️</div>
-      <p>Votre panier est vide.</p>
-    </div>
+    <div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon">🛍️</div><p>Votre panier est vide.</p></div>
   </div>
   <div class="cart-ftr" id="cartFtr" style="display:none">
     <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>
     <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a>
-    <p class="cart-note">🔒 Paiement sécurisé</p>
   </div>
 </aside>
 
