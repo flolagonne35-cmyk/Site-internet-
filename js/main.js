@@ -1,7 +1,7 @@
 /* ========== CART STATE ========== */
-let cart = JSON.parse(localStorage.getItem('horlona_cart') || '[]');
+let cart = JSON.parse(localStorage.getItem('rolf_cart') || '[]');
 
-function saveCart() { localStorage.setItem('horlona_cart', JSON.stringify(cart)); }
+function saveCart() { localStorage.setItem('rolf_cart', JSON.stringify(cart)); }
 
 function updateCartUI() {
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);

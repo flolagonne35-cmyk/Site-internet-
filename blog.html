@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guides & idées cadeaux | ROLF</title>
+  <meta name="description" content="Guides d'achat, conseils d'entretien et idées cadeaux montres & bijoux pour chaque occasion : fiançailles, mariage, naissance, anniversaire." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero { background: var(--dark); color: var(--white); padding: 70px 0 50px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-serif); font-size: clamp(1.8rem,3.5vw,2.6rem); margin-bottom: 10px; }
+    .breadcrumb { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--gold); }
+    .blog-page-grid { padding: 64px 0; }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar">🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a></div>
+
+<header class="header" id="header">
+  <div class="container"><div class="header-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="collection.html?cat=montres">Montres</a>
+      <a href="collection.html?cat=bijoux">Bijoux</a>
+      <a href="blog.html" class="active">Idées cadeaux</a>
+      <a href="a-propos.html">Notre histoire</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="hdr-btn" id="searchBtn">🔍</button>
+      <a href="fidelite.html" class="hdr-btn" title="Mon compte">👤</a>
+      <button class="hdr-btn" id="cartBtn">🛍️ <span class="cart-badge" id="cartCount">0</span></button>
+      <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+    </div>
+  </div></div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr"><a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a><button class="hdr-btn" id="menuClose">✕</button></div>
+  <nav class="mobile-nav-links"><a href="index.html">Accueil</a><a href="collection.html">Collection</a><a href="blog.html">Idées cadeaux</a><a href="fidelite.html">Fidélité</a><a href="a-propos.html">Notre histoire</a><a href="contact.html">Contact</a></nav>
+</div>
+<div class="search-overlay" id="searchOverlay"><div class="search-box"><div class="search-input-wrap"><span>🔍</span><input type="text" placeholder="Rechercher…" id="searchInput" /><button id="searchClose">✕</button></div></div></div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Guides & idées cadeaux</div>
+    <h1>Guides & idées cadeaux</h1>
+    <p style="color:rgba(255,255,255,0.6)">Conseils d'experts pour choisir le bon bijou ou la bonne montre, à chaque occasion</p>
+  </div>
+</div>
+
+<div class="container blog-page-grid">
+  <div class="blog-grid">
+
+    <a href="fiancailles.html" class="blog-card reveal">
+      <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&h=320&fit=crop&q=80" alt="Idées cadeaux fiançailles" loading="lazy" />
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Occasion</div>
+        <h3>Fiançailles : bien choisir sa bague</h3>
+        <p>Nos conseils pour une demande réussie, et nos modèles de bagues les plus offerts.</p>
+      </div>
+    </a>
+
+    <a href="mariage.html" class="blog-card reveal">
+      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=320&fit=crop&q=80" alt="Idées cadeaux mariage" loading="lazy" />
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Occasion</div>
+        <h3>Mariage : les cadeaux qui marquent</h3>
+        <p>Montres gravées, parures assorties — les idées préférées des mariés.</p>
+      </div>
+    </a>
+
+    <a href="naissance.html" class="blog-card reveal">
+      <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=500&h=320&fit=crop&q=80" alt="Idées cadeaux naissance" loading="lazy" />
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Occasion</div>
+        <h3>Naissance : un bijou pour la vie</h3>
+        <p>Des pièces symboliques à offrir à bébé ou aux jeunes parents.</p>
+      </div>
+    </a>
+
+    <a href="anniversaire.html" class="blog-card reveal">
+      <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&h=320&fit=crop&q=80" alt="Idées cadeaux anniversaire" loading="lazy" />
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Occasion</div>
+        <h3>Anniversaire : nos coups de cœur</h3>
+        <p>Des idées cadeaux pour tous les budgets, hommes, femmes et enfants.</p>
+      </div>
+    </a>
+
+    <a href="guide-choisir-montre.html" class="blog-card reveal">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=320&fit=crop&q=80" alt="Guide pour choisir sa montre" loading="lazy" />
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Guide d'achat</div>
+        <h3>Comment choisir sa montre ?</h3>
+        <p>Boîtier, bracelet, mouvement : le guide complet avant d'acheter.</p>
+      </div>
+    </a>
+
+    <a href="collection.html?type=montres&public=homme" class="blog-card reveal">
+      <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=500&h=320&fit=crop&q=80" alt="Tendances montres homme" loading="lazy" />
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Tendances</div>
+        <h3>Les tendances montres homme 2026</h3>
+        <p>Vintage, sport, précision suisse — ce qui se porte cette année.</p>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a><p>Montres et bijoux multi-marques pour hommes, femmes et enfants. Basés à Bruz, France.</p></div>
+      <div><div class="footer-heading">Collections</div><ul class="footer-links"><li><a href="collection.html?type=montres">Montres</a></li><li><a href="collection.html?type=bagues">Bijoux</a></li></ul></div>
+      <div><div class="footer-heading">Informations</div><ul class="footer-links"><li><a href="a-propos.html">Qui sommes-nous ?</a></li><li><a href="retours.html">Livraison & retours</a></li><li><a href="cgv.html">CGV</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-heading">Contact</div><ul class="footer-links"><li>📍 Bruz, 35170, France</li><li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 ROLF. Tous droits réservés.</span><div class="footer-payments"><span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">PayPal</span></div></div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr"><h2>Mon panier (<span id="cartItemCount">0</span>)</h2><button class="cart-hdr-close" id="cartClose">✕</button></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon">🛍️</div><p>Votre panier est vide.</p></div></div>
+  <div class="cart-ftr" id="cartFtr" style="display:none"><div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div><a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a></div>
+</aside>
+
+<script src="js/main.js"></script>
+</body>
+</html>
