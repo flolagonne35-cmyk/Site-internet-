@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livraison & Retours | ROLF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero { background: var(--dark); color: var(--white); padding: 70px 0 50px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-serif); font-size: clamp(1.8rem,3.5vw,2.6rem); margin-bottom: 10px; }
+    .breadcrumb { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--gold); }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; padding: 56px 0; }
+    .step-card { text-align: center; padding: 24px; }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--dark); color: var(--gold); font-family: var(--font-serif); font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .step-card h4 { font-size: 0.92rem; margin-bottom: 6px; }
+    .step-card p { font-size: 0.82rem; color: var(--text-grey); line-height: 1.6; }
+    @media (max-width: 768px) { .steps { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar">🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a></div>
+
+<header class="header" id="header">
+  <div class="container"><div class="header-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="collection.html?cat=montres">Montres</a>
+      <a href="collection.html?cat=bijoux">Bijoux</a>
+      <a href="blog.html">Idées cadeaux</a>
+      <a href="a-propos.html">Notre histoire</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="hdr-btn" id="searchBtn">🔍</button>
+      <a href="fidelite.html" class="hdr-btn" title="Mon compte">👤</a>
+      <button class="hdr-btn" id="cartBtn">🛍️ <span class="cart-badge" id="cartCount">0</span></button>
+      <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+    </div>
+  </div></div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr"><a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a><button class="hdr-btn" id="menuClose">✕</button></div>
+  <nav class="mobile-nav-links"><a href="index.html">Accueil</a><a href="collection.html">Collection</a><a href="blog.html">Idées cadeaux</a><a href="fidelite.html">Fidélité</a><a href="a-propos.html">Notre histoire</a><a href="contact.html">Contact</a></nav>
+</div>
+<div class="search-overlay" id="searchOverlay"><div class="search-box"><div class="search-input-wrap"><span>🔍</span><input type="text" placeholder="Rechercher…" id="searchInput" /><button id="searchClose">✕</button></div></div></div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Livraison & retours</div>
+    <h1>Livraison & retours</h1>
+    <p style="color:rgba(255,255,255,0.6)">Simple, gratuit, sans mauvaise surprise</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="legal-content" style="max-width:900px">
+    <h2>Livraison</h2>
+    <p>Livraison <strong>offerte en France dès 80€</strong> d'achat (4,90€ en dessous de ce seuil). Délai moyen de 2 à 4 jours ouvrés. Un email puis un SMS de suivi vous sont envoyés dès l'expédition, avec lien de suivi en temps réel.</p>
+    <p>Livraison en Europe disponible — frais et délais calculés à l'étape de paiement selon la destination.</p>
+
+    <h2>Retourner un article</h2>
+    <p>Vous disposez de <strong>30 jours</strong> après réception pour changer d'avis (délai légal de rétractation : 14 jours, étendu par ROLF à 30 jours). L'article doit être non porté, dans son emballage d'origine, accompagné de la facture.</p>
+
+    <div class="steps">
+      <div class="step-card reveal">
+        <div class="step-num">1</div>
+        <h4>Faites la demande</h4>
+        <p>Depuis votre <a href="fidelite.html">espace client</a> ou par email à contact@rolf.fr, sous 30 jours.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">2</div>
+        <h4>Recevez l'étiquette</h4>
+        <p>Une étiquette de retour <strong>prépayée</strong> vous est envoyée par email, à imprimer ou en version QR code.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">3</div>
+        <h4>Expédiez le colis</h4>
+        <p>Déposez le colis en point relais. Aucun frais à votre charge pour un retour standard en France.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">4</div>
+        <h4>Remboursement</h4>
+        <p>Sous 5 jours ouvrés après réception et contrôle de l'article, sur le moyen de paiement utilisé.</p>
+      </div>
+    </div>
+
+    <h2>Cas particuliers</h2>
+    <p><strong>Articles gravés / personnalisés :</strong> non retournables une fois la gravure réalisée, sauf défaut de fabrication — le délai de gravure vous est toujours communiqué avant validation de commande.</p>
+    <p><strong>Échange de taille :</strong> gratuit également, à indiquer lors de votre demande de retour.</p>
+
+    <h2>Garantie</h2>
+    <p>Garantie fabricant de <strong>2 ans</strong> sur tous les articles, couvrant les défauts de fabrication (mécanisme, fermoir, plaquage). Contactez notre service client avec votre numéro de commande pour toute prise en charge.</p>
+
+    <p style="margin-top:24px">Des questions ? Notre équipe répond sous 24h via la <a href="contact.html">page Contact</a>.</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a><p>Montres et bijoux multi-marques pour hommes, femmes et enfants. Basés à Bruz, France.</p></div>
+      <div><div class="footer-heading">Collections</div><ul class="footer-links"><li><a href="collection.html?type=montres">Montres</a></li><li><a href="collection.html?type=bagues">Bijoux</a></li></ul></div>
+      <div><div class="footer-heading">Informations</div><ul class="footer-links"><li><a href="a-propos.html">Qui sommes-nous ?</a></li><li><a href="cgv.html">CGV</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-heading">Contact</div><ul class="footer-links"><li>📍 Bruz, 35170, France</li><li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 ROLF. Tous droits réservés.</span><div class="footer-payments"><span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">PayPal</span></div></div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr"><h2>Mon panier (<span id="cartItemCount">0</span>)</h2><button class="cart-hdr-close" id="cartClose">✕</button></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon">🛍️</div><p>Votre panier est vide.</p></div></div>
+  <div class="cart-ftr" id="cartFtr" style="display:none"><div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div><a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a></div>
+</aside>
+
+<script src="js/main.js"></script>
+</body>
+</html>
