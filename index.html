@@ -103,8 +103,8 @@
 
   <div class="hero-stats">
     <div class="hero-stat">
-      <span class="hero-stat-num">+500</span>
-      <span class="hero-stat-lbl">Modèles</span>
+      <span class="hero-stat-num">13+</span>
+      <span class="hero-stat-lbl">Marques</span>
     </div>
     <div class="hero-stat">
       <span class="hero-stat-num">4.8★</span>
@@ -256,199 +256,146 @@
       <button class="tab-btn active" data-filter="all">Tous</button>
       <button class="tab-btn" data-filter="homme">Homme</button>
       <button class="tab-btn" data-filter="femme">Femme</button>
-      <button class="tab-btn" data-filter="enfant">Enfant</button>
       <button class="tab-btn" data-filter="bijoux">Bijoux</button>
-      <button class="tab-btn" data-filter="vintage">Vintage</button>
     </div>
 
     <div class="products-grid" id="productsGrid">
 
-      <!-- Produit 1 -->
-      <div class="product-card reveal" data-cat="homme">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80" alt="Montre Classic Heritage" loading="lazy" />
-          <span class="product-badge badge-new">Nouveau</span>
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="femme" data-type="montres" data-public="femme" data-brand="jacques-du-manoir">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80" alt="JDM Emily II" loading="lazy" />
+            
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Homme — Montre</div>
-          <div class="product-name">Classic Heritage</div>
-          <div class="product-stars">★★★★★ <span>(24)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">189 €</span>
+          <div class="product-info">
+            <div class="product-cat">Femme — Montre — Jacques du Manoir</div>
+            <a href="collection.html?type=montres" class="product-name" style="display:block">JDM Emily II</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Mouvement quartz suisse, boîtier rectangulaire acier argenté avec…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">219 €</span></div>
+              <button class="atc-btn" onclick="addToCart('JDM Emily II', 219, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Classic Heritage', 189, this)">+</button>
           </div>
         </div>
-      </div>
 
-      <!-- Produit 2 -->
-      <div class="product-card reveal" data-cat="femme">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80" alt="Montre Élégance Dorée" loading="lazy" />
-          <span class="product-badge badge-best">Best-seller</span>
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="jdm-military">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80" alt="JDM Military Challenger Chrono" loading="lazy" />
+            
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Femme — Montre</div>
-          <a href="product.html" class="product-name" style="display:block">Élégance Dorée</a>
-          <div class="product-stars">★★★★★ <span>(41)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">149 €</span>
-              <span class="price-was">179 €</span>
+          <div class="product-info">
+            <div class="product-cat">Homme — Montre — JDM Military</div>
+            <a href="collection.html?type=montres" class="product-name" style="display:block">JDM Military Challenger Chrono</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Chronographe suisse Ronda, boîtier rond acier noir, lunette noire…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">319 €</span></div>
+              <button class="atc-btn" onclick="addToCart('JDM Military Challenger Chrono', 319, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Élégance Dorée', 149, this)">+</button>
           </div>
-          <div class="popularity-tag">🔥 Ajoutée 38 fois au panier cette semaine</div>
         </div>
-      </div>
 
-      <!-- Produit 3 -->
-      <div class="product-card reveal" data-cat="homme">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Montre Aventure Sport" loading="lazy" />
-          <span class="product-badge badge-new">Nouveau</span>
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="avi-8">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80" alt="AVI-8 Spitfire Type 300 Automatic" loading="lazy" />
+            
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Homme — Montre</div>
-          <div class="product-name">Aventure Sport</div>
-          <div class="product-stars">★★★★☆ <span>(18)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">229 €</span>
+          <div class="product-info">
+            <div class="product-cat">Homme — Montre — AVI-8</div>
+            <a href="collection.html?type=montres" class="product-name" style="display:block">AVI-8 Spitfire Type 300 Automatic</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Automatique japonais, boîtier rond acier argenté, cadran crème, b…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">400 €</span></div>
+              <button class="atc-btn" onclick="addToCart('AVI-8 Spitfire Type 300 Automatic', 400, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Aventure Sport', 229, this)">+</button>
           </div>
         </div>
-      </div>
 
-      <!-- Produit 4 : Bijou -->
-      <div class="product-card reveal" data-cat="bijoux femme">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80" alt="Bague Solitaire Clarté" loading="lazy" />
-          <span class="product-badge badge-new">Nouveau</span>
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="femme" data-type="montres" data-public="femme" data-brand="trendy-kiss">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80" alt="Trendy Kiss Lou" loading="lazy" />
+            
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Femme — Bague</div>
-          <div class="product-name">Solitaire Clarté</div>
-          <div class="product-stars">★★★★★ <span>(31)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">129 €</span>
+          <div class="product-info">
+            <div class="product-cat">Femme — Montre — Trendy Kiss</div>
+            <a href="collection.html?type=montres" class="product-name" style="display:block">Trendy Kiss Lou</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Analogique 2 aiguilles, boîtier oblong doré, cadran soleillé cham…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">79,9 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Trendy Kiss Lou', 79.9, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Solitaire Clarté', 129, this)">+</button>
           </div>
-          <div class="stock-urgency">Plus que 4 en stock</div>
         </div>
-      </div>
 
-      <!-- Produit 5 -->
-      <div class="product-card reveal" data-cat="enfant">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80" alt="Montre Enfant Arc-en-ciel" loading="lazy" />
-          <span class="product-badge badge-promo">-20%</span>
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="earnshaw">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80" alt="Earnshaw Scientists Airy Horizon" loading="lazy" />
+            <span class="product-badge badge-promo">-40%</span>
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Enfant — Montre</div>
-          <div class="product-name">Arc-en-ciel Junior</div>
-          <div class="product-stars">★★★★★ <span>(55)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">55 €</span>
-              <span class="price-was">69 €</span>
+          <div class="product-info">
+            <div class="product-cat">Homme — Montre — Earnshaw</div>
+            <a href="product.html" class="product-name" style="display:block">Earnshaw Scientists Airy Horizon</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Édition limitée, automatique 3 aiguilles et date, phase de lune, …</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">395 €</span><span class="price-was">660 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Earnshaw Scientists Airy Horizon', 395, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Arc-en-ciel Junior', 55, this)">+</button>
           </div>
         </div>
-      </div>
 
-      <!-- Produit 6 -->
-      <div class="product-card reveal" data-cat="vintage">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80" alt="Montre Vintage Cuir" loading="lazy" />
-          <span class="product-badge badge-best">Coup de cœur</span>
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="mixte" data-brand="smarty">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80" alt="Smarty SmartPop" loading="lazy" />
+            
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Vintage — Montre</div>
-          <div class="product-name">Vintage Cuir Cognac</div>
-          <div class="product-stars">★★★★★ <span>(62)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">259 €</span>
+          <div class="product-info">
+            <div class="product-cat">Mixte — Montre — Smarty</div>
+            <a href="collection.html?type=montres" class="product-name" style="display:block">Smarty SmartPop</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Montre connectée, appel Bluetooth, NFC paiement, cadrans intercha…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">129,9 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Smarty SmartPop', 129.9, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Vintage Cuir Cognac', 259, this)">+</button>
           </div>
         </div>
-      </div>
 
-      <!-- Produit 7 : Bijou -->
-      <div class="product-card reveal" data-cat="bijoux femme">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop&q=80" alt="Collier Chaîne Maille Or" loading="lazy" />
-          <span class="product-badge badge-new">Premium</span>
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="bijoux" data-type="boucles" data-public="femme" data-brand="orus-bijoux">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80" alt="Orus Boucles Pierres Naturelles" loading="lazy" />
+            
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Femme — Collier</div>
-          <div class="product-name">Chaîne Maille Or</div>
-          <div class="product-stars">★★★★★ <span>(29)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">89 €</span>
+          <div class="product-info">
+            <div class="product-cat">Femme — Boucles d'oreilles — Orus Bijoux</div>
+            <a href="collection.html?type=boucles" class="product-name" style="display:block">Orus Boucles Pierres Naturelles</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Argent 925 doré orné de perles naturelles et spinelle noire, ferm…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">115 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Orus Boucles Pierres Naturelles', 115, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Chaîne Maille Or', 89, this)">+</button>
           </div>
         </div>
-      </div>
 
-      <!-- Produit 8 : Bijou -->
-      <div class="product-card reveal" data-cat="bijoux homme">
-        <div class="product-img-wrap">
-          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop&q=80" alt="Bracelet Jonc Argent" loading="lazy" />
-          <div class="product-quick-actions">
-            <button class="qa-btn" title="Coup de cœur">♡</button>
-            <button class="qa-btn" title="Aperçu rapide">👁</button>
+        <div class="product-card reveal" data-cat="bijoux" data-type="colliers" data-public="femme" data-brand="jackie-gold">
+          <div class="product-img-wrap">
+            <img src="https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=400&h=400&fit=crop&q=80" alt="Jackie Gold Collier Cheetah" loading="lazy" />
+            
+            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
           </div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">Homme — Bracelet</div>
-          <div class="product-name">Jonc Argent Brossé</div>
-          <div class="product-stars">★★★★☆ <span>(14)</span></div>
-          <div class="product-footer">
-            <div class="product-price">
-              <span class="price-now">69 €</span>
+          <div class="product-info">
+            <div class="product-cat">Femme — Collier — Jackie Gold 14K</div>
+            <a href="collection.html?type=colliers" class="product-name" style="display:block">Jackie Gold Collier Cheetah</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Or 14 carats, collier femme à maillons avec 3 cœurs intercalés, 4…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">499 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Jackie Gold Collier Cheetah', 499, this)">+</button>
             </div>
-            <button class="atc-btn" onclick="addToCart('Jonc Argent Brossé', 69, this)">+</button>
           </div>
         </div>
-      </div>
 
     </div><!-- /products-grid -->
 
@@ -561,7 +508,7 @@
 
       <div class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">« J'ai offert la Vintage Cuir Cognac à mon père pour son anniversaire. Il est absolument ravi — la qualité dépasse largement les attentes pour ce prix. »</p>
+        <p class="testi-text">« J'ai offert l'AVI-8 Flyboy Lafayette à mon père pour son anniversaire. Il est absolument ravi — la qualité dépasse largement les attentes pour ce prix. »</p>
         <div class="testi-author">
           <div class="testi-avatar">👩</div>
           <div>
@@ -573,7 +520,7 @@
 
       <div class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">« La Swiss Precision est un vrai bijou. Livraison rapide, emballage soigné, et la montre est tout simplement magnifique. Je recommande ROLF à 100%. »</p>
+        <p class="testi-text">« La Jacques du Manoir Pro Scuba 40 est un vrai bijou, mouvement suisse impeccable. Livraison rapide, emballage soigné. Je recommande ROLF à 100%. »</p>
         <div class="testi-author">
           <div class="testi-avatar">👨</div>
           <div>
@@ -585,7 +532,7 @@
 
       <div class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">« La bague Solitaire Clarté était pour ma demande en fiançailles. L'emballage cadeau offert a fait toute la différence. Elle a adoré. »</p>
+        <p class="testi-text">« La bague Jackie Gold Impala était pour ma demande en fiançailles. L'emballage cadeau offert a fait toute la différence. Elle a adoré. »</p>
         <div class="testi-author">
           <div class="testi-avatar">👨</div>
           <div>
