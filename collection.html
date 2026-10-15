@@ -41,6 +41,19 @@
     .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .no-results { display: none; text-align: center; padding: 60px 20px; color: var(--text-muted); }
 
+    .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 48px; }
+    .page-btn {
+      min-width: 38px; height: 38px; padding: 0 12px;
+      border: 1px solid var(--border); border-radius: 100px;
+      background: var(--white); color: var(--text-dark);
+      font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: var(--transition);
+    }
+    .page-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+    .page-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 700; }
+    .page-btn.page-nav { padding: 0 16px; }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .page-ellipsis { color: var(--text-muted); padding: 0 4px; }
+
     @media (max-width: 900px) {
       .collection-layout { grid-template-columns: 1fr; }
       .filters-sidebar { position: static; }
@@ -127,22 +140,12 @@
 
       <div class="filter-group">
         <h3>Type de produit</h3>
-        <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" data-group="type" value="montres" /> Montres <span class="filter-count">20</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="type" value="bagues" /> Bagues <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="type" value="bracelets" /> Bracelets <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="type" value="colliers" /> Colliers <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="type" value="boucles" /> Boucles d'oreilles <span class="filter-count">2</span></label>
-        </div>
+        <div class="filter-options" id="filterType"></div>
       </div>
 
       <div class="filter-group">
         <h3>Public</h3>
-        <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" data-group="public" value="homme" /> Homme</label>
-          <label class="filter-option"><input type="checkbox" data-group="public" value="femme" /> Femme</label>
-          <label class="filter-option"><input type="checkbox" data-group="public" value="mixte" /> Mixte</label>
-        </div>
+        <div class="filter-options" id="filterPublic"></div>
       </div>
 
       <div class="filter-group">
@@ -150,70 +153,35 @@
         <div class="price-range">
           <input class="price-input" type="number" id="priceMin" placeholder="Min" value="0" />
           <span>—</span>
-          <input class="price-input" type="number" id="priceMax" placeholder="Max" value="600" />
+          <input class="price-input" type="number" id="priceMax" placeholder="Max" value="1000" />
         </div>
       </div>
 
       <div class="filter-group">
         <h3>Marque</h3>
-        <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="avi-8" /> AVI-8 <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="earnshaw" /> Earnshaw <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="fila" /> Fila <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="hipp" /> Hipp. <span class="filter-count">1</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="jdm-military" /> JDM Military <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="jackie-gold" /> Jackie Gold 14K <span class="filter-count">5</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="jacques-du-manoir" /> Jacques du Manoir <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="lee-cooper" /> Lee Cooper <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="nubeo" /> Nubeo <span class="filter-count">1</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="orus-bijoux" /> Orus Bijoux <span class="filter-count">3</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="smarty" /> Smarty <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="spinnaker" /> Spinnaker <span class="filter-count">2</span></label>
-          <label class="filter-option"><input type="checkbox" data-group="brand" value="trendy-kiss" /> Trendy Kiss <span class="filter-count">2</span></label>
-        </div>
+        <div class="filter-options" id="filterBrand"></div>
       </div>
 
       <div class="filter-group">
         <h3>Matière</h3>
-        <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" data-group="material" value="acier" /> Acier</label>
-          <label class="filter-option"><input type="checkbox" data-group="material" value="or" /> Plaqué or</label>
-          <label class="filter-option"><input type="checkbox" data-group="material" value="argent" /> Argent</label>
-          <label class="filter-option"><input type="checkbox" data-group="material" value="cuir" /> Cuir</label>
-          <label class="filter-option"><input type="checkbox" data-group="material" value="silicone" /> Silicone</label>
-        </div>
+        <div class="filter-options" id="filterMaterial"></div>
       </div>
 
       <div class="filter-group">
         <h3>Couleur</h3>
-        <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" data-group="color" value="or" /> Or</label>
-          <label class="filter-option"><input type="checkbox" data-group="color" value="argent" /> Argent</label>
-          <label class="filter-option"><input type="checkbox" data-group="color" value="noir" /> Noir</label>
-          <label class="filter-option"><input type="checkbox" data-group="color" value="rose" /> Rose</label>
-          <label class="filter-option"><input type="checkbox" data-group="color" value="blanc" /> Blanc</label>
-          <label class="filter-option"><input type="checkbox" data-group="color" value="bleu" /> Bleu</label>
-          <label class="filter-option"><input type="checkbox" data-group="color" value="vert" /> Vert</label>
-          <label class="filter-option"><input type="checkbox" data-group="color" value="multicolore" /> Multicolore</label>
-        </div>
+        <div class="filter-options" id="filterColor"></div>
       </div>
 
       <div class="filter-group">
         <h3>Style</h3>
-        <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" data-group="style" value="classique" /> Classique</label>
-          <label class="filter-option"><input type="checkbox" data-group="style" value="moderne" /> Moderne</label>
-          <label class="filter-option"><input type="checkbox" data-group="style" value="vintage" /> Vintage</label>
-          <label class="filter-option"><input type="checkbox" data-group="style" value="sportif" /> Sportif</label>
-          <label class="filter-option"><input type="checkbox" data-group="style" value="romantique" /> Romantique</label>
-        </div>
+        <div class="filter-options" id="filterStyle"></div>
       </div>
     </aside>
 
     <!-- PRODUITS -->
     <div>
       <div class="collection-header">
-        <span class="collection-count"><span id="resultCount">28</span> articles</span>
+        <span class="collection-count"><span id="resultCount">…</span> articles</span>
         <select class="sort-select">
           <option>Tri : Pertinence</option>
           <option>Prix croissant</option>
@@ -223,486 +191,9 @@
         </select>
       </div>
 
-      <div class="collection-grid" id="productsGrid">
-
-        <div class="product-card reveal" data-type="montres" data-public="mixte" data-brand="fila" data-material="silicone" data-color="blanc" data-style="moderne" data-price="79">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Fila Digital Rectangle Argent" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Mixte — Montre — Fila</div>
-            <div class="product-name">Fila Digital Rectangle Argent</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Mouvement digital, boîtier rectangulaire alloy argenté, cadran blanc, …</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">79 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Fila Digital Rectangle Argent', 79, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="mixte" data-brand="fila" data-material="silicone" data-color="blanc" data-style="sportif" data-price="69">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80" alt="Fila Digital Carré Blanc" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Mixte — Montre — Fila</div>
-            <div class="product-name">Fila Digital Carré Blanc</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Montre mixte digitale, boîtier carré plastique blanc, cadran blanc, br…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">69 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Fila Digital Carré Blanc', 69, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="mixte" data-brand="hipp" data-material="acier" data-color="argent" data-style="classique" data-price="39">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80" alt="Hipp. Beat Argent" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Mixte — Montre — Hipp.</div>
-            <div class="product-name">Hipp. Beat Argent</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Analogique, boîtier rond métal argenté, cadran blanc indication pouls,…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">39 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Hipp. Beat Argent', 39, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="femme" data-brand="jacques-du-manoir" data-material="acier" data-color="argent" data-style="classique" data-price="219">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80" alt="JDM Emily II" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Montre — Jacques du Manoir</div>
-            <div class="product-name">JDM Emily II</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Mouvement quartz suisse, boîtier rectangulaire acier argenté avec empi…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">219 €</span></div>
-              <button class="atc-btn" onclick="addToCart('JDM Emily II', 219, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="jacques-du-manoir" data-material="acier" data-color="noir" data-style="sportif" data-price="249">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop&q=80" alt="JDM Pro Scuba 40" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Jacques du Manoir</div>
-            <div class="product-name">JDM Pro Scuba 40</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">3 aiguilles et date, boîtier rond acier argenté, lunette crantée noire…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">249 €</span></div>
-              <button class="atc-btn" onclick="addToCart('JDM Pro Scuba 40', 249, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="jdm-military" data-material="cuir" data-color="noir" data-style="moderne" data-price="319">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80" alt="JDM Military Challenger Chrono" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — JDM Military</div>
-            <div class="product-name">JDM Military Challenger Chrono</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Chronographe suisse Ronda, boîtier rond acier noir, lunette noire, bra…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">319 €</span></div>
-              <button class="atc-btn" onclick="addToCart('JDM Military Challenger Chrono', 319, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="femme" data-brand="jdm-military" data-material="silicone" data-color="blanc" data-style="romantique" data-price="239">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80" alt="JDM Military Jade" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Montre — JDM Military</div>
-            <div class="product-name">JDM Military Jade</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">3 aiguilles suisse Ronda, lunette blanche graduée, cadran nacre blanch…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">239 €</span></div>
-              <button class="atc-btn" onclick="addToCart('JDM Military Jade', 239, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="nubeo" data-material="acier" data-color="noir" data-style="moderne" data-price="580">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Nubeo Magellan 24H Automatic" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Nubeo</div>
-            <div class="product-name">Nubeo Magellan 24H Automatic</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Mouvement automatique japonais, boîtier tonneau acier noir, lunette vi…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">580 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Nubeo Magellan 24H Automatic', 580, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="avi-8" data-material="acier" data-color="blanc" data-style="vintage" data-price="400">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80" alt="AVI-8 Spitfire Type 300 Automatic" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — AVI-8</div>
-            <div class="product-name">AVI-8 Spitfire Type 300 Automatic</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Automatique japonais, boîtier rond acier argenté, cadran crème, bracel…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">400 €</span></div>
-              <button class="atc-btn" onclick="addToCart('AVI-8 Spitfire Type 300 Automatic', 400, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="avi-8" data-material="cuir" data-color="vert" data-style="vintage" data-price="330">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80" alt="AVI-8 Flyboy Lafayette" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — AVI-8</div>
-            <div class="product-name">AVI-8 Flyboy Lafayette</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Édition limitée 110e anniversaire, automatique 3 aiguilles et date, ca…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">330 €</span></div>
-              <button class="atc-btn" onclick="addToCart('AVI-8 Flyboy Lafayette', 330, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="femme" data-brand="trendy-kiss" data-material="or" data-color="or" data-style="classique" data-price="79.9">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80" alt="Trendy Kiss Lou" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Montre — Trendy Kiss</div>
-            <div class="product-name">Trendy Kiss Lou</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Analogique 2 aiguilles, boîtier oblong doré, cadran soleillé champagne…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">79,9 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Trendy Kiss Lou', 79.9, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="femme" data-brand="trendy-kiss" data-material="cuir" data-color="noir" data-style="romantique" data-price="59.9">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80" alt="Trendy Kiss Justine" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Montre — Trendy Kiss</div>
-            <div class="product-name">Trendy Kiss Justine</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">3 aiguilles, boîtier rond doré rose, cadran soleillé noir avec anneau …</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">59,9 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Trendy Kiss Justine', 59.9, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="earnshaw" data-material="cuir" data-color="noir" data-style="classique" data-price="395">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80" alt="Earnshaw Scientists Airy Horizon" loading="lazy" />
-            <span class="product-badge badge-promo">-40%</span>
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Earnshaw</div>
-            <a href="product.html" class="product-name" style="display:block">Earnshaw Scientists Airy Horizon</a>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Édition limitée, automatique 3 aiguilles et date, phase de lune, cadra…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">395 €</span><span class="price-was">660 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Earnshaw Scientists Airy Horizon', 395, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="earnshaw" data-material="cuir" data-color="noir" data-style="moderne" data-price="220">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop&q=80" alt="Earnshaw Engineer Paxton Skeleton" loading="lazy" />
-            <span class="product-badge badge-promo">-40%</span>
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Earnshaw</div>
-            <div class="product-name">Earnshaw Engineer Paxton Skeleton</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Automatique 3 aiguilles, boîtier carré acier argenté, cadran squelette…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">220 €</span><span class="price-was">365 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Earnshaw Engineer Paxton Skeleton', 220, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="lee-cooper" data-material="acier" data-color="noir" data-style="moderne" data-price="159">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Lee Cooper Richard" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Lee Cooper</div>
-            <div class="product-name">Lee Cooper Richard</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Montre automatique, boîtier octogonal métal gun, cadran squelette gun,…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">159 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Lee Cooper Richard', 159, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="lee-cooper" data-material="acier" data-color="noir" data-style="sportif" data-price="89">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80" alt="Lee Cooper Archie" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Lee Cooper</div>
-            <div class="product-name">Lee Cooper Archie</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Analogique multifonction, boîtier rond métal argenté, cadran noir, bra…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">89 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Lee Cooper Archie', 89, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="mixte" data-brand="smarty" data-material="silicone" data-color="bleu" data-style="moderne" data-price="129.9">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80" alt="Smarty SmartPop" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Mixte — Montre — Smarty</div>
-            <div class="product-name">Smarty SmartPop</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Montre connectée, appel Bluetooth, NFC paiement, cadrans interchangeab…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">129,9 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Smarty SmartPop', 129.9, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="mixte" data-brand="smarty" data-material="silicone" data-color="noir" data-style="sportif" data-price="139">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop&q=80" alt="Smarty BioSense" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Mixte — Montre — Smarty</div>
-            <div class="product-name">Smarty BioSense</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Montre connectée, boîtier rectangulaire incurvé noir, bracelet silicon…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">139 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Smarty BioSense', 139, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="spinnaker" data-material="acier" data-color="bleu" data-style="moderne" data-price="495">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop&q=80" alt="Spinnaker Dumas GMT Automatic" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Spinnaker</div>
-            <div class="product-name">Spinnaker Dumas GMT Automatic</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Édition limitée, automatique japonais GMT, boîtier acier argenté, lune…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">495 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Spinnaker Dumas GMT Automatic', 495, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="montres" data-public="homme" data-brand="spinnaker" data-material="acier" data-color="multicolore" data-style="vintage" data-price="450">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80" alt="Spinnaker Fleuss 40 Automatic" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Homme — Montre — Spinnaker</div>
-            <div class="product-name">Spinnaker Fleuss 40 Automatic</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Automatique japonais 3 aiguilles, boîtier rond acier argenté, lunette …</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">450 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Spinnaker Fleuss 40 Automatic', 450, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="boucles" data-public="femme" data-brand="orus-bijoux" data-material="argent" data-color="or" data-style="romantique" data-price="115">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80" alt="Orus Boucles Pierres Naturelles" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Boucles d'oreilles — Orus Bijoux</div>
-            <div class="product-name">Orus Boucles Pierres Naturelles</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Argent 925 doré orné de perles naturelles et spinelle noire, fermoir p…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">115 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Orus Boucles Pierres Naturelles', 115, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="bracelets" data-public="femme" data-brand="orus-bijoux" data-material="argent" data-color="or" data-style="romantique" data-price="129">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop&q=80" alt="Orus Bracelet Pierres Naturelles" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Bracelet — Orus Bijoux</div>
-            <div class="product-name">Orus Bracelet Pierres Naturelles</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Argent 925 doré, pierres naturelles et spinelle noire, fermoir mousque…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">129 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Orus Bracelet Pierres Naturelles', 129, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="colliers" data-public="femme" data-brand="orus-bijoux" data-material="argent" data-color="or" data-style="romantique" data-price="165">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop&q=80" alt="Orus Collier Cascade Spinelle" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Collier — Orus Bijoux</div>
-            <div class="product-name">Orus Collier Cascade Spinelle</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Argent 925 doré, perle naturelle et spinelle noire en cascade, fermoir…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">165 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Orus Collier Cascade Spinelle', 165, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="colliers" data-public="femme" data-brand="jackie-gold" data-material="or" data-color="or" data-style="classique" data-price="499">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=400&h=400&fit=crop&q=80" alt="Jackie Gold Collier Cheetah" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Collier — Jackie Gold 14K</div>
-            <div class="product-name">Jackie Gold Collier Cheetah</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Or 14 carats, collier femme à maillons avec 3 cœurs intercalés, 40 à 4…</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">499 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Jackie Gold Collier Cheetah', 499, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="bracelets" data-public="femme" data-brand="jackie-gold" data-material="or" data-color="or" data-style="romantique" data-price="359">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=400&h=400&fit=crop&q=80" alt="Jackie Gold Bracelet Protea" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Bracelet — Jackie Gold 14K</div>
-            <div class="product-name">Jackie Gold Bracelet Protea</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Or 14 carats, bracelet chaîne avec 4 fleurs à 5 pétales, 16 à 18cm</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">359 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Jackie Gold Bracelet Protea', 359, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="boucles" data-public="femme" data-brand="jackie-gold" data-material="or" data-color="or" data-style="classique" data-price="559">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&q=80" alt="Jackie Gold Créoles Big Five" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Boucles d'oreilles — Jackie Gold 14K</div>
-            <div class="product-name">Jackie Gold Créoles Big Five</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Or 14 carats, large anneau ciselé, fermoir brisure, taille M 20mm</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">559 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Jackie Gold Créoles Big Five', 559, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="bagues" data-public="femme" data-brand="jackie-gold" data-material="or" data-color="or" data-style="moderne" data-price="269">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80" alt="Jackie Gold Bague Impala" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Bague — Jackie Gold 14K</div>
-            <div class="product-name">Jackie Gold Bague Impala</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Or 14 carats, anneau en forme de V à la finition torsadée</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">269 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Jackie Gold Bague Impala', 269, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card reveal" data-type="bagues" data-public="femme" data-brand="jackie-gold" data-material="or" data-color="or" data-style="classique" data-price="449">
-          <div class="product-img-wrap">
-            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop&q=80" alt="Jackie Gold Bague Lionne" loading="lazy" />
-            
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
-          </div>
-          <div class="product-info">
-            <div class="product-cat">Femme — Bague — Jackie Gold 14K</div>
-            <div class="product-name">Jackie Gold Bague Lionne</div>
-            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Or 14 carats, petite plaque de gravure sur anneau torsadé</div>
-            <div class="product-footer">
-              <div class="product-price"><span class="price-now">449 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Jackie Gold Bague Lionne', 449, this)">+</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div class="collection-grid" id="productsGrid"></div>
       <div class="no-results" id="noResults">Aucun article ne correspond à ces filtres. <button onclick="clearCatalogFilters()" style="color:var(--gold);font-weight:600">Réinitialiser les filtres</button></div>
+      <div class="pagination" id="pagination"></div>
     </div>
   </div>
 </div>
