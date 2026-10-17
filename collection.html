@@ -67,7 +67,7 @@
 <body>
 
 <div class="announcement-bar">
-  🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a>
+  <span data-icon="truck"></span> Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a>
 </div>
 
 <header class="header" id="header">
@@ -83,9 +83,9 @@
         <a href="contact.html">Contact</a>
       </nav>
       <div class="header-actions">
-        <button class="hdr-btn" id="searchBtn">🔍</button>
-        <a href="fidelite.html" class="hdr-btn" title="Mon compte & fidélité">👤</a>
-        <button class="hdr-btn" id="cartBtn">🛍️ <span class="cart-badge" id="cartCount">0</span></button>
+        <button class="hdr-btn" id="searchBtn"><span data-icon="search"></span></button>
+        <a href="fidelite.html" class="hdr-btn" title="Mon compte & fidélité"><span data-icon="user"></span></a>
+        <button class="hdr-btn" id="cartBtn"><span data-icon="cart"></span> <span class="cart-badge" id="cartCount">0</span></button>
         <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -111,7 +111,7 @@
 <div class="search-overlay" id="searchOverlay">
   <div class="search-box">
     <div class="search-input-wrap">
-      <span>🔍</span>
+      <span><span data-icon="search"></span></span>
       <input type="text" placeholder="Rechercher une montre, une bague, un collier…" id="searchInput" />
       <button id="searchClose">✕</button>
     </div>
@@ -217,8 +217,8 @@
         <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
         <p>Montres et bijoux multi-marques pour hommes, femmes et enfants. Basés à Bruz, France.</p>
         <div class="footer-socials">
-          <a href="#" class="footer-social-btn">📸</a>
-          <a href="#" class="footer-social-btn">📘</a>
+          <a href="#" class="footer-social-btn"><span data-icon="instagram"></span></a>
+          <a href="#" class="footer-social-btn"><span data-icon="facebook"></span></a>
           <a href="#" class="footer-social-btn">▶️</a>
         </div>
       </div>
@@ -243,7 +243,7 @@
       <div>
         <div class="footer-heading">Contact</div>
         <ul class="footer-links">
-          <li>📍 Bruz, 35170, France</li>
+          <li><span data-icon="pin"></span> Bruz, 35170, France</li>
           <li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li>
         </ul>
       </div>
@@ -264,7 +264,7 @@
     <button class="cart-hdr-close" id="cartClose">✕</button>
   </div>
   <div class="cart-body" id="cartBody">
-    <div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon">🛍️</div><p>Votre panier est vide.</p></div>
+    <div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon"><span data-icon="cart"></span></div><p>Votre panier est vide.</p></div>
   </div>
   <div class="cart-ftr" id="cartFtr" style="display:none">
     <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>

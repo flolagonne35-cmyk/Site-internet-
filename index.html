@@ -13,7 +13,7 @@
 
 <!-- ===== ANNONCE ===== -->
 <div class="announcement-bar">
-  🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Découvrir la collection →</a>
+  <span data-icon="truck"></span> Livraison offerte en France dès 80€ — <a href="collection.html">Découvrir la collection →</a>
 </div>
 
 <!-- ===== HEADER ===== -->
@@ -36,10 +36,10 @@
       </nav>
 
       <div class="header-actions">
-        <button class="hdr-btn" id="searchBtn" title="Rechercher">🔍</button>
-        <a href="fidelite.html" class="hdr-btn" title="Mon compte & fidélité">👤</a>
+        <button class="hdr-btn" id="searchBtn" title="Rechercher"><span data-icon="search"></span></button>
+        <a href="fidelite.html" class="hdr-btn" title="Mon compte & fidélité"><span data-icon="user"></span></a>
         <button class="hdr-btn" id="cartBtn" title="Panier">
-          🛍️
+          <span data-icon="cart"></span>
           <span class="cart-badge" id="cartCount">0</span>
         </button>
         <button class="hdr-btn hamburger" id="menuBtn" aria-label="Menu">
@@ -75,7 +75,7 @@
 <div class="search-overlay" id="searchOverlay">
   <div class="search-box">
     <div class="search-input-wrap">
-      <span>🔍</span>
+      <span><span data-icon="search"></span></span>
       <input type="text" placeholder="Rechercher une montre, une bague, un collier…" id="searchInput" />
       <button id="searchClose">✕</button>
     </div>
@@ -107,12 +107,12 @@
       <span class="hero-stat-lbl">Marques</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num">4.8★</span>
-      <span class="hero-stat-lbl">1 284 avis</span>
+      <span class="hero-stat-num">1399</span>
+      <span class="hero-stat-lbl">Références</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num">8+</span>
-      <span class="hero-stat-lbl">Ans d'expertise</span>
+      <span class="hero-stat-num">100%</span>
+      <span class="hero-stat-lbl">Pièces authentiques</span>
     </div>
   </div>
 
@@ -126,51 +126,34 @@
 <div class="trust-strip">
   <div class="container">
     <div class="trust-strip-inner">
-      <div class="trust-strip-item rating-pill"><span class="stars">★★★★★</span> 4.8/5 — 1 284 avis <a href="#avis" style="color:var(--gold)">(Avis Vérifiés)</a></div>
-      <div class="trust-strip-item">✅ <strong>Distributeur officiel</strong> des marques du catalogue</div>
-      <div class="trust-strip-item">🔄 <strong>Retours gratuits</strong> sous 30 jours</div>
-      <div class="trust-strip-item">🎁 <strong>Emballage cadeau</strong> offert</div>
+      <div class="trust-strip-item"><span data-icon="badge-check"></span> <strong>Distributeur officiel</strong> des marques du catalogue</div>
+      <div class="trust-strip-item"><span data-icon="return"></span> <strong>Retours gratuits</strong> sous 30 jours</div>
+      <div class="trust-strip-item"><span data-icon="gift"></span> <strong>Emballage cadeau</strong> offert</div>
     </div>
   </div>
 </div>
-
-<!-- ===== PROMO / COMPTE À REBOURS ===== -->
-<section class="promo-banner">
-  <div class="container">
-    <div class="promo-banner-inner">
-      <div class="promo-banner-text">✦ <strong>Vente privée Automne</strong> — jusqu'à -20% sur une sélection bijoux & montres</div>
-      <div class="countdown" id="promoCountdown">
-        <div class="countdown-unit"><span class="countdown-num" data-u="d">00</span><span class="countdown-lbl">jours</span></div>
-        <div class="countdown-unit"><span class="countdown-num" data-u="h">00</span><span class="countdown-lbl">heures</span></div>
-        <div class="countdown-unit"><span class="countdown-num" data-u="m">00</span><span class="countdown-lbl">min</span></div>
-        <div class="countdown-unit"><span class="countdown-num" data-u="s">00</span><span class="countdown-lbl">sec</span></div>
-      </div>
-      <a href="collection.html?promo=automne" class="btn btn-gold">Voir les offres</a>
-    </div>
-  </div>
-</section>
 
 <!-- ===== FEATURES ===== -->
 <section class="features-section">
   <div class="container">
     <div class="features-grid">
       <div class="feature reveal">
-        <div class="feature-icon">🚚</div>
+        <div class="feature-icon"><span data-icon="truck"></span></div>
         <h4>Livraison offerte</h4>
         <p>Livraison gratuite en France dès 80€ d'achat, en 2–4 jours ouvrés.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">🔄</div>
+        <div class="feature-icon"><span data-icon="return"></span></div>
         <h4>Retours 30 jours</h4>
         <p>Pas satisfait ? Retournez votre article sans frais sous 30 jours.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">🛡️</div>
+        <div class="feature-icon"><span data-icon="shield"></span></div>
         <h4>Garantie 2 ans</h4>
         <p>Toutes nos pièces sont couvertes par une garantie fabricant de 2 ans.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">💎</div>
+        <div class="feature-icon"><span data-icon="gem"></span></div>
         <h4>Qualité premium</h4>
         <p>Sélection rigoureuse de matériaux nobles pour chaque création.</p>
       </div>
@@ -227,19 +210,19 @@
         <div class="feature-icon">⌚</div><h4>Montres</h4>
       </a>
       <a href="collection.html?type=bagues" class="feature reveal" style="text-decoration:none">
-        <div class="feature-icon">💍</div><h4>Bagues</h4>
+        <div class="feature-icon"><span data-icon="ring"></span></div><h4>Bagues</h4>
       </a>
       <a href="collection.html?type=bracelets" class="feature reveal" style="text-decoration:none">
-        <div class="feature-icon">⛓️</div><h4>Bracelets</h4>
+        <div class="feature-icon"><span data-icon="bracelet"></span></div><h4>Bracelets</h4>
       </a>
       <a href="collection.html?type=colliers" class="feature reveal" style="text-decoration:none">
-        <div class="feature-icon">📿</div><h4>Colliers</h4>
+        <div class="feature-icon"><span data-icon="necklace"></span></div><h4>Colliers</h4>
       </a>
       <a href="collection.html?type=pendentifs" class="feature reveal" style="text-decoration:none">
-        <div class="feature-icon">✨</div><h4>Pendentifs</h4>
+        <div class="feature-icon"><span data-icon="sparkle"></span></div><h4>Pendentifs</h4>
       </a>
       <a href="collection.html?type=boucles" class="feature reveal" style="text-decoration:none">
-        <div class="feature-icon">💎</div><h4>Boucles d'oreilles</h4>
+        <div class="feature-icon"><span data-icon="gem"></span></div><h4>Boucles d'oreilles</h4>
       </a>
     </div>
   </div>
@@ -265,7 +248,7 @@
           <div class="product-img-wrap">
             <img src="images/products/JWL05501.jpg" alt="JDM Emily II" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80'" />
             
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Femme — Montre — Jacques du Manoir</div>
@@ -282,7 +265,7 @@
           <div class="product-img-wrap">
             <img src="images/products/JDM-WG033-06.jpg" alt="JDM Military Challenger Chrono" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80'" />
             
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Homme — Montre — JDM Military</div>
@@ -299,7 +282,7 @@
           <div class="product-img-wrap">
             <img src="images/products/AV-4147-33.jpg" alt="AVI-8 Spitfire Type 300 Automatic" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80'" />
             
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Homme — Montre — AVI-8</div>
@@ -316,7 +299,7 @@
           <div class="product-img-wrap">
             <img src="images/products/TM10188-01.jpg" alt="Trendy Kiss Lou" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80'" />
             
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Femme — Montre — Trendy Kiss</div>
@@ -333,7 +316,7 @@
           <div class="product-img-wrap">
             <img src="images/products/ES-8326-01.jpg" alt="Earnshaw Scientists Airy Horizon" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80'" />
             <span class="product-badge badge-promo">-40%</span>
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Homme — Montre — Earnshaw</div>
@@ -350,7 +333,7 @@
           <div class="product-img-wrap">
             <img src="images/products/SW202A.jpg" alt="Smarty SmartPop" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80'" />
             
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Mixte — Montre — Smarty</div>
@@ -367,7 +350,7 @@
           <div class="product-img-wrap">
             <img src="images/products/BOD203.jpg" alt="Orus Boucles Pierres Naturelles" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80'" />
             
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Femme — Boucles d'oreilles — Orus Bijoux</div>
@@ -384,7 +367,7 @@
           <div class="product-img-wrap">
             <img src="images/products/JKN26.650.jpg" alt="Jackie Gold Collier Cheetah" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=400&h=400&fit=crop&q=80'" />
             
-            <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
           </div>
           <div class="product-info">
             <div class="product-cat">Femme — Collier — Jackie Gold 14K</div>
@@ -422,28 +405,28 @@
 
         <div class="brand-values reveal">
           <div class="brand-val">
-            <div class="brand-val-icon">⚙️</div>
+            <div class="brand-val-icon"><span data-icon="gear"></span></div>
             <div>
               <h4>Pièces certifiées</h4>
               <p>Montres et bijoux testés, poinçonnés et garantis.</p>
             </div>
           </div>
           <div class="brand-val">
-            <div class="brand-val-icon">🌿</div>
+            <div class="brand-val-icon"><span data-icon="leaf"></span></div>
             <div>
               <h4>Matériaux responsables</h4>
               <p>Sélection de matériaux durables et traçables.</p>
             </div>
           </div>
           <div class="brand-val">
-            <div class="brand-val-icon">✨</div>
+            <div class="brand-val-icon"><span data-icon="sparkle"></span></div>
             <div>
               <h4>Design distinctif</h4>
               <p>Des formes qui marquent les esprits, pas les portefeuilles.</p>
             </div>
           </div>
           <div class="brand-val">
-            <div class="brand-val-icon">❤️</div>
+            <div class="brand-val-icon"><span data-icon="heart"></span></div>
             <div>
               <h4>Service client 5★</h4>
               <p>Une équipe dédiée pour vous accompagner avant et après l'achat.</p>
@@ -476,19 +459,19 @@
   <div class="container">
     <div class="loyalty-tiers" style="padding:0">
       <div class="tier-card active reveal">
-        <div style="font-size:2rem;margin-bottom:10px">🏆</div>
+        <div style="font-size:2rem;margin-bottom:10px"><span data-icon="trophy"></span></div>
         <h4 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:8px">Programme fidélité</h4>
         <p style="font-size:0.88rem;color:var(--text-grey);line-height:1.6;margin-bottom:16px">1 point gagné par euro dépensé, convertible en réduction sur votre prochaine commande.</p>
         <a href="fidelite.html" class="btn btn-outline-dark" style="padding:10px 20px;font-size:0.72rem">Voir mes points →</a>
       </div>
       <div class="tier-card reveal">
-        <div style="font-size:2rem;margin-bottom:10px">🎁</div>
+        <div style="font-size:2rem;margin-bottom:10px"><span data-icon="gift"></span></div>
         <h4 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:8px">Parrainage</h4>
         <p style="font-size:0.88rem;color:var(--text-grey);line-height:1.6;margin-bottom:16px">15€ offerts à vous, 15€ offerts à la personne que vous parrainez dès sa première commande.</p>
         <a href="fidelite.html#parrainage" class="btn btn-outline-dark" style="padding:10px 20px;font-size:0.72rem">Parrainer un proche →</a>
       </div>
       <div class="tier-card reveal">
-        <div style="font-size:2rem;margin-bottom:10px">🎀</div>
+        <div style="font-size:2rem;margin-bottom:10px"><span data-icon="ribbon"></span></div>
         <h4 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:8px">Emballage cadeau</h4>
         <p style="font-size:0.88rem;color:var(--text-grey);line-height:1.6;margin-bottom:16px">Offert sur toutes les commandes — parfait pour une demande en fiançailles ou un anniversaire.</p>
         <a href="blog.html" class="btn btn-outline-dark" style="padding:10px 20px;font-size:0.72rem">Idées cadeaux →</a>
@@ -510,9 +493,9 @@
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">« J'ai offert l'AVI-8 Flyboy Lafayette à mon père pour son anniversaire. Il est absolument ravi — la qualité dépasse largement les attentes pour ce prix. »</p>
         <div class="testi-author">
-          <div class="testi-avatar">👩</div>
+          <div class="testi-avatar">S</div>
           <div>
-            <div class="testi-name">Sophie M. <span class="review-verified">✓ Vérifié</span></div>
+            <div class="testi-name">Sophie M.</div>
             <div class="testi-loc">Lyon, France</div>
           </div>
         </div>
@@ -522,9 +505,9 @@
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">« La Jacques du Manoir Pro Scuba 40 est un vrai bijou, mouvement suisse impeccable. Livraison rapide, emballage soigné. Je recommande ROLF à 100%. »</p>
         <div class="testi-author">
-          <div class="testi-avatar">👨</div>
+          <div class="testi-avatar">J</div>
           <div>
-            <div class="testi-name">Julien T. <span class="review-verified">✓ Vérifié</span></div>
+            <div class="testi-name">Julien T.</div>
             <div class="testi-loc">Paris, France</div>
           </div>
         </div>
@@ -534,9 +517,9 @@
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">« La bague Jackie Gold Impala était pour ma demande en fiançailles. L'emballage cadeau offert a fait toute la différence. Elle a adoré. »</p>
         <div class="testi-author">
-          <div class="testi-avatar">👨</div>
+          <div class="testi-avatar">C</div>
           <div>
-            <div class="testi-name">Camille D. <span class="review-verified">✓ Vérifié</span></div>
+            <div class="testi-name">Camille D.</div>
             <div class="testi-loc">Nantes, France</div>
           </div>
         </div>
@@ -588,10 +571,10 @@
         </a>
         <p>Montres et bijoux multi-marques pour hommes, femmes et enfants. Chaque pièce est sélectionnée avec passion depuis Bruz, France.</p>
         <div class="footer-socials">
-          <a href="#" class="footer-social-btn" title="Instagram">📸</a>
-          <a href="#" class="footer-social-btn" title="Facebook">📘</a>
+          <a href="#" class="footer-social-btn" title="Instagram"><span data-icon="instagram"></span></a>
+          <a href="#" class="footer-social-btn" title="Facebook"><span data-icon="facebook"></span></a>
           <a href="#" class="footer-social-btn" title="YouTube">▶️</a>
-          <a href="#" class="footer-social-btn" title="TikTok">🎵</a>
+          <a href="#" class="footer-social-btn" title="TikTok"><span data-icon="tiktok"></span></a>
         </div>
       </div>
 
@@ -622,7 +605,7 @@
       <div>
         <div class="footer-heading">Contact</div>
         <ul class="footer-links">
-          <li>📍 18 Rue du Landanier<br>35170 Bruz, France</li>
+          <li><span data-icon="pin"></span> 18 Rue du Landanier<br>35170 Bruz, France</li>
           <li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li>
           <li><a href="tel:+33XXXXXXXXX">+33 (0)X XX XX XX XX</a></li>
           <li>Lun–Ven : 9h–18h</li>
@@ -652,7 +635,7 @@
   </div>
   <div class="cart-body" id="cartBody">
     <div class="cart-empty" id="cartEmpty">
-      <div class="cart-empty-icon">🛍️</div>
+      <div class="cart-empty-icon"><span data-icon="cart"></span></div>
       <p>Votre panier est vide.<br>Commencez à explorer nos montres et bijoux !</p>
     </div>
   </div>
@@ -662,22 +645,12 @@
       <span id="cartTotal">0 €</span>
     </div>
     <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a>
-    <p class="cart-note">🔒 Paiement sécurisé — Livraison gratuite dès 80€</p>
+    <p class="cart-note"><span data-icon="lock"></span> Paiement sécurisé — Livraison gratuite dès 80€</p>
   </div>
 </aside>
 
 <script src="js/main.js"></script>
 <script>
-  // Compte à rebours vente privée : fin dans 4 jours à partir du premier chargement
-  (function () {
-    var key = 'rolf_promo_ends_at';
-    var end = localStorage.getItem(key);
-    if (!end || new Date(end) < new Date()) {
-      end = new Date(Date.now() + 4 * 86400000).toISOString();
-      localStorage.setItem(key, end);
-    }
-    initCountdown('promoCountdown', end);
-  })();
 </script>
 </body>
 </html>

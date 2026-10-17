@@ -173,26 +173,6 @@ function handleNewsletter(e) {
   setTimeout(() => { btn.textContent = "S'inscrire"; btn.style.background = ''; }, 3000);
 }
 
-/* ========== COUNTDOWN ========== */
-function initCountdown(elId, endsAt) {
-  const el = document.getElementById(elId);
-  if (!el) return;
-  const target = new Date(endsAt).getTime();
-  function tick() {
-    const diff = Math.max(0, target - Date.now());
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    el.querySelectorAll('[data-u]').forEach(u => {
-      const map = { d, h, m, s };
-      u.textContent = String(map[u.dataset.u]).padStart(2, '0');
-    });
-  }
-  tick();
-  setInterval(tick, 1000);
-}
-
 /* ========== PARRAINAGE ========== */
 function copyReferralCode(code, btn) {
   navigator.clipboard?.writeText(code).catch(() => {});
@@ -285,7 +265,7 @@ function renderProductCard(p) {
       <div class="product-img-wrap">
         <img src="${productImageSrc(p)}" alt="${nameSafe}" loading="lazy" onerror="this.onerror=null;this.src='${productImage(p)}'" />
         ${badgeHtml}
-        <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
+        <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
       </div>
       <div class="product-info">
         <div class="product-cat">${catLine}</div>
@@ -412,7 +392,7 @@ function renderCatalogPage() {
   const startIdx = (catalogPage - 1) * CATALOG_PAGE_SIZE;
   const pageItems = catalogFiltered.slice(startIdx, startIdx + CATALOG_PAGE_SIZE);
 
-  if (grid) grid.innerHTML = pageItems.map(renderProductCard).join('');
+  if (grid) { grid.innerHTML = pageItems.map(renderProductCard).join(''); renderIcons(grid); }
   renderPagination(totalPages);
 }
 
@@ -480,6 +460,49 @@ function initCollectionCatalog() {
     });
 }
 
+/* ========== ICONS (line-art SVG, replaces emoji glyphs site-wide) ========== */
+const ICONS = {
+  search: '<svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M17 17l-4.3-4.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  cart: '<svg viewBox="0 0 20 20" fill="none"><path d="M5 7h10l-.8 9.2a1 1 0 01-1 .8H6.8a1 1 0 01-1-.8L5 7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.5 7V5.5a2.5 2.5 0 015 0V7" stroke="currentColor" stroke-width="1.6"/></svg>',
+  user: '<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6.5" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 17c1-3.6 4-5.4 6.5-5.4s5.5 1.8 6.5 5.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  truck: '<svg viewBox="0 0 20 20" fill="none"><path d="M2.5 6h8v7.5h-8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10.5 9h3.3l2.7 2.7v1.8h-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="6" cy="14.7" r="1.3" stroke="currentColor" stroke-width="1.4"/><circle cx="13.5" cy="14.7" r="1.3" stroke="currentColor" stroke-width="1.4"/></svg>',
+  return: '<svg viewBox="0 0 20 20" fill="none"><path d="M4 10a6 6 0 1 1 1.8 4.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 14.5V10h4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  shield: '<svg viewBox="0 0 20 20" fill="none"><path d="M10 2.5l6.5 2.3v5c0 4.3-2.8 6.9-6.5 8-3.7-1.1-6.5-3.7-6.5-8v-5L10 2.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.3 10l1.9 1.9 3.5-3.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  gem: '<svg viewBox="0 0 20 20" fill="none"><path d="M4 8l3-4.5h6l3 4.5-6 8.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 8h12M8 3.5L7 8l3 8.5 3-8.5-1-4.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+  'badge-check': '<svg viewBox="0 0 20 20" fill="none"><path d="M10 2.2l2.1 1.2 2.4-.2 1 2.2 2.1 1.3-.6 2.3.6 2.3-2.1 1.3-1 2.2-2.4-.2L10 17l-2.1-1.2-2.4.2-1-2.2-2.1-1.3.6-2.3-.6-2.3 2.1-1.3 1-2.2 2.4.2L10 2.2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M7.3 10l1.9 1.9 3.5-3.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  gift: '<svg viewBox="0 0 20 20" fill="none"><rect x="3" y="8" width="14" height="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14v3H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8v8.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 8C8.5 8 6.8 7 6.8 5.4a1.8 1.8 0 013.2-1.1c.6.6 1 1.8 0 3.7zM10 8c1.5 0 3.2-1 3.2-2.6a1.8 1.8 0 00-3.2-1.1c-.6.6-1 1.8 0 3.7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+  pin: '<svg viewBox="0 0 20 20" fill="none"><path d="M10 17.5S4 12.2 4 7.8a6 6 0 1112 0c0 4.4-6 9.7-6 9.7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="10" cy="7.7" r="2.1" stroke="currentColor" stroke-width="1.4"/></svg>',
+  mail: '<svg viewBox="0 0 20 20" fill="none"><rect x="2.5" y="4.5" width="15" height="11" rx="1.2" stroke="currentColor" stroke-width="1.5"/><path d="M3.2 5.5l6.8 5.4 6.8-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  phone: '<svg viewBox="0 0 20 20" fill="none"><path d="M5 3.5h2.3l1.1 3-1.5 1.4a9 9 0 005.2 5.2l1.4-1.5 3 1.1V15a1.5 1.5 0 01-1.6 1.5A12.5 12.5 0 013.5 5.1 1.5 1.5 0 015 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+  lock: '<svg viewBox="0 0 20 20" fill="none"><rect x="4.5" y="9" width="11" height="8" rx="1.2" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 9V6.5a3.5 3.5 0 017 0V9" stroke="currentColor" stroke-width="1.5"/></svg>',
+  heart: '<svg viewBox="0 0 20 20" fill="none"><path d="M10 17S3 12.4 3 7.8a3.8 3.8 0 017-2.1 3.8 3.8 0 017 2.1C17 12.4 10 17 10 17z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+  eye: '<svg viewBox="0 0 20 20" fill="none"><path d="M2 10s3-5.5 8-5.5S18 10 18 10s-3 5.5-8 5.5S2 10 2 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="10" cy="10" r="2.3" stroke="currentColor" stroke-width="1.5"/></svg>',
+  instagram: '<svg viewBox="0 0 20 20" fill="none"><rect x="2.5" y="2.5" width="15" height="15" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10" r="3.6" stroke="currentColor" stroke-width="1.5"/><circle cx="14.2" cy="5.8" r="0.9" fill="currentColor"/></svg>',
+  facebook: '<svg viewBox="0 0 20 20" fill="none"><path d="M12.5 7h-1.8c-.5 0-1 .4-1 1v1.5H12.5l-.3 2.2h-2V17h-2.4v-5.3H6v-2.2h1.8V8c0-1.8 1.1-3 3-3h1.7V7z" fill="currentColor"/></svg>',
+  tiktok: '<svg viewBox="0 0 20 20" fill="none"><circle cx="7.5" cy="14.5" r="2.3" stroke="currentColor" stroke-width="1.5"/><path d="M9.8 14.5V3.5h1c.3 2 1.7 3.4 3.7 3.7v2c-1.4-.1-2.7-.6-3.7-1.5v6.8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+  ring: '<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="12.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M7.3 7.5L10 3l2.7 4.5-2.7 2.2-2.7-2.2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+  bracelet: '<svg viewBox="0 0 20 20" fill="none"><circle cx="6.5" cy="7" r="2.6" stroke="currentColor" stroke-width="1.4"/><circle cx="13.5" cy="7" r="2.6" stroke="currentColor" stroke-width="1.4"/><circle cx="6.5" cy="13.5" r="2.6" stroke="currentColor" stroke-width="1.4"/><circle cx="13.5" cy="13.5" r="2.6" stroke="currentColor" stroke-width="1.4"/></svg>',
+  necklace: '<svg viewBox="0 0 20 20" fill="none"><path d="M3.5 4c0 5 2.9 8 6.5 8s6.5-3 6.5-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14.3" r="2" stroke="currentColor" stroke-width="1.4"/></svg>',
+  sparkle: '<svg viewBox="0 0 20 20" fill="none"><path d="M10 2.5c.5 3.3 1.7 4.5 5 5-3.3.5-4.5 1.7-5 5-.5-3.3-1.7-4.5-5-5 3.3-.5 4.5-1.7 5-5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+  gear: '<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.6" stroke="currentColor" stroke-width="1.4"/><path d="M10 3.3v2M10 14.7v2M16.7 10h-2M5.3 10h-2M14.7 5.3l-1.4 1.4M6.7 13.3l-1.4 1.4M14.7 14.7l-1.4-1.4M6.7 6.7L5.3 5.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+  leaf: '<svg viewBox="0 0 20 20" fill="none"><path d="M16 4C8 4 4 8.5 4 14.5c6 0 10.5-4 10.5-10.5-2.5 2-5 5-6.5 8" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>',
+  trophy: '<svg viewBox="0 0 20 20" fill="none"><path d="M6 4h8v4.5a4 4 0 01-8 0V4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 5H3.5v1.5A2.5 2.5 0 006 9M14 5h2.5v1.5A2.5 2.5 0 0114 9" stroke="currentColor" stroke-width="1.4"/><path d="M10 12.5v2.5M7 17h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  ribbon: '<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.3" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 8.5L5.5 17l4.5-2.3 4.5 2.3-2-8.5" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+  warning: '<svg viewBox="0 0 20 20" fill="none"><path d="M10 3l8 14H2L10 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8.5v3.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14.5" r="0.9" fill="currentColor"/></svg>',
+  pencil: '<svg viewBox="0 0 20 20" fill="none"><path d="M12.5 3.5l4 4-9 9-4.3 1 .7-4.3 8.6-9.7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M11 5l4 4" stroke="currentColor" stroke-width="1.4"/></svg>',
+  ruler: '<svg viewBox="0 0 20 20" fill="none"><rect x="2.5" y="7" width="15" height="6" rx="1" stroke="currentColor" stroke-width="1.4" transform="rotate(-10 10 10)"/><path d="M6 8.3l.6 1.8M9 7.7l.6 1.8M12 7.1l.6 1.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" transform="rotate(-10 10 10)"/></svg>',
+  family: '<svg viewBox="0 0 20 20" fill="none"><circle cx="6.5" cy="6" r="2" stroke="currentColor" stroke-width="1.4"/><circle cx="13.5" cy="6" r="2" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="12.5" r="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 16c.5-2.5 2-4 3.5-4s3 1.5 3.5 4M10 16.5c.4-1.8 1.4-2.8 3.5-2.8s3.1 1 3.5 2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+  tag: '<svg viewBox="0 0 20 20" fill="none"><path d="M3 3h6.5l7.5 7.5-6.5 6.5L3 9.5V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="6.5" cy="6.5" r="1.1" fill="currentColor"/></svg>',
+};
+
+function renderIcons(root) {
+  (root || document).querySelectorAll('[data-icon]').forEach(el => {
+    const svg = ICONS[el.dataset.icon];
+    if (svg) el.innerHTML = svg;
+  });
+}
+
 /* ========== INIT ========== */
 updateCartUI();
 initCollectionCatalog();
+renderIcons();

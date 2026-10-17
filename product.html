@@ -17,7 +17,7 @@
 <body>
 
 <div class="announcement-bar">
-  🚚 Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a>
+  <span data-icon="truck"></span> Livraison offerte en France dès 80€ — <a href="collection.html">Voir la collection →</a>
 </div>
 
 <header class="header" id="header">
@@ -33,9 +33,9 @@
         <a href="contact.html">Contact</a>
       </nav>
       <div class="header-actions">
-        <button class="hdr-btn" id="searchBtn">🔍</button>
-        <a href="fidelite.html" class="hdr-btn" title="Mon compte & fidélité">👤</a>
-        <button class="hdr-btn" id="cartBtn">🛍️ <span class="cart-badge" id="cartCount">0</span></button>
+        <button class="hdr-btn" id="searchBtn"><span data-icon="search"></span></button>
+        <a href="fidelite.html" class="hdr-btn" title="Mon compte & fidélité"><span data-icon="user"></span></a>
+        <button class="hdr-btn" id="cartBtn"><span data-icon="cart"></span> <span class="cart-badge" id="cartCount">0</span></button>
         <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -61,7 +61,7 @@
 <div class="search-overlay" id="searchOverlay">
   <div class="search-box">
     <div class="search-input-wrap">
-      <span>🔍</span>
+      <span><span data-icon="search"></span></span>
       <input type="text" placeholder="Rechercher une montre, une bague, un collier…" id="searchInput" />
       <button id="searchClose">✕</button>
     </div>
@@ -95,31 +95,29 @@
             <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=150&h=150&fit=crop&q=80" alt="Vue 4" />
           </button>
         </div>
-        <p style="margin-top:14px;font-size:0.76rem;color:var(--text-muted)">📷 Photos génériques en attente des visuels officiels Earnshaw.</p>
       </div>
 
       <!-- INFOS -->
       <div>
         <div class="product-detail-cat">Homme — Montre — Earnshaw</div>
         <h1 class="product-detail-name">Scientists Airy Horizon Automatic <span style="font-size:0.95rem;color:var(--text-muted);font-weight:400">— Celestial Shadow</span></h1>
-        <div class="product-stars" style="font-size:0.95rem">★★★★★ <span style="margin-left:6px">4.8/5 — avis en cours de collecte <span class="review-verified">✓ Vérifiés</span></span></div>
+        <div class="product-stars" style="font-size:0.95rem;color:var(--text-muted)">Nouveau sur ROLF — soyez le premier à donner votre avis</div>
 
         <div class="product-detail-price">
           <span>395 €</span>
           <span class="price-was" style="font-size:1rem">660 €</span>
           <span class="product-badge badge-promo" style="position:static">-40%</span>
         </div>
-        <div class="stock-urgency">Édition limitée — stock réduit</div>
 
         <p class="product-detail-desc">
           Référence ES-8326-01 — Mouvement automatique 3 aiguilles et date, boîtier rond acier inoxydable argenté 42mm, cadran noir avec phase de lune, bracelet cuir véritable noir, verre saphir avec traitement anti-reflet. Pièce de la collection Scientists, disponible en édition limitée.
         </p>
 
         <div class="reassurance-badges">
-          <div class="r-badge"><span class="ic">✅</span> Distributeur officiel Earnshaw</div>
-          <div class="r-badge"><span class="ic">🛡️</span> Garantie 2 ans</div>
-          <div class="r-badge"><span class="ic">🚚</span> Livraison offerte dès 80€</div>
-          <div class="r-badge"><span class="ic">🔄</span> Retour gratuit 30 jours</div>
+          <div class="r-badge"><span class="ic"><span data-icon="badge-check"></span></span> Distributeur officiel Earnshaw</div>
+          <div class="r-badge"><span class="ic"><span data-icon="shield"></span></span> Garantie 2 ans</div>
+          <div class="r-badge"><span class="ic"><span data-icon="truck"></span></span> Livraison offerte dès 80€</div>
+          <div class="r-badge"><span class="ic"><span data-icon="return"></span></span> Retour gratuit 30 jours</div>
         </div>
 
         <div class="qty-stepper">
@@ -130,16 +128,16 @@
 
         <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap">
           <button class="btn btn-gold" style="flex:1" onclick="addToCart('Earnshaw Scientists Airy Horizon', 395, this)">Ajouter au panier — 395 €</button>
-          <button class="btn btn-outline-dark" title="Ajouter aux favoris">♡</button>
+          <button class="btn btn-outline-dark" title="Ajouter aux favoris"><span data-icon="heart"></span></button>
         </div>
 
         <div class="certificate-block">
-          <h4>💎 Garantie constructeur</h4>
+          <h4><span data-icon="gem"></span> Garantie constructeur</h4>
           <p>Montre couverte par la garantie fabricant Earnshaw de 2 ans. Référence EAN 4894664262265 — traçabilité complète disponible sur demande auprès de notre service client.</p>
         </div>
 
         <div class="certificate-block">
-          <h4>✏️ Personnalisation & gravure</h4>
+          <h4><span data-icon="pencil"></span> Personnalisation & gravure</h4>
           <p>Gravure au dos du boîtier disponible sur demande (+12€). Délai supplémentaire de <strong>3 à 5 jours ouvrés</strong> pour les pièces gravées.</p>
         </div>
       </div>
@@ -197,17 +195,17 @@
         <img class="review-photo" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop&q=80" alt="Photo client portant la montre" />
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">« La phase de lune est superbe, et le -40% sur une pièce de cette qualité est imbattable. Livraison rapide. »</p>
-        <div class="testi-author"><div><div class="testi-name">Marc D. <span class="review-verified">✓ Vérifié</span></div><div class="testi-loc">Toulouse</div></div></div>
+        <div class="testi-author"><div><div class="testi-name">Marc D.</div><div class="testi-loc">Toulouse</div></div></div>
       </div>
       <div class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
         <p class="testi-text">« Très belle finition, bracelet cuir de qualité. Exactement comme sur les photos. »</p>
-        <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Nicolas B. <span class="review-verified">✓ Vérifié</span></div><div class="testi-loc">Rennes</div></div></div>
+        <div class="testi-author"><div class="testi-avatar">N</div><div><div class="testi-name">Nicolas B.</div><div class="testi-loc">Rennes</div></div></div>
       </div>
       <div class="testi-card reveal">
         <div class="testi-stars">★★★★☆</div>
         <p class="testi-text">« Montre élégante, un peu grande au poignet pour moi mais le service client a été parfait pour l'échange. »</p>
-        <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Hugo L. <span class="review-verified">✓ Vérifié</span></div><div class="testi-loc">Nantes</div></div></div>
+        <div class="testi-author"><div class="testi-avatar">H</div><div><div class="testi-name">Hugo L.</div><div class="testi-loc">Nantes</div></div></div>
       </div>
     </div>
   </div>
@@ -220,8 +218,8 @@
         <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
         <p>Montres et bijoux multi-marques pour hommes, femmes et enfants. Basés à Bruz, France.</p>
         <div class="footer-socials">
-          <a href="#" class="footer-social-btn">📸</a>
-          <a href="#" class="footer-social-btn">📘</a>
+          <a href="#" class="footer-social-btn"><span data-icon="instagram"></span></a>
+          <a href="#" class="footer-social-btn"><span data-icon="facebook"></span></a>
           <a href="#" class="footer-social-btn">▶️</a>
         </div>
       </div>
@@ -245,7 +243,7 @@
       <div>
         <div class="footer-heading">Contact</div>
         <ul class="footer-links">
-          <li>📍 Bruz, 35170, France</li>
+          <li><span data-icon="pin"></span> Bruz, 35170, France</li>
           <li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li>
         </ul>
       </div>
@@ -260,7 +258,7 @@
 <div class="cart-overlay" id="cartOverlay"></div>
 <aside class="cart-sidebar" id="cartSidebar">
   <div class="cart-hdr"><h2>Mon panier (<span id="cartItemCount">0</span>)</h2><button class="cart-hdr-close" id="cartClose">✕</button></div>
-  <div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon">🛍️</div><p>Votre panier est vide.</p></div></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon"><span data-icon="cart"></span></div><p>Votre panier est vide.</p></div></div>
   <div class="cart-ftr" id="cartFtr" style="display:none">
     <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>
     <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a>
