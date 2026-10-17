@@ -54,15 +54,45 @@
 
 <div class="container breadcrumb-row"><a href="index.html">Accueil</a> / Mon compte</div>
 
-<!-- SOLDE POINTS -->
+<!-- COMPTE -->
 <section class="loyalty-hero">
   <div class="container">
-    <p class="section-tag">Aperçu du programme — exemple de compte</p>
-    <div class="points-balance">0 pt</div>
-    <div class="points-balance-lbl">Solde de départ d'un nouveau compte</div>
-    <p style="margin-top:18px;color:rgba(255,255,255,0.55);font-size:0.88rem;max-width:480px;margin-left:auto;margin-right:auto">
-      1 point gagné pour chaque euro dépensé. Les points sont utilisables dès 100 pts, par tranche de 100 (= 1€ de réduction).
-    </p>
+
+    <div id="loggedOutView">
+      <p class="section-tag">Mon compte</p>
+      <h2 class="section-title reveal visible" style="color:var(--white)">Connecte-toi pour voir tes points</h2>
+
+      <form class="auth-form" id="loginForm" onsubmit="return false">
+        <input type="email" class="nl-input" id="loginEmail" placeholder="Email" required />
+        <input type="password" class="nl-input" id="loginPassword" placeholder="Mot de passe" required />
+        <div class="auth-msg error" id="loginError"></div>
+        <button class="btn btn-gold" id="loginSubmit">Se connecter</button>
+        <div class="auth-switch">Pas encore de compte ? <a onclick="rolfToggleAuthForm()">Créer un compte</a></div>
+      </form>
+
+      <form class="auth-form" id="signupForm" onsubmit="return false" style="display:none">
+        <input type="text" class="nl-input" id="signupName" placeholder="Prénom" required />
+        <input type="email" class="nl-input" id="signupEmail" placeholder="Email" required />
+        <input type="password" class="nl-input" id="signupPassword" placeholder="Mot de passe (6 caractères min.)" required minlength="6" />
+        <div class="auth-msg error" id="signupError"></div>
+        <div class="auth-msg success" id="signupSuccess">Compte créé — vérifie ta boîte mail pour confirmer ton adresse, puis connecte-toi.</div>
+        <button class="btn btn-gold" id="signupSubmit">Créer mon compte</button>
+        <div class="auth-switch">Déjà un compte ? <a onclick="rolfToggleAuthForm()">Se connecter</a></div>
+      </form>
+    </div>
+
+    <div id="loggedInView" style="display:none">
+      <p class="section-tag">Bienvenue <span id="accountName"></span></p>
+      <div class="points-balance" id="accountBalance">0 pt</div>
+      <div class="points-balance-lbl">Solde de points</div>
+      <p style="margin-top:18px;color:rgba(255,255,255,0.55);font-size:0.88rem;max-width:480px;margin-left:auto;margin-right:auto">
+        1 point gagné pour chaque euro dépensé. Les points sont utilisables dès 100 pts, par tranche de 100 (= 1€ de réduction).
+      </p>
+      <div class="account-topline">
+        <button class="btn btn-outline-white" onclick="rolfHandleLogout()">Se déconnecter</button>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -114,40 +144,27 @@
     <h2 class="section-title reveal">15€ pour vous, 15€ pour votre filleul</h2>
     <p class="section-subtitle reveal">Partagez votre code : dès la première commande de votre filleul (30€ min.), vous recevez chacun 15€ de réduction.</p>
 
-    <div class="referral-box reveal">
-      <div>
-        <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Votre code de parrainage</div>
-        <div class="referral-code" id="referralCode">FLORIAN-R3F9</div>
-      </div>
-      <button class="btn btn-gold" onclick="copyReferralCode('FLORIAN-R3F9', this)">Copier le code</button>
+    <div id="referralLoggedOut" style="text-align:center;color:var(--text-muted);font-size:0.9rem">
+      Connecte-toi pour obtenir ton code de parrainage personnel.
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px">
-      <div class="bundle-card reveal" style="justify-content:center">
-        <div><div style="font-weight:700;font-size:1.3rem;color:var(--gold)">3</div><div style="font-size:0.8rem;color:var(--text-grey)">filleuls parrainés</div></div>
+    <div class="referral-box reveal" id="referralLoggedIn" style="display:none">
+      <div>
+        <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Votre code de parrainage</div>
+        <div class="referral-code" id="referralCode">—</div>
       </div>
-      <div class="bundle-card reveal" style="justify-content:center">
-        <div><div style="font-weight:700;font-size:1.3rem;color:var(--gold)">45 €</div><div style="font-size:0.8rem;color:var(--text-grey)">gagnés au total</div></div>
-      </div>
-      <div class="bundle-card reveal" style="justify-content:center">
-        <div><div style="font-weight:700;font-size:1.3rem;color:var(--gold)">15 €</div><div style="font-size:0.8rem;color:var(--text-grey)">offert dès la 1ère commande de votre filleul (min. 30€)</div></div>
-      </div>
+      <button class="btn btn-gold" id="referralCopyBtn" onclick="copyReferralCode(document.getElementById('referralCode').textContent, this)">Copier le code</button>
     </div>
   </div>
 </section>
 
 <!-- HISTORIQUE COMMANDES -->
-<div class="container" style="padding:64px 0">
+<div class="container" style="padding:64px 0" id="ordersSection">
   <p class="section-tag" style="text-align:center">Historique</p>
   <h2 class="section-title reveal">Mes commandes</h2>
-  <table class="orders-table reveal">
-    <thead><tr><th>Commande</th><th>Date</th><th>Articles</th><th>Total</th><th>Statut</th></tr></thead>
-    <tbody>
-      <tr><td>#ROLF-10482</td><td>12 oct. 2026</td><td>Jacques du Manoir Emily II</td><td>219 €</td><td><span class="status-pill">Livrée</span></td></tr>
-      <tr><td>#ROLF-10311</td><td>2 sept. 2026</td><td>Jackie Gold Bague Impala</td><td>269 €</td><td><span class="status-pill">Livrée</span></td></tr>
-      <tr><td>#ROLF-09980</td><td>18 juil. 2026</td><td>Orus Bracelet Pierres Naturelles</td><td>129 €</td><td><span class="status-pill">Livrée</span></td></tr>
-    </tbody>
-  </table>
+  <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;max-width:460px;margin:12px auto 0">
+    Aucune commande pour l'instant — le paiement en ligne arrive bientôt. Tes futures commandes apparaîtront ici automatiquement.
+  </p>
 </div>
 
 <footer class="footer">
@@ -169,6 +186,85 @@
   <div class="cart-ftr" id="cartFtr" style="display:none"><div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div><a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Commander →</a></div>
 </aside>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="js/account.js"></script>
 <script src="js/main.js"></script>
+<script>
+  function rolfToggleAuthForm() {
+    const login = document.getElementById('loginForm');
+    const signup = document.getElementById('signupForm');
+    login.style.display = login.style.display === 'none' ? 'flex' : 'none';
+    signup.style.display = signup.style.display === 'none' ? 'flex' : 'none';
+  }
+
+  function rolfReferralCode(displayName, userId) {
+    const namePart = (displayName || 'ROLF').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 6) || 'ROLF';
+    const idPart = userId.replace(/-/g, '').slice(0, 4).toUpperCase();
+    return `${namePart}-${idPart}`;
+  }
+
+  async function rolfShowLoggedIn(session) {
+    document.getElementById('loggedOutView').style.display = 'none';
+    document.getElementById('loggedInView').style.display = 'block';
+    document.getElementById('referralLoggedOut').style.display = 'none';
+    document.getElementById('referralLoggedIn').style.display = 'flex';
+
+    const displayName = session.user.user_metadata?.display_name || 'Client ROLF';
+    document.getElementById('accountName').textContent = displayName;
+    document.getElementById('referralCode').textContent = rolfReferralCode(displayName, session.user.id);
+
+    const balance = await rolfGetLoyaltyBalance(session.user.id);
+    document.getElementById('accountBalance').textContent = balance + ' pt' + (balance > 1 ? 's' : '');
+  }
+
+  function rolfShowLoggedOut() {
+    document.getElementById('loggedOutView').style.display = 'block';
+    document.getElementById('loggedInView').style.display = 'none';
+    document.getElementById('referralLoggedOut').style.display = 'block';
+    document.getElementById('referralLoggedIn').style.display = 'none';
+  }
+
+  async function rolfHandleLogout() {
+    await rolfSignOut();
+    rolfShowLoggedOut();
+  }
+
+  document.getElementById('loginSubmit').addEventListener('click', async () => {
+    const errEl = document.getElementById('loginError');
+    errEl.style.display = 'none';
+    try {
+      const { session } = await rolfSignIn(
+        document.getElementById('loginEmail').value.trim(),
+        document.getElementById('loginPassword').value
+      );
+      await rolfShowLoggedIn(session);
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  });
+
+  document.getElementById('signupSubmit').addEventListener('click', async () => {
+    const errEl = document.getElementById('signupError');
+    const okEl = document.getElementById('signupSuccess');
+    errEl.style.display = 'none'; okEl.style.display = 'none';
+    try {
+      await rolfSignUp(
+        document.getElementById('signupEmail').value.trim(),
+        document.getElementById('signupPassword').value,
+        document.getElementById('signupName').value.trim()
+      );
+      okEl.style.display = 'block';
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  });
+
+  (async () => {
+    const session = await rolfGetSession();
+    if (session) await rolfShowLoggedIn(session);
+  })();
+</script>
 </body>
 </html>

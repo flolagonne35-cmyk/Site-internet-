@@ -641,6 +641,16 @@ input, textarea { font-family: inherit; }
 
 /* ==================== LOYALTY / COMPTE ==================== */
 .loyalty-hero { background: linear-gradient(120deg,#0a0a0a,#1a1a2e); color: var(--white); padding: 64px 0; text-align: center; }
+.auth-form { max-width: 360px; margin: 28px auto 0; text-align: left; display: flex; flex-direction: column; gap: 12px; }
+.auth-form .nl-input { width: 100%; }
+.auth-form .btn { width: 100%; justify-content: center; margin-top: 4px; }
+.auth-switch { font-size: 0.85rem; color: rgba(255,255,255,0.55); text-align: center; margin-top: 4px; }
+.auth-switch a { color: var(--gold); cursor: pointer; }
+.auth-msg { font-size: 0.82rem; padding: 10px 12px; border-radius: var(--radius-sm); display: none; }
+.auth-msg.error { background: rgba(220,80,80,0.15); color: #ff9b9b; }
+.auth-msg.success { background: rgba(140,180,120,0.15); color: #b9e2a4; }
+.account-topline { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+.account-topline .btn-outline-white { padding: 8px 18px; font-size: 0.72rem; }
 .points-balance { font-family: var(--font-serif); font-size: 3.2rem; font-weight: 700; color: var(--gold); }
 .points-balance-lbl { font-size: 0.85rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; }
 .loyalty-tiers { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; padding: 64px 0; }

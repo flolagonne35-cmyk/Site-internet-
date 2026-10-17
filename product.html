@@ -190,23 +190,26 @@
   <div class="container">
     <p class="section-tag" style="text-align:center">Avis clients</p>
     <h2 class="section-title reveal">Ce qu'en pensent nos clients</h2>
-    <div class="testimonials-grid">
-      <div class="review-photo-card reveal">
-        <img class="review-photo" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop&q=80" alt="Photo client portant la montre" />
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">« La phase de lune est superbe, et le -40% sur une pièce de cette qualité est imbattable. Livraison rapide. »</p>
-        <div class="testi-author"><div><div class="testi-name">Marc D.</div><div class="testi-loc">Toulouse</div></div></div>
+    <div class="testimonials-grid" id="reviewsGrid"></div>
+    <p id="reviewsEmpty" style="display:none;text-align:center;color:var(--text-muted);margin-top:12px">Pas encore d'avis sur ce produit — sois le premier à en laisser un.</p>
+
+    <div style="max-width:480px;margin:40px auto 0">
+      <div id="reviewFormLoggedOut" style="text-align:center;color:var(--text-muted);font-size:0.9rem">
+        <a href="fidelite.html" style="color:var(--gold)">Connecte-toi</a> pour laisser un avis sur ce produit.
       </div>
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">« Très belle finition, bracelet cuir de qualité. Exactement comme sur les photos. »</p>
-        <div class="testi-author"><div class="testi-avatar">N</div><div><div class="testi-name">Nicolas B.</div><div class="testi-loc">Rennes</div></div></div>
-      </div>
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★☆</div>
-        <p class="testi-text">« Montre élégante, un peu grande au poignet pour moi mais le service client a été parfait pour l'échange. »</p>
-        <div class="testi-author"><div class="testi-avatar">H</div><div><div class="testi-name">Hugo L.</div><div class="testi-loc">Nantes</div></div></div>
-      </div>
+      <form id="reviewForm" onsubmit="return false" style="display:none">
+        <select id="reviewRating" class="nl-input" style="color:var(--text-dark);background:var(--white);border:1px solid var(--border);width:100%;margin-bottom:10px">
+          <option value="5">★★★★★ — Excellent</option>
+          <option value="4">★★★★☆ — Très bien</option>
+          <option value="3">★★★☆☆ — Correct</option>
+          <option value="2">★★☆☆☆ — Décevant</option>
+          <option value="1">★☆☆☆☆ — Mauvais</option>
+        </select>
+        <textarea id="reviewBody" placeholder="Ton avis (10 caractères min.)" rows="3" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);font-family:inherit;font-size:0.9rem;margin-bottom:10px;resize:vertical"></textarea>
+        <div id="reviewError" style="display:none;background:#fde8e8;color:#b33;font-size:0.82rem;padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:10px"></div>
+        <div id="reviewSuccess" style="display:none;background:#e8f6ee;color:#27ae60;font-size:0.82rem;padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:10px">Avis publié, merci !</div>
+        <button class="btn btn-gold" id="reviewSubmit" style="width:100%;justify-content:center">Publier mon avis</button>
+      </form>
     </div>
   </div>
 </section>
@@ -265,6 +268,66 @@
   </div>
 </aside>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="js/account.js"></script>
 <script src="js/main.js"></script>
+<script>
+  const PRODUCT_REF = 'ES-8326-01';
+
+  function renderReviewCard(r) {
+    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+    const name = (r.profiles && r.profiles.display_name) || 'Client ROLF';
+    const date = new Date(r.created_at).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    return `<div class="testi-card reveal visible">
+      <div class="testi-stars">${stars}</div>
+      <p class="testi-text">« ${escapeHtml(r.body)} »</p>
+      <div class="testi-author"><div class="testi-avatar">${escapeHtml(name.charAt(0).toUpperCase())}</div><div><div class="testi-name">${escapeHtml(name)}</div><div class="testi-loc">${date}</div></div></div>
+    </div>`;
+  }
+
+  async function rolfLoadReviews() {
+    const reviews = await rolfFetchReviews(PRODUCT_REF);
+    const grid = document.getElementById('reviewsGrid');
+    const empty = document.getElementById('reviewsEmpty');
+    if (reviews.length === 0) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+    } else {
+      empty.style.display = 'none';
+      grid.innerHTML = reviews.map(renderReviewCard).join('');
+    }
+  }
+
+  document.getElementById('reviewSubmit').addEventListener('click', async () => {
+    const errEl = document.getElementById('reviewError');
+    const okEl = document.getElementById('reviewSuccess');
+    errEl.style.display = 'none'; okEl.style.display = 'none';
+    const body = document.getElementById('reviewBody').value.trim();
+    const rating = parseInt(document.getElementById('reviewRating').value, 10);
+    if (body.length < 10) {
+      errEl.textContent = 'Ton avis doit faire au moins 10 caractères.';
+      errEl.style.display = 'block';
+      return;
+    }
+    try {
+      await rolfSubmitReview(PRODUCT_REF, rating, body);
+      document.getElementById('reviewBody').value = '';
+      okEl.style.display = 'block';
+      await rolfLoadReviews();
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  });
+
+  (async () => {
+    await rolfLoadReviews();
+    const session = await rolfGetSession();
+    if (session) {
+      document.getElementById('reviewFormLoggedOut').style.display = 'none';
+      document.getElementById('reviewForm').style.display = 'block';
+    }
+  })();
+</script>
 </body>
 </html>
