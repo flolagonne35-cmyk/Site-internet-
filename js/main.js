@@ -204,9 +204,12 @@ function copyReferralCode(code, btn) {
 }
 
 /* ========== PRODUCT GALLERY ========== */
-function switchProductImg(src, thumb) {
+function switchProductImg(src, thumb, fallback) {
   const main = document.getElementById('productMainImg');
-  if (main) main.src = src;
+  if (main) {
+    main.src = src;
+    main.onerror = fallback ? () => { main.onerror = null; main.src = fallback; } : null;
+  }
   document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
   thumb?.classList.add('active');
 }
@@ -216,6 +219,8 @@ let CATALOG = [];
 let catalogFiltered = [];
 let catalogPage = 1;
 const CATALOG_PAGE_SIZE = 30;
+
+const PRODUCT_IMG_BASE = 'images/products/';
 
 const PLACEHOLDER_IMAGES = {
   montres: [
@@ -262,6 +267,10 @@ function productImage(p) {
   return set[idx % set.length];
 }
 
+function productImageSrc(p) {
+  return p.img ? PRODUCT_IMG_BASE + encodeURIComponent(p.img) : productImage(p);
+}
+
 function renderProductCard(p) {
   const nameSafe = escapeHtml(p.name);
   const catLine = `${PUBLIC_LABELS[p.public] || p.public} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} — ${escapeHtml(p.brand)}`;
@@ -274,7 +283,7 @@ function renderProductCard(p) {
   return `
     <div class="product-card" data-type="${p.type}" data-public="${p.public}" data-brand="${p.brand_slug}" data-material="${p.material}" data-color="${p.color}" data-style="${p.style}" data-price="${p.price}">
       <div class="product-img-wrap">
-        <img src="${productImage(p)}" alt="${nameSafe}" loading="lazy" />
+        <img src="${productImageSrc(p)}" alt="${nameSafe}" loading="lazy" onerror="this.onerror=null;this.src='${productImage(p)}'" />
         ${badgeHtml}
         <div class="product-quick-actions"><button class="qa-btn">♡</button><button class="qa-btn">👁</button></div>
       </div>
