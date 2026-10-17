@@ -25,7 +25,7 @@ create policy "users can update their own profile"
   using (auth.uid() = id);
 
 -- Crée automatiquement une ligne profiles à chaque inscription,
--- avec le display_name fourni au moment du signup (voir js/auth.js).
+-- avec le display_name fourni au moment du signup (voir js/account.js).
 create function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -47,7 +47,7 @@ create trigger on_auth_user_created
 -- ============================================================
 create table public.reviews (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references auth.users (id) on delete cascade,
+  user_id uuid not null references public.profiles (id) on delete cascade,
   product_ref text not null,          -- correspond à products.json -> ref
   rating smallint not null check (rating between 1 and 5),
   body text not null check (char_length(body) between 10 and 2000),
@@ -79,7 +79,7 @@ create policy "users can delete their own reviews"
 -- ============================================================
 create table public.loyalty_transactions (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references auth.users (id) on delete cascade,
+  user_id uuid not null references public.profiles (id) on delete cascade,
   points integer not null,            -- positif = gagné, négatif = utilisé
   reason text not null,               -- ex: 'bienvenue', 'parrainage'
   created_at timestamptz not null default now()
