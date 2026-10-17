@@ -107,7 +107,7 @@
       <span class="hero-stat-lbl">Marques</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num">1399</span>
+      <span class="hero-stat-num">1386</span>
       <span class="hero-stat-lbl">Références</span>
     </div>
     <div class="hero-stat">
@@ -242,140 +242,133 @@
       <button class="tab-btn" data-filter="bijoux">Bijoux</button>
     </div>
 
-    <div class="products-grid" id="productsGrid">
+    <div class="products-grid" id="bestsellersGrid">
 
         <div class="product-card reveal" data-cat="femme" data-type="montres" data-public="femme" data-brand="jacques-du-manoir">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=JWL05501" class="product-img-wrap">
             <img src="images/products/JWL05501.jpg" alt="JDM Emily II" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80'" />
-            
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('JWL05501', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=JWL05501"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Femme — Montre — Jacques du Manoir</div>
-            <a href="collection.html?type=montres" class="product-name" style="display:block">JDM Emily II</a>
+            <a href="product.html?ref=JWL05501" class="product-name" style="display:block">JDM Emily II</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Mouvement quartz suisse, boîtier rectangulaire acier argenté avec…</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">219 €</span></div>
-              <button class="atc-btn" onclick="addToCart('JDM Emily II', 219, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('JDM Emily II', 219, this, 'JWL05501.jpg')">+</button>
             </div>
           </div>
         </div>
 
         <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="jdm-military">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=JDM-WG033-06" class="product-img-wrap">
             <img src="images/products/JDM-WG033-06.jpg" alt="JDM Military Challenger Chrono" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80'" />
-            
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('JDM-WG033-06', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=JDM-WG033-06"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Homme — Montre — JDM Military</div>
-            <a href="collection.html?type=montres" class="product-name" style="display:block">JDM Military Challenger Chrono</a>
+            <a href="product.html?ref=JDM-WG033-06" class="product-name" style="display:block">JDM Military Challenger Chrono</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Chronographe suisse Ronda, boîtier rond acier noir, lunette noire…</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">319 €</span></div>
-              <button class="atc-btn" onclick="addToCart('JDM Military Challenger Chrono', 319, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('JDM Military Challenger Chrono', 319, this, 'JDM-WG033-06.jpg')">+</button>
             </div>
           </div>
         </div>
 
         <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="avi-8">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=AV-4147-33" class="product-img-wrap">
             <img src="images/products/AV-4147-33.jpg" alt="AVI-8 Spitfire Type 300 Automatic" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80'" />
-            
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('AV-4147-33', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=AV-4147-33"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Homme — Montre — AVI-8</div>
-            <a href="collection.html?type=montres" class="product-name" style="display:block">AVI-8 Spitfire Type 300 Automatic</a>
+            <a href="product.html?ref=AV-4147-33" class="product-name" style="display:block">AVI-8 Spitfire Type 300 Automatic</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Automatique japonais, boîtier rond acier argenté, cadran crème, b…</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">400 €</span></div>
-              <button class="atc-btn" onclick="addToCart('AVI-8 Spitfire Type 300 Automatic', 400, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('AVI-8 Spitfire Type 300 Automatic', 400, this, 'AV-4147-33.jpg')">+</button>
             </div>
           </div>
         </div>
 
         <div class="product-card reveal" data-cat="femme" data-type="montres" data-public="femme" data-brand="trendy-kiss">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=TM10188-01" class="product-img-wrap">
             <img src="images/products/TM10188-01.jpg" alt="Trendy Kiss Lou" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80'" />
-            
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('TM10188-01', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=TM10188-01"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Femme — Montre — Trendy Kiss</div>
-            <a href="collection.html?type=montres" class="product-name" style="display:block">Trendy Kiss Lou</a>
+            <a href="product.html?ref=TM10188-01" class="product-name" style="display:block">Trendy Kiss Lou</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Analogique 2 aiguilles, boîtier oblong doré, cadran soleillé cham…</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">79,9 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Trendy Kiss Lou', 79.9, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('Trendy Kiss Lou', 79.9, this, 'TM10188-01.jpg')">+</button>
             </div>
           </div>
         </div>
 
         <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="earnshaw">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=ES-8326-01" class="product-img-wrap">
             <img src="images/products/ES-8326-01.jpg" alt="Earnshaw Scientists Airy Horizon" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80'" />
             <span class="product-badge badge-promo">-40%</span>
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('ES-8326-01', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=ES-8326-01"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Homme — Montre — Earnshaw</div>
-            <a href="product.html" class="product-name" style="display:block">Earnshaw Scientists Airy Horizon</a>
+            <a href="product.html?ref=ES-8326-01" class="product-name" style="display:block">Earnshaw Scientists Airy Horizon</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Édition limitée, automatique 3 aiguilles et date, phase de lune, …</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">395 €</span><span class="price-was">660 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Earnshaw Scientists Airy Horizon', 395, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('Earnshaw Scientists Airy Horizon', 395, this, 'ES-8326-01.jpg')">+</button>
             </div>
           </div>
         </div>
 
         <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="mixte" data-brand="smarty">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=SW202A" class="product-img-wrap">
             <img src="images/products/SW202A.jpg" alt="Smarty SmartPop" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80'" />
-            
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('SW202A', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=SW202A"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Mixte — Montre — Smarty</div>
-            <a href="collection.html?type=montres" class="product-name" style="display:block">Smarty SmartPop</a>
+            <a href="product.html?ref=SW202A" class="product-name" style="display:block">Smarty SmartPop</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Montre connectée, appel Bluetooth, NFC paiement, cadrans intercha…</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">129,9 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Smarty SmartPop', 129.9, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('Smarty SmartPop', 129.9, this, 'SW202A.jpg')">+</button>
             </div>
           </div>
         </div>
 
         <div class="product-card reveal" data-cat="bijoux" data-type="boucles" data-public="femme" data-brand="orus-bijoux">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=BOD203" class="product-img-wrap">
             <img src="images/products/BOD203.jpg" alt="Orus Boucles Pierres Naturelles" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80'" />
-            
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('BOD203', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=BOD203"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Femme — Boucles d'oreilles — Orus Bijoux</div>
-            <a href="collection.html?type=boucles" class="product-name" style="display:block">Orus Boucles Pierres Naturelles</a>
+            <a href="product.html?ref=BOD203" class="product-name" style="display:block">Orus Boucles Pierres Naturelles</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Argent 925 doré orné de perles naturelles et spinelle noire, ferm…</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">115 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Orus Boucles Pierres Naturelles', 115, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('Orus Boucles Pierres Naturelles', 115, this, 'BOD203.jpg')">+</button>
             </div>
           </div>
         </div>
 
         <div class="product-card reveal" data-cat="bijoux" data-type="colliers" data-public="femme" data-brand="jackie-gold">
-          <div class="product-img-wrap">
+          <a href="product.html?ref=JKN26.650" class="product-img-wrap">
             <img src="images/products/JKN26.650.jpg" alt="Jackie Gold Collier Cheetah" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=400&h=400&fit=crop&q=80'" />
-            
-            <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-          </div>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('JKN26.650', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=JKN26.650"><span data-icon="eye"></span></a></div>
           <div class="product-info">
             <div class="product-cat">Femme — Collier — Jackie Gold 14K</div>
-            <a href="collection.html?type=colliers" class="product-name" style="display:block">Jackie Gold Collier Cheetah</a>
+            <a href="product.html?ref=JKN26.650" class="product-name" style="display:block">Jackie Gold Collier Cheetah</a>
             <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Or 14 carats, collier femme à maillons avec 3 cœurs intercalés, 4…</div>
             <div class="product-footer">
               <div class="product-price"><span class="price-now">499 €</span></div>
-              <button class="atc-btn" onclick="addToCart('Jackie Gold Collier Cheetah', 499, this)">+</button>
+              <button class="atc-btn" onclick="addToCart('Jackie Gold Collier Cheetah', 499, this, 'JKN26.650.jpg')">+</button>
             </div>
           </div>
         </div>
@@ -570,13 +563,7 @@
           <div class="logo-text">ROLF</div>
         </a>
         <p>Montres et bijoux multi-marques pour hommes, femmes et enfants. Chaque pièce est sélectionnée avec passion depuis Bruz, France.</p>
-        <div class="footer-socials">
-          <a href="#" class="footer-social-btn" title="Instagram"><span data-icon="instagram"></span></a>
-          <a href="#" class="footer-social-btn" title="Facebook"><span data-icon="facebook"></span></a>
-          <a href="#" class="footer-social-btn" title="YouTube">▶️</a>
-          <a href="#" class="footer-social-btn" title="TikTok"><span data-icon="tiktok"></span></a>
         </div>
-      </div>
 
       <div>
         <div class="footer-heading">Collections</div>

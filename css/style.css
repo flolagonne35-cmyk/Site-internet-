@@ -6,7 +6,9 @@
   --gold:       #c9a84c;
   --gold-light: #e8d5a3;
   --white:      #ffffff;
-  --bg-light:   #f8f6f3;
+  --bg-light:   #efe1d2;
+  --terracotta: #b56a46;
+  --terracotta-light: #e8c9b4;
   --text-dark:  #1a1a1a;
   --text-grey:  #666666;
   --text-muted: #999999;
@@ -334,6 +336,7 @@ input, textarea { font-family: inherit; }
 }
 
 .product-card {
+  position: relative;
   background: var(--white); border-radius: var(--radius);
   overflow: hidden; border: 1px solid var(--border);
   transition: var(--transition);
@@ -349,7 +352,7 @@ input, textarea { font-family: inherit; }
 .product-img-wrap {
   position: relative; aspect-ratio: 1; overflow: hidden;
   background: var(--bg-light);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+  box-shadow: inset 0 0 0 1px rgba(181,106,70,0.12);
 }
 .product-img-wrap img {
   width: 100%; height: 100%; object-fit: cover;
@@ -380,6 +383,7 @@ input, textarea { font-family: inherit; }
   box-shadow: 0 2px 10px var(--shadow); transition: var(--transition);
 }
 .qa-btn:hover { background: var(--gold); color: var(--dark); }
+.qa-btn.active { background: var(--terracotta); color: var(--white); }
 
 .product-info { padding: 16px 18px 18px; }
 .product-cat {
@@ -640,6 +644,8 @@ input, textarea { font-family: inherit; }
 .trust-strip-item strong { color: var(--text-dark); }
 .rating-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1px solid var(--border); padding: 5px 12px; border-radius: 100px; font-weight: 700; }
 .rating-pill .stars { color: var(--gold); letter-spacing: 1px; }
+
+.placeholder { background: #fdf6e3; border: 1px dashed var(--gold); padding: 2px 6px; border-radius: 4px; color: #8a6d1c; }
 
 /* ==================== ICONS ==================== */
 [data-icon] { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }

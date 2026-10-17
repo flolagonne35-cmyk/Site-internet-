@@ -3,6 +3,19 @@ let cart = JSON.parse(localStorage.getItem('rolf_cart') || '[]');
 
 function saveCart() { localStorage.setItem('rolf_cart', JSON.stringify(cart)); }
 
+/* ========== WISHLIST (localStorage, per-visitor) ========== */
+function rolfGetWishlist() {
+  try { return JSON.parse(localStorage.getItem('rolf_wishlist') || '[]'); } catch (e) { return []; }
+}
+function rolfIsWished(ref) { return rolfGetWishlist().includes(ref); }
+function rolfToggleWish(ref, btn) {
+  let list = rolfGetWishlist();
+  if (list.includes(ref)) list = list.filter(r => r !== ref);
+  else list.push(ref);
+  localStorage.setItem('rolf_wishlist', JSON.stringify(list));
+  if (btn) btn.classList.toggle('active');
+}
+
 function updateCartUI() {
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
   const count = cart.reduce((s, i) => s + i.qty, 0);
@@ -31,10 +44,11 @@ function updateCartUI() {
   cart.forEach((item, idx) => {
     const div = document.createElement('div');
     div.className = 'cart-item';
+    const imgSrc = item.img ? `images/products/${encodeURIComponent(item.img)}` : PLACEHOLDER_IMAGES.montres[0];
     div.innerHTML = `
-      <div class="cart-item-img" style="display:flex;align-items:center;justify-content:center;font-size:2rem;background:#f8f6f3">⌚</div>
+      <img class="cart-item-img" src="${imgSrc}" alt="${escapeHtml(item.name)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMAGES.montres[0]}'" />
       <div class="cart-item-info">
-        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-name">${escapeHtml(item.name)}</div>
         <div class="cart-item-price">${item.price} €</div>
         <div class="cart-item-qty">
           <button class="qty-ctrl" onclick="changeQty(${idx}, -1)">−</button>
@@ -48,10 +62,10 @@ function updateCartUI() {
   });
 }
 
-function addToCart(name, price, btn) {
+function addToCart(name, price, btn, img) {
   const existing = cart.find(i => i.name === name);
   if (existing) { existing.qty++; }
-  else { cart.push({ name, price, qty: 1 }); }
+  else { cart.push({ name, price, qty: 1, img }); }
   saveCart(); updateCartUI();
 
   if (btn) {
@@ -260,20 +274,22 @@ function renderProductCard(p) {
   const badgeHtml = p.was
     ? `<span class="product-badge badge-promo">-${Math.round((1 - p.price / p.was) * 100)}%</span>`
     : '';
+  const href = `product.html?ref=${encodeURIComponent(p.ref)}`;
+  const wished = rolfIsWished(p.ref);
   return `
     <div class="product-card" data-type="${p.type}" data-public="${p.public}" data-brand="${p.brand_slug}" data-material="${p.material}" data-color="${p.color}" data-style="${p.style}" data-price="${p.price}">
-      <div class="product-img-wrap">
+      <a href="${href}" class="product-img-wrap">
         <img src="${productImageSrc(p)}" alt="${nameSafe}" loading="lazy" onerror="this.onerror=null;this.src='${productImage(p)}'" />
         ${badgeHtml}
-        <div class="product-quick-actions"><button class="qa-btn"><span data-icon="heart"></span></button><button class="qa-btn"><span data-icon="eye"></span></button></div>
-      </div>
+      </a>
+      <div class="product-quick-actions"><button class="qa-btn${wished ? ' active' : ''}" onclick="rolfToggleWish('${p.ref}', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="${href}"><span data-icon="eye"></span></a></div>
       <div class="product-info">
         <div class="product-cat">${catLine}</div>
-        <div class="product-name">${nameSafe}</div>
+        <a href="${href}" class="product-name">${nameSafe}</a>
         <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">${escapeHtml(p.desc || '')}</div>
         <div class="product-footer">
           <div class="product-price">${priceHtml}</div>
-          <button class="atc-btn" onclick="addToCart('${jsAttrString(p.name)}', ${p.price}, this)">+</button>
+          <button class="atc-btn" onclick="addToCart('${jsAttrString(p.name)}', ${p.price}, this, '${p.img ? jsAttrString(p.img) : ''}')">+</button>
         </div>
       </div>
     </div>`;
