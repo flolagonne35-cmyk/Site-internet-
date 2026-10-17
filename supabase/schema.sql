@@ -102,3 +102,76 @@ with (security_invoker = true) as
   select user_id, coalesce(sum(points), 0) as balance
   from public.loyalty_transactions
   group by user_id;
+
+-- ============================================================
+-- PRODUCTS — catalogue réel (remplace data/products.json).
+-- Champs déjà alimentés par nos fournisseurs. Les champs bijoux
+-- avancés (pierre, serti, tour de doigt...) sont prévus mais restent
+-- NULL tant qu'on n'a pas cette donnée source — à enrichir plus tard,
+-- jamais à deviner.
+-- ============================================================
+create table public.products (
+  ref text primary key,
+  ean text,
+  brand text not null,
+  brand_slug text not null,
+  name text not null,
+  type text not null,            -- montres | bagues | colliers | bracelets | boucles
+  public text not null,          -- homme | femme | mixte
+  material text,
+  color text,
+  style text,
+  price numeric(10,2) not null,
+  was numeric(10,2),
+  description text,
+  img text,
+  in_stock boolean not null default true,
+  -- attributs bijoux avancés, nullable tant que non alimentés
+  stone_type text,
+  stone_color text,
+  stone_shape text,
+  stone_carat numeric(6,2),
+  setting_type text,
+  ring_size text,
+  created_at timestamptz not null default now()
+);
+
+create index products_type_idx on public.products (type);
+create index products_public_idx on public.products (public);
+create index products_brand_slug_idx on public.products (brand_slug);
+create index products_price_idx on public.products (price);
+
+alter table public.products enable row level security;
+
+create policy "products are publicly readable"
+  on public.products for select
+  using (true);
+
+-- Pas de policy insert/update/delete : les écritures catalogue passent
+-- par le tableau Supabase (Florian) ou par une session de développement,
+-- jamais par le site public.
+
+-- ============================================================
+-- PROMO_CODES — codes de réduction, lisibles publiquement pour que
+-- le panier puisse vérifier un code saisi sans être connecté.
+-- Écriture réservée au tableau Supabase (jamais depuis le site).
+-- ============================================================
+create table public.promo_codes (
+  code text primary key,
+  discount_percent numeric(5,2),       -- ex. 10 pour -10%
+  discount_amount numeric(10,2),       -- ou montant fixe en euros
+  active boolean not null default true,
+  expires_at timestamptz,
+  min_cart_total numeric(10,2),
+  created_at timestamptz not null default now(),
+  constraint one_discount_type check (
+    (discount_percent is not null and discount_amount is null) or
+    (discount_percent is null and discount_amount is not null)
+  )
+);
+
+alter table public.promo_codes enable row level security;
+
+create policy "promo codes are publicly readable"
+  on public.promo_codes for select
+  using (true);
