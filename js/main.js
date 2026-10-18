@@ -509,7 +509,16 @@ const ICONS = {
   ruler: '<svg viewBox="0 0 20 20" fill="none"><rect x="2.5" y="7" width="15" height="6" rx="1" stroke="currentColor" stroke-width="1.4" transform="rotate(-10 10 10)"/><path d="M6 8.3l.6 1.8M9 7.7l.6 1.8M12 7.1l.6 1.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" transform="rotate(-10 10 10)"/></svg>',
   family: '<svg viewBox="0 0 20 20" fill="none"><circle cx="6.5" cy="6" r="2" stroke="currentColor" stroke-width="1.4"/><circle cx="13.5" cy="6" r="2" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="12.5" r="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 16c.5-2.5 2-4 3.5-4s3 1.5 3.5 4M10 16.5c.4-1.8 1.4-2.8 3.5-2.8s3.1 1 3.5 2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
   tag: '<svg viewBox="0 0 20 20" fill="none"><path d="M3 3h6.5l7.5 7.5-6.5 6.5L3 9.5V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="6.5" cy="6.5" r="1.1" fill="currentColor"/></svg>',
+  filter: '<svg viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="5" r="1.8" fill="currentColor" stroke="var(--white,#fff)" stroke-width="1"/><circle cx="14" cy="10" r="1.8" fill="currentColor" stroke="var(--white,#fff)" stroke-width="1"/><circle cx="9" cy="15" r="1.8" fill="currentColor" stroke="var(--white,#fff)" stroke-width="1"/></svg>',
 };
+
+function rolfToggleFilters() {
+  const sidebar = document.querySelector('.filters-sidebar');
+  const btn = document.getElementById('filterToggleBtn');
+  if (!sidebar) return;
+  const open = sidebar.classList.toggle('open');
+  if (btn) btn.classList.toggle('active', open);
+}
 
 function renderIcons(root) {
   (root || document).querySelectorAll('[data-icon]').forEach(el => {
