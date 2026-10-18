@@ -635,6 +635,16 @@ input, textarea { font-family: inherit; }
   font-family: var(--font-serif); color: var(--text-dark);
 }
 .search-input-wrap span { color: var(--text-muted); font-size: 1.3rem; }
+.search-results { display: none; flex-direction: column; gap: 2px; max-height: 420px; overflow-y: auto; margin-top: 14px; }
+.search-results.open { display: flex; }
+.search-result-row { display: flex; align-items: center; gap: 14px; padding: 10px; border-radius: var(--radius-sm); }
+.search-result-row:hover { background: var(--bg-light); }
+.search-result-row img { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; background: var(--bg-light); flex-shrink: 0; }
+.search-result-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.search-result-name { font-size: 0.88rem; font-weight: 600; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.search-result-meta { font-size: 0.78rem; color: var(--text-muted); }
+.search-result-all { display: block; text-align: center; padding: 12px; margin-top: 4px; font-size: 0.82rem; font-weight: 600; color: var(--accent); border-top: 1px solid var(--border); }
+.search-empty { padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.88rem; }
 
 /* ==================== MOBILE MENU ==================== */
 .mobile-menu {

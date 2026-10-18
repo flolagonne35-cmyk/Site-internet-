@@ -22,6 +22,8 @@
     .filter-option:hover { color: var(--text-dark); }
     .filter-option input { accent-color: var(--accent); width: 16px; height: 16px; }
     .filter-count { margin-left: auto; font-size: 0.75rem; color: var(--text-muted); }
+    .collection-search-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: var(--font-sans); outline: none; }
+    .collection-search-input:focus { border-color: var(--accent); }
     .price-range { display: flex; gap: 10px; align-items: center; }
     .price-input { width: 80px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; }
     .price-input:focus { border-color: var(--accent); }
@@ -157,6 +159,7 @@
       <input type="text" placeholder="Rechercher une montre, une bague, un collier…" id="searchInput" />
       <button id="searchClose">✕</button>
     </div>
+    <div class="search-results" id="searchResults"></div>
   </div>
 </div>
 
@@ -178,6 +181,11 @@
       <div class="filters-sidebar-hdr">
         <h2 style="font-size:1rem;font-family:var(--font-serif)">Filtrer</h2>
         <button onclick="clearCatalogFilters()">Réinitialiser</button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Rechercher</h3>
+        <input class="collection-search-input" type="text" id="collectionSearch" placeholder="Référence, nom, marque…" />
       </div>
 
       <div class="filter-group">
@@ -225,12 +233,10 @@
       <div class="collection-header">
         <button class="filter-toggle-btn" id="filterToggleBtn" onclick="rolfToggleFilters()"><span data-icon="filter"></span> Filtrer</button>
         <span class="collection-count"><span id="resultCount">…</span> articles</span>
-        <select class="sort-select">
-          <option>Tri : Pertinence</option>
-          <option>Prix croissant</option>
-          <option>Prix décroissant</option>
-          <option>Nouveautés</option>
-          <option>Meilleures ventes</option>
+        <select class="sort-select" id="sortSelect">
+          <option value="relevance">Tri : Pertinence</option>
+          <option value="price-asc">Prix croissant</option>
+          <option value="price-desc">Prix décroissant</option>
         </select>
       </div>
 

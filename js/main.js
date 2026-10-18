@@ -217,6 +217,26 @@ let CATALOG = [];
 let catalogFiltered = [];
 let catalogPage = 1;
 const CATALOG_PAGE_SIZE = 30;
+let catalogLoadPromise = null;
+
+function loadCatalog() {
+  if (catalogLoadPromise) return catalogLoadPromise;
+  catalogLoadPromise = fetch('data/products.json')
+    .then(res => {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(data => {
+      CATALOG = data;
+      CATALOG.forEach((p, i) => { p._idx = i; });
+      return CATALOG;
+    })
+    .catch(err => {
+      console.error('Impossible de charger le catalogue :', err);
+      return [];
+    });
+  return catalogLoadPromise;
+}
 
 const PRODUCT_IMG_BASE = 'images/products/';
 
@@ -363,8 +383,23 @@ function applyCatalogFilters() {
   const maxInput = parseFloat(document.getElementById('priceMax')?.value);
   const priceMin = isNaN(minInput) ? 0 : minInput;
   const priceMax = isNaN(maxInput) ? Infinity : maxInput;
+  const query = (document.getElementById('collectionSearch')?.value || '').trim().toLowerCase();
 
-  catalogFiltered = CATALOG.filter(p => matchesFilters(p, checked) && p.price >= priceMin && p.price <= priceMax);
+  let list = CATALOG.filter(p => matchesFilters(p, checked) && p.price >= priceMin && p.price <= priceMax);
+
+  if (query) {
+    list = list
+      .map(p => ({ p, score: queryScore(p, query) }))
+      .filter(x => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(x => x.p);
+  }
+
+  const sortKey = document.getElementById('sortSelect')?.value;
+  if (sortKey === 'price-asc') list = list.slice().sort((a, b) => a.price - b.price);
+  else if (sortKey === 'price-desc') list = list.slice().sort((a, b) => b.price - a.price);
+
+  catalogFiltered = list;
   catalogPage = 1;
   renderCatalogPage();
 }
@@ -428,6 +463,10 @@ function clearCatalogFilters() {
   const maxPrice = CATALOG.length ? Math.ceil(Math.max(...CATALOG.map(p => p.price))) : 1000;
   if (min) min.value = 0;
   if (max) max.value = maxPrice;
+  const search = document.getElementById('collectionSearch');
+  if (search) search.value = '';
+  const sort = document.getElementById('sortSelect');
+  if (sort) sort.value = 'relevance';
   applyCatalogFilters();
 }
 
@@ -437,6 +476,7 @@ function applyURLParams() {
   const pub = params.get('public');
   const cat = params.get('cat');
   const brand = params.get('brand');
+  const q = params.get('q');
   const bijouxTypes = ['bagues', 'bracelets', 'colliers', 'boucles'];
 
   function check(group, value) {
@@ -449,35 +489,117 @@ function applyURLParams() {
   if (brand) check('brand', brand);
   if (cat === 'montres') check('type', 'montres');
   if (cat === 'bijoux') bijouxTypes.forEach(t => check('type', t));
+  if (q) {
+    const search = document.getElementById('collectionSearch');
+    if (search) search.value = q;
+  }
 }
 
 function wireFilterEvents() {
   document.querySelectorAll('.filters-sidebar input[type=checkbox][data-group]').forEach(cb => cb.addEventListener('change', applyCatalogFilters));
   document.getElementById('priceMin')?.addEventListener('input', applyCatalogFilters);
   document.getElementById('priceMax')?.addEventListener('input', applyCatalogFilters);
+  document.getElementById('sortSelect')?.addEventListener('change', applyCatalogFilters);
+  let searchDebounce;
+  document.getElementById('collectionSearch')?.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(applyCatalogFilters, 150);
+  });
 }
 
 function initCollectionCatalog() {
   const grid = document.getElementById('productsGrid');
   if (!grid) return; // not on collection.html
 
-  fetch('data/products.json')
-    .then(res => {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    })
-    .then(data => {
-      CATALOG = data;
-      CATALOG.forEach((p, i) => { p._idx = i; });
-      buildFilterOptions();
-      applyURLParams();
-      wireFilterEvents();
-      applyCatalogFilters();
-    })
-    .catch(err => {
-      console.error('Impossible de charger le catalogue :', err);
+  loadCatalog().then(() => {
+    if (!CATALOG.length) {
       grid.innerHTML = '<p style="padding:40px 0;color:var(--text-muted)">Catalogue momentanément indisponible.</p>';
-    });
+      return;
+    }
+    buildFilterOptions();
+    applyURLParams();
+    wireFilterEvents();
+    applyCatalogFilters();
+  });
+}
+
+/* ========== HEADER SEARCH (live suggestions, exact-ref and full-text) ========== */
+function queryScore(p, q) {
+  const ref = p.ref.toLowerCase();
+  const name = p.name.toLowerCase();
+  const brand = p.brand.toLowerCase();
+  const desc = (p.desc || '').toLowerCase();
+  if (ref === q) return 100;
+  if (ref.startsWith(q)) return 90;
+  if (name.startsWith(q)) return 80;
+  if (ref.includes(q)) return 70;
+  if (name.includes(q)) return 60;
+  if (brand.includes(q)) return 50;
+  if (desc.includes(q)) return 20;
+  return 0;
+}
+
+function searchProducts(query, limit) {
+  const q = query.trim().toLowerCase();
+  if (!q || !CATALOG.length) return [];
+  return CATALOG
+    .map(p => ({ p, score: queryScore(p, q) }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit || 50)
+    .map(x => x.p);
+}
+
+function renderSearchResults(rawQuery) {
+  const box = document.getElementById('searchResults');
+  if (!box) return;
+  const q = rawQuery.trim();
+  if (!q) { box.innerHTML = ''; box.classList.remove('open'); return; }
+
+  if (!CATALOG.length) {
+    box.innerHTML = '<p class="search-empty">Chargement du catalogue…</p>';
+    box.classList.add('open');
+    return;
+  }
+
+  const matches = searchProducts(q, 6);
+  if (matches.length === 0) {
+    box.innerHTML = `<p class="search-empty">Aucun résultat pour « ${escapeHtml(q)} ».</p>`;
+    box.classList.add('open');
+    return;
+  }
+
+  const rows = matches.map(p => `
+    <a class="search-result-row" href="product.html?ref=${encodeURIComponent(p.ref)}">
+      <img src="${productImageSrc(p)}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='${productImage(p)}'" />
+      <span class="search-result-info">
+        <span class="search-result-name">${escapeHtml(p.name)}</span>
+        <span class="search-result-meta">${escapeHtml(p.brand)} — ${formatPriceEUR(p.price)}</span>
+      </span>
+    </a>`).join('');
+
+  box.innerHTML = rows + `<a class="search-result-all" href="collection.html?q=${encodeURIComponent(q)}">Voir tous les résultats pour « ${escapeHtml(q)} » →</a>`;
+  box.classList.add('open');
+}
+
+function initHeaderSearch() {
+  const input = document.getElementById('searchInput');
+  if (!input) return;
+  let debounceTimer;
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => renderSearchResults(input.value), 150);
+  });
+  input.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    const q = input.value.trim();
+    if (!q) return;
+    const exact = CATALOG.find(p => p.ref.toLowerCase() === q.toLowerCase());
+    location.href = exact
+      ? `product.html?ref=${encodeURIComponent(exact.ref)}`
+      : `collection.html?q=${encodeURIComponent(q)}`;
+  });
 }
 
 /* ========== ICONS (line-art SVG, replaces emoji glyphs site-wide) ========== */
@@ -534,5 +656,7 @@ function renderIcons(root) {
 
 /* ========== INIT ========== */
 updateCartUI();
+loadCatalog();
 initCollectionCatalog();
+initHeaderSearch();
 renderIcons();
