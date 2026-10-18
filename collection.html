@@ -14,20 +14,20 @@
     .collection-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 36px 0 60px; }
     .filters-sidebar { position: sticky; top: 100px; align-self: start; }
     .filters-sidebar-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-    .filters-sidebar-hdr button { font-size: 0.75rem; color: var(--gold); font-weight: 600; }
+    .filters-sidebar-hdr button { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
     .filter-group { margin-bottom: 32px; }
     .filter-group h3 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
     .filter-options { display: flex; flex-direction: column; gap: 8px; }
     .filter-option { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.88rem; color: var(--text-grey); transition: var(--transition); }
     .filter-option:hover { color: var(--text-dark); }
-    .filter-option input { accent-color: var(--gold); width: 16px; height: 16px; }
+    .filter-option input { accent-color: var(--accent); width: 16px; height: 16px; }
     .filter-count { margin-left: auto; font-size: 0.75rem; color: var(--text-muted); }
     .price-range { display: flex; gap: 10px; align-items: center; }
     .price-input { width: 80px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; }
-    .price-input:focus { border-color: var(--gold); }
+    .price-input:focus { border-color: var(--accent); }
 
     .filter-toggle-btn { display: none; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--border); border-radius: 100px; background: var(--white); font-size: 0.85rem; font-weight: 600; color: var(--text-dark); cursor: pointer; }
-    .filter-toggle-btn.active { background: var(--dark); color: var(--gold); border-color: var(--dark); }
+    .filter-toggle-btn.active { background: var(--dark); color: var(--gold-muted); border-color: var(--dark); }
 
     .collection-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
     .collection-count { font-size: 0.88rem; color: var(--text-grey); }
@@ -42,8 +42,8 @@
       background: var(--white); color: var(--text-dark);
       font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: var(--transition);
     }
-    .page-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
-    .page-btn.active { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 700; }
+    .page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .page-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); font-weight: 700; }
     .page-btn.page-nav { padding: 0 16px; }
     .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .page-ellipsis { color: var(--text-muted); padding: 0 4px; }
@@ -235,7 +235,7 @@
       </div>
 
       <div class="collection-grid" id="productsGrid"></div>
-      <div class="no-results" id="noResults">Aucun article ne correspond à ces filtres. <button onclick="clearCatalogFilters()" style="color:var(--gold);font-weight:600">Réinitialiser les filtres</button></div>
+      <div class="no-results" id="noResults">Aucun article ne correspond à ces filtres. <button onclick="clearCatalogFilters()" style="color:var(--accent);font-weight:600">Réinitialiser les filtres</button></div>
       <div class="pagination" id="pagination"></div>
     </div>
   </div>
@@ -245,7 +245,7 @@
   <div class="container">
     <p class="section-tag">Offre exclusive</p>
     <h2 class="section-title reveal">Recevez nos nouveautés</h2>
-    <p class="section-subtitle reveal">Inscrivez-vous et obtenez <strong style="color:var(--gold)">-10%</strong> sur votre première commande.</p>
+    <p class="section-subtitle reveal">Inscrivez-vous et obtenez <strong style="color:var(--gold-muted)">-10%</strong> sur votre première commande.</p>
     <form class="newsletter-form reveal" onsubmit="handleNewsletter(event)">
       <input class="nl-input" type="email" placeholder="Votre adresse email" required />
       <button class="btn btn-gold" type="submit">S'inscrire</button>
