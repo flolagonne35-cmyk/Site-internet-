@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Product | ROLF</title>
+  <meta name="description" id="pageMetaDesc" content="Multi-brand watches and jewellery, official retailer, 2-year warranty, free delivery from €80." />
+  <link rel="alternate" hreflang="fr" href="../product.html" />
+  <link rel="alternate" hreflang="en" href="product.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .breadcrumb-row { padding: 20px 0 0; font-size: 0.8rem; color: var(--text-muted); }
+    .breadcrumb-row a { color: var(--text-grey); }
+    .breadcrumb-row a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar">
+  <span data-icon="truck"></span> Free delivery in France from €80 — <a href="collection.html">Shop the collection →</a>
+</div>
+
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <div class="nav-item">
+          <a href="collection.html?cat=montres">Watches <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+            <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+            <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+            <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+            <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+            <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+            <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+            <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+            <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+            <a href="collection.html?cat=montres" class="nav-dropdown-all">All watches →</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="collection.html?cat=bijoux">Jewellery <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=bagues">Rings</a>
+            <a href="collection.html?type=colliers">Necklaces</a>
+            <a href="collection.html?type=bracelets">Bracelets</a>
+            <a href="collection.html?type=boucles">Earrings</a>
+            <a href="collection.html?cat=bijoux" class="nav-dropdown-all">All jewellery →</a>
+          </div>
+        </div>
+        <a href="blog.html">Gift Ideas</a>
+        <a href="a-propos.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="hdr-btn" id="searchBtn"><span data-icon="search"></span></button>
+        <a href="../product.html" class="hdr-btn hdr-lang" title="Français">FR</a>
+        <a href="fidelite.html" class="hdr-btn" title="My account & loyalty"><span data-icon="user"></span></a>
+        <button class="hdr-btn" id="cartBtn"><span data-icon="cart"></span> <span class="cart-badge" id="cartCount">0</span></button>
+        <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr">
+    <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+    <button class="hdr-btn" id="menuClose">✕</button>
+  </div>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Home</a>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Watches <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+        <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+        <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+        <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+        <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+        <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+        <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+        <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+        <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+        <a href="collection.html?cat=montres">All watches →</a>
+      </div>
+    </div>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Jewellery <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=bagues">Rings</a>
+        <a href="collection.html?type=colliers">Necklaces</a>
+        <a href="collection.html?type=bracelets">Bracelets</a>
+        <a href="collection.html?type=boucles">Earrings</a>
+        <a href="collection.html?cat=bijoux">All jewellery →</a>
+      </div>
+    </div>
+    <a href="blog.html">Gift Ideas</a>
+    <a href="fidelite.html">Loyalty & Referrals</a>
+    <a href="a-propos.html">Our Story</a>
+    <a href="contact.html">Contact</a>
+    <a href="../product.html" style="font-size:1rem;color:var(--text-muted)">Français (FR)</a>
+  </nav>
+</div>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span><span data-icon="search"></span></span>
+      <input type="text" placeholder="Search for a watch, ring, necklace…" id="searchInput" />
+      <button id="searchClose">✕</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<div class="container breadcrumb-row" id="breadcrumbRow">
+  <a href="index.html">Home</a> / <a href="collection.html">Collection</a> / <span id="bcName">…</span>
+</div>
+
+<section class="product-page" id="productFound">
+  <div class="container">
+    <div class="product-layout">
+
+      <!-- GALERIE -->
+      <div>
+        <div class="product-gallery-main">
+          <img id="productMainImg" src="" alt="" />
+        </div>
+        <div class="product-thumbs" id="productThumbs"></div>
+      </div>
+
+      <!-- INFOS -->
+      <div>
+        <div class="product-detail-cat" id="productCat"></div>
+        <h1 class="product-detail-name" id="productName"></h1>
+        <div class="product-stars" style="font-size:0.95rem;color:var(--text-muted)">New to ROLF — be the first to leave a review</div>
+
+        <div class="product-detail-price" id="productPrice"></div>
+
+        <p class="product-detail-desc" id="productDesc"></p>
+
+        <div class="reassurance-badges">
+          <div class="r-badge"><span class="ic"><span data-icon="badge-check"></span></span> <span id="productBrandBadge">Official retailer</span></div>
+          <div class="r-badge"><span class="ic"><span data-icon="shield"></span></span> 2-year warranty</div>
+          <div class="r-badge"><span class="ic"><span data-icon="truck"></span></span> Free delivery from €80</div>
+          <div class="r-badge"><span class="ic"><span data-icon="return"></span></span> Free returns within 30 days</div>
+        </div>
+
+        <div class="qty-stepper">
+          <button class="qty-ctrl" onclick="this.nextElementSibling.textContent = Math.max(1, parseInt(this.nextElementSibling.textContent) - 1)">−</button>
+          <span id="productQty" style="min-width:24px;text-align:center;font-weight:600">1</span>
+          <button class="qty-ctrl" onclick="this.previousElementSibling.textContent = parseInt(this.previousElementSibling.textContent) + 1">+</button>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap">
+          <button class="btn btn-gold" style="flex:1" id="addToCartBtn">Add to cart</button>
+          <button class="btn btn-outline-dark" id="wishBtn" title="Add to wishlist"><span data-icon="heart"></span></button>
+        </div>
+
+        <div class="certificate-block">
+          <h4><span data-icon="gem"></span> Manufacturer's warranty</h4>
+          <p id="productWarranty"></p>
+        </div>
+
+        <div class="certificate-block">
+          <h4><span data-icon="pencil"></span> Personalisation & engraving</h4>
+          <p>Engraving available on request (+€12). Allow an extra <strong>3 to 5 business days</strong> for engraved pieces.</p>
+        </div>
+
+        <div class="certificate-block">
+          <h4><span data-icon="tag"></span> Specifications</h4>
+          <dl class="specs-table" id="productSpecs"></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="product-page" id="productNotFound" style="display:none;text-align:center">
+  <div class="container">
+    <h1 class="section-title">Product not found</h1>
+    <p style="color:var(--text-grey);margin-bottom:24px">This item no longer exists.</p>
+    <a href="collection.html" class="btn btn-gold">View the collection →</a>
+  </div>
+</section>
+
+<!-- CROSS-SELL -->
+<section class="cross-sell-section" id="crossSellSection">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Complete your look</p>
+    <h2 class="section-title reveal">You might also like</h2>
+    <div id="crossSellGrid" class="cross-sell-grid"></div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="testimonials-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Customer reviews</p>
+    <h2 class="section-title reveal">What our customers say</h2>
+    <div class="testimonials-grid" id="reviewsGrid"></div>
+    <p id="reviewsEmpty" style="display:none;text-align:center;color:var(--text-muted);margin-top:12px">No reviews yet for this product — be the first to leave one.</p>
+
+    <div style="max-width:480px;margin:40px auto 0">
+      <div id="reviewFormLoggedOut" style="text-align:center;color:var(--text-muted);font-size:0.9rem">
+        <a href="fidelite.html" style="color:var(--accent)">Sign in</a> to leave a review on this product.
+      </div>
+      <form id="reviewForm" onsubmit="return false" style="display:none">
+        <select id="reviewRating" class="nl-input" style="color:var(--text-dark);background:var(--white);border:1px solid var(--border);width:100%;margin-bottom:10px">
+          <option value="5">★★★★★ — Excellent</option>
+          <option value="4">★★★★☆ — Very good</option>
+          <option value="3">★★★☆☆ — Average</option>
+          <option value="2">★★☆☆☆ — Disappointing</option>
+          <option value="1">★☆☆☆☆ — Poor</option>
+        </select>
+        <textarea id="reviewBody" placeholder="Your review (10 characters min.)" rows="3" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);font-family:inherit;font-size:0.9rem;margin-bottom:10px;resize:vertical"></textarea>
+        <div id="reviewError" style="display:none;background:#fde8e8;color:#b33;font-size:0.82rem;padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:10px"></div>
+        <div id="reviewSuccess" style="display:none;background:#e8f6ee;color:#27ae60;font-size:0.82rem;padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:10px">Review published, thank you!</div>
+        <button class="btn btn-gold" id="reviewSubmit" style="width:100%;justify-content:center">Publish my review</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+        <p>Multi-brand watches and jewellery for men, women and children. Based in Bruz, France.</p>
+        </div>
+      <div>
+        <div class="footer-heading">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html?type=montres">Watches</a></li>
+          <li><a href="collection.html?type=bagues">Rings</a></li>
+          <li><a href="collection.html?type=colliers">Necklaces</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Information</div>
+        <ul class="footer-links">
+          <li><a href="a-propos.html">About us</a></li>
+          <li><a href="retours.html">Shipping & returns</a></li>
+          <li><a href="cgv.html">Terms & Conditions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li><span data-icon="pin"></span> Bruz, 35170, France</li>
+          <li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ROLF. All rights reserved.</span>
+      <div class="footer-payments"><span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">PayPal</span></div>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr"><h2>My Cart (<span id="cartItemCount">0</span>)</h2><button class="cart-hdr-close" id="cartClose">✕</button></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon"><span data-icon="cart"></span></div><p>Your cart is empty.</p></div></div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>
+    <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Checkout →</a>
+  </div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="../js/account.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  const PRODUCT_REF = new URLSearchParams(location.search).get('ref') || 'ES-8326-01';
+
+  function populateProductPage(p, allProducts) {
+    document.title = `${p.name} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} | ROLF`;
+    document.getElementById('pageMetaDesc').setAttribute('content',
+      `${p.name} — ${p.brand}. Official retailer, 2-year warranty, free delivery from €80.`);
+
+    document.getElementById('breadcrumbRow').innerHTML =
+      `<a href="index.html">Home</a> / <a href="collection.html?brand=${encodeURIComponent(p.brand_slug)}">${escapeHtml(p.brand)}</a> / <a href="collection.html?public=${p.public}">${PUBLIC_LABELS[p.public] || p.public}</a> / ${escapeHtml(p.name)}`;
+
+    const imgSrc = productImageSrc(p);
+    const fallback = productImage(p);
+    const mainImg = document.getElementById('productMainImg');
+    mainImg.src = imgSrc; mainImg.alt = p.name;
+    mainImg.onerror = () => { mainImg.onerror = null; mainImg.src = fallback; };
+    document.getElementById('productThumbs').innerHTML =
+      `<button class="product-thumb active" onclick="switchProductImg('${imgSrc}', this, '${fallback}')"><img src="${imgSrc}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='${fallback}'" /></button>`;
+
+    document.getElementById('productCat').textContent = `${PUBLIC_LABELS[p.public] || p.public} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} — ${p.brand}`;
+    document.getElementById('productName').textContent = p.name;
+
+    document.getElementById('productPrice').innerHTML = p.was
+      ? `<span>${formatPriceEUR(p.price)}</span><span class="price-was" style="font-size:1rem">${formatPriceEUR(p.was)}</span><span class="product-badge badge-promo" style="position:static">-${Math.round((1 - p.price / p.was) * 100)}%</span>`
+      : `<span>${formatPriceEUR(p.price)}</span>`;
+
+    document.getElementById('productDesc').textContent = p.desc || '';
+
+    const specs = [
+      ['Brand', p.brand],
+      ['Reference', p.ref],
+      ['Type', TYPE_LABELS_SINGULAR[p.type] || p.type],
+      ['Audience', PUBLIC_LABELS[p.public] || p.public],
+      ['Material', MATERIAL_LABELS[p.material] || p.material],
+      ['Colour', COLOR_LABELS[p.color] || p.color],
+      ['Style', STYLE_LABELS[p.style] || p.style],
+    ].filter(([, value]) => value);
+    document.getElementById('productSpecs').innerHTML = specs
+      .map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(String(value))}</dd>`)
+      .join('');
+
+    document.getElementById('productBrandBadge').textContent = `Official ${p.brand} retailer`;
+    document.getElementById('productWarranty').textContent =
+      `This piece is covered by ${p.brand}'s 2-year manufacturer warranty. EAN reference ${p.ean || '—'} — full traceability available on request from our customer service.`;
+
+    const atcBtn = document.getElementById('addToCartBtn');
+    atcBtn.textContent = `Add to cart — ${formatPriceEUR(p.price)}`;
+    atcBtn.onclick = () => addToCart(p.name, p.price, atcBtn, p.img);
+
+    const wishBtn = document.getElementById('wishBtn');
+    if (rolfIsWished(p.ref)) wishBtn.classList.add('active');
+    wishBtn.onclick = () => rolfToggleWish(p.ref, wishBtn);
+
+    const pool = allProducts.filter(x => x.ref !== p.ref && x.type === p.type);
+    const chosen = pool.sort(() => Math.random() - 0.5).slice(0, 3);
+    const crossSellSection = document.getElementById('crossSellSection');
+    if (chosen.length === 0) {
+      crossSellSection.style.display = 'none';
+    } else {
+      document.getElementById('crossSellGrid').innerHTML = chosen.map(c => {
+        const cImg = productImageSrc(c), cFallback = productImage(c);
+        return `<a href="product.html?ref=${encodeURIComponent(c.ref)}" class="bundle-card reveal visible" style="text-decoration:none;color:inherit">
+          <div class="bundle-imgs"><img src="${cImg}" alt="${escapeHtml(c.name)}" onerror="this.onerror=null;this.src='${cFallback}'" /></div>
+          <div>
+            <div style="font-weight:600;font-size:0.9rem">${escapeHtml(c.name)}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">${formatPriceEUR(c.price)}</div>
+          </div>
+        </a>`;
+      }).join('');
+    }
+  }
+
+  fetch('../data/products.json')
+    .then(res => res.json())
+    .then(allProducts => {
+      const p = allProducts.find(x => x.ref === PRODUCT_REF);
+      if (!p) {
+        document.getElementById('productFound').style.display = 'none';
+        document.getElementById('crossSellSection').style.display = 'none';
+        document.getElementById('productNotFound').style.display = 'block';
+        return;
+      }
+      populateProductPage(p, allProducts);
+    })
+    .catch(err => console.error('Unable to load product:', err));
+
+  function renderReviewCard(r) {
+    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+    const name = (r.profiles && r.profiles.display_name) || 'ROLF Customer';
+    const date = new Date(r.created_at).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    return `<div class="testi-card reveal visible">
+      <div class="testi-stars">${stars}</div>
+      <p class="testi-text">"${escapeHtml(r.body)}"</p>
+      <div class="testi-author"><div class="testi-avatar">${escapeHtml(name.charAt(0).toUpperCase())}</div><div><div class="testi-name">${escapeHtml(name)}</div><div class="testi-loc">${date}</div></div></div>
+    </div>`;
+  }
+
+  async function rolfLoadReviews() {
+    const reviews = await rolfFetchReviews(PRODUCT_REF);
+    const grid = document.getElementById('reviewsGrid');
+    const empty = document.getElementById('reviewsEmpty');
+    if (reviews.length === 0) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+    } else {
+      empty.style.display = 'none';
+      grid.innerHTML = reviews.map(renderReviewCard).join('');
+    }
+  }
+
+  document.getElementById('reviewSubmit').addEventListener('click', async () => {
+    const errEl = document.getElementById('reviewError');
+    const okEl = document.getElementById('reviewSuccess');
+    errEl.style.display = 'none'; okEl.style.display = 'none';
+    const body = document.getElementById('reviewBody').value.trim();
+    const rating = parseInt(document.getElementById('reviewRating').value, 10);
+    if (body.length < 10) {
+      errEl.textContent = 'Your review must be at least 10 characters long.';
+      errEl.style.display = 'block';
+      return;
+    }
+    try {
+      await rolfSubmitReview(PRODUCT_REF, rating, body);
+      document.getElementById('reviewBody').value = '';
+      okEl.style.display = 'block';
+      await rolfLoadReviews();
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  });
+
+  (async () => {
+    await rolfLoadReviews();
+    const session = await rolfGetSession();
+    if (session) {
+      document.getElementById('reviewFormLoggedOut').style.display = 'none';
+      document.getElementById('reviewForm').style.display = 'block';
+    }
+  })();
+</script>
+</body>
+</html>

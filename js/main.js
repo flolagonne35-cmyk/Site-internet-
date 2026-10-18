@@ -1,3 +1,31 @@
+/* ========== I18N ========== */
+const LANG = document.documentElement.lang === 'en' ? 'en' : 'fr';
+const SITE_ROOT = LANG === 'en' ? '../' : '';
+
+const STR = LANG === 'en' ? {
+  remove: 'Remove',
+  catalogUnavailable: 'Catalogue temporarily unavailable.',
+  prev: '← Previous',
+  next: 'Next →',
+  searchLoading: 'Loading catalogue…',
+  searchNoResults: q => `No results for “${q}”.`,
+  searchSeeAll: q => `See all results for “${q}” →`,
+  newsletterThanks: '✓ Thank you!',
+  newsletterSubscribe: 'Subscribe',
+  copied: '✓ Copied!',
+} : {
+  remove: 'Retirer',
+  catalogUnavailable: 'Catalogue momentanément indisponible.',
+  prev: '← Précédent',
+  next: 'Suivant →',
+  searchLoading: 'Chargement du catalogue…',
+  searchNoResults: q => `Aucun résultat pour « ${q} ».`,
+  searchSeeAll: q => `Voir tous les résultats pour « ${q} » →`,
+  newsletterThanks: '✓ Merci !',
+  newsletterSubscribe: "S'inscrire",
+  copied: '✓ Copié !',
+};
+
 /* ========== CART STATE ========== */
 let cart = JSON.parse(localStorage.getItem('rolf_cart') || '[]');
 
@@ -44,7 +72,7 @@ function updateCartUI() {
   cart.forEach((item, idx) => {
     const div = document.createElement('div');
     div.className = 'cart-item';
-    const imgSrc = item.img ? `images/products/${encodeURIComponent(item.img)}` : PLACEHOLDER_IMAGES.montres[0];
+    const imgSrc = item.img ? `${SITE_ROOT}images/products/${encodeURIComponent(item.img)}` : PLACEHOLDER_IMAGES.montres[0];
     div.innerHTML = `
       <img class="cart-item-img" src="${imgSrc}" alt="${escapeHtml(item.name)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMAGES.montres[0]}'" />
       <div class="cart-item-info">
@@ -56,7 +84,7 @@ function updateCartUI() {
           <button class="qty-ctrl" onclick="changeQty(${idx}, 1)">+</button>
         </div>
       </div>
-      <button class="cart-item-del" onclick="removeFromCart(${idx})" title="Retirer">✕</button>
+      <button class="cart-item-del" onclick="removeFromCart(${idx})" title="${STR.remove}">✕</button>
     `;
     body.appendChild(div);
   });
@@ -185,10 +213,10 @@ function handleNewsletter(e) {
   e.preventDefault();
   const input = e.target.querySelector('input');
   const btn = e.target.querySelector('button');
-  btn.textContent = '✓ Merci !';
+  btn.textContent = STR.newsletterThanks;
   btn.style.background = '#27ae60';
   input.value = '';
-  setTimeout(() => { btn.textContent = "S'inscrire"; btn.style.background = ''; }, 3000);
+  setTimeout(() => { btn.textContent = STR.newsletterSubscribe; btn.style.background = ''; }, 3000);
 }
 
 /* ========== PARRAINAGE ========== */
@@ -196,7 +224,7 @@ function copyReferralCode(code, btn) {
   navigator.clipboard?.writeText(code).catch(() => {});
   if (btn) {
     const original = btn.textContent;
-    btn.textContent = '✓ Copié !';
+    btn.textContent = STR.copied;
     setTimeout(() => { btn.textContent = original; }, 2000);
   }
 }
@@ -221,7 +249,7 @@ let catalogLoadPromise = null;
 
 function loadCatalog() {
   if (catalogLoadPromise) return catalogLoadPromise;
-  catalogLoadPromise = fetch('data/products.json')
+  catalogLoadPromise = fetch(SITE_ROOT + 'data/products.json')
     .then(res => {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
@@ -238,7 +266,7 @@ function loadCatalog() {
   return catalogLoadPromise;
 }
 
-const PRODUCT_IMG_BASE = 'images/products/';
+const PRODUCT_IMG_BASE = SITE_ROOT + 'images/products/';
 
 const PLACEHOLDER_IMAGES = {
   montres: [
@@ -255,12 +283,24 @@ const PLACEHOLDER_IMAGES = {
   ],
 };
 
-const TYPE_LABELS_PLURAL = { montres: 'Montres', bagues: 'Bagues', bracelets: 'Bracelets', colliers: 'Colliers', boucles: "Boucles d'oreilles" };
-const TYPE_LABELS_SINGULAR = { montres: 'Montre', bagues: 'Bague', bracelets: 'Bracelet', colliers: 'Collier', boucles: "Boucles d'oreilles" };
-const PUBLIC_LABELS = { homme: 'Homme', femme: 'Femme', mixte: 'Mixte' };
-const MATERIAL_LABELS = { acier: 'Acier', or: 'Plaqué or', argent: 'Argent', cuir: 'Cuir', silicone: 'Silicone' };
-const COLOR_LABELS = { or: 'Or', argent: 'Argent', noir: 'Noir', rose: 'Rose', blanc: 'Blanc', bleu: 'Bleu', vert: 'Vert', rouge: 'Rouge', multicolore: 'Multicolore' };
-const STYLE_LABELS = { classique: 'Classique', moderne: 'Moderne', vintage: 'Vintage', sportif: 'Sportif', romantique: 'Romantique' };
+const TYPE_LABELS_PLURAL = LANG === 'en'
+  ? { montres: 'Watches', bagues: 'Rings', bracelets: 'Bracelets', colliers: 'Necklaces', boucles: 'Earrings' }
+  : { montres: 'Montres', bagues: 'Bagues', bracelets: 'Bracelets', colliers: 'Colliers', boucles: "Boucles d'oreilles" };
+const TYPE_LABELS_SINGULAR = LANG === 'en'
+  ? { montres: 'Watch', bagues: 'Ring', bracelets: 'Bracelet', colliers: 'Necklace', boucles: 'Earrings' }
+  : { montres: 'Montre', bagues: 'Bague', bracelets: 'Bracelet', colliers: 'Collier', boucles: "Boucles d'oreilles" };
+const PUBLIC_LABELS = LANG === 'en'
+  ? { homme: 'Men', femme: 'Women', mixte: 'Unisex' }
+  : { homme: 'Homme', femme: 'Femme', mixte: 'Mixte' };
+const MATERIAL_LABELS = LANG === 'en'
+  ? { acier: 'Steel', or: 'Gold-plated', argent: 'Silver', cuir: 'Leather', silicone: 'Silicone' }
+  : { acier: 'Acier', or: 'Plaqué or', argent: 'Argent', cuir: 'Cuir', silicone: 'Silicone' };
+const COLOR_LABELS = LANG === 'en'
+  ? { or: 'Gold', argent: 'Silver', noir: 'Black', rose: 'Pink', blanc: 'White', bleu: 'Blue', vert: 'Green', rouge: 'Red', multicolore: 'Multicolour' }
+  : { or: 'Or', argent: 'Argent', noir: 'Noir', rose: 'Rose', blanc: 'Blanc', bleu: 'Bleu', vert: 'Vert', rouge: 'Rouge', multicolore: 'Multicolore' };
+const STYLE_LABELS = LANG === 'en'
+  ? { classique: 'Classic', moderne: 'Modern', vintage: 'Vintage', sportif: 'Sporty', romantique: 'Romantic' }
+  : { classique: 'Classique', moderne: 'Moderne', vintage: 'Vintage', sportif: 'Sportif', romantique: 'Romantique' };
 
 function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -422,13 +462,13 @@ function renderPagination(totalPages) {
   if (!el) return;
   if (totalPages <= 1) { el.innerHTML = ''; return; }
 
-  let html = `<button class="page-btn page-nav" ${catalogPage === 1 ? 'disabled' : ''} onclick="goToCatalogPage(${catalogPage - 1})">← Précédent</button>`;
+  let html = `<button class="page-btn page-nav" ${catalogPage === 1 ? 'disabled' : ''} onclick="goToCatalogPage(${catalogPage - 1})">${STR.prev}</button>`;
   paginationRangeList(catalogPage, totalPages).forEach(p => {
     html += p === '...'
       ? `<span class="page-ellipsis">…</span>`
       : `<button class="page-btn ${p === catalogPage ? 'active' : ''}" onclick="goToCatalogPage(${p})">${p}</button>`;
   });
-  html += `<button class="page-btn page-nav" ${catalogPage === totalPages ? 'disabled' : ''} onclick="goToCatalogPage(${catalogPage + 1})">Suivant →</button>`;
+  html += `<button class="page-btn page-nav" ${catalogPage === totalPages ? 'disabled' : ''} onclick="goToCatalogPage(${catalogPage + 1})">${STR.next}</button>`;
   el.innerHTML = html;
 }
 
@@ -513,7 +553,7 @@ function initCollectionCatalog() {
 
   loadCatalog().then(() => {
     if (!CATALOG.length) {
-      grid.innerHTML = '<p style="padding:40px 0;color:var(--text-muted)">Catalogue momentanément indisponible.</p>';
+      grid.innerHTML = `<p style="padding:40px 0;color:var(--text-muted)">${STR.catalogUnavailable}</p>`;
       return;
     }
     buildFilterOptions();
@@ -557,14 +597,14 @@ function renderSearchResults(rawQuery) {
   if (!q) { box.innerHTML = ''; box.classList.remove('open'); return; }
 
   if (!CATALOG.length) {
-    box.innerHTML = '<p class="search-empty">Chargement du catalogue…</p>';
+    box.innerHTML = `<p class="search-empty">${STR.searchLoading}</p>`;
     box.classList.add('open');
     return;
   }
 
   const matches = searchProducts(q, 6);
   if (matches.length === 0) {
-    box.innerHTML = `<p class="search-empty">Aucun résultat pour « ${escapeHtml(q)} ».</p>`;
+    box.innerHTML = `<p class="search-empty">${STR.searchNoResults(escapeHtml(q))}</p>`;
     box.classList.add('open');
     return;
   }
@@ -578,7 +618,7 @@ function renderSearchResults(rawQuery) {
       </span>
     </a>`).join('');
 
-  box.innerHTML = rows + `<a class="search-result-all" href="collection.html?q=${encodeURIComponent(q)}">Voir tous les résultats pour « ${escapeHtml(q)} » →</a>`;
+  box.innerHTML = rows + `<a class="search-result-all" href="collection.html?q=${encodeURIComponent(q)}">${STR.searchSeeAll(escapeHtml(q))}</a>`;
   box.classList.add('open');
 }
 

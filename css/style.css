@@ -214,6 +214,7 @@ input, textarea { font-family: inherit; }
   position: relative;
 }
 .hdr-btn:hover { background: rgba(255,255,255,0.15); color: var(--gold-muted); }
+.hdr-lang { width: auto; min-width: 40px; padding: 0 9px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
 .cart-badge {
   position: absolute; top: 1px; right: 1px;
   background: var(--white); color: var(--accent);

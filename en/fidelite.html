@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account — Loyalty & Referral | ROLF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="alternate" hreflang="fr" href="../fidelite.html" />
+  <link rel="alternate" hreflang="en" href="fidelite.html" />
+  <style>
+    .breadcrumb-row { padding: 20px 0 0; font-size: 0.8rem; color: var(--text-muted); }
+    .breadcrumb-row a { color: var(--text-grey); }
+    .how-it-works { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; padding: 20px 0 64px; }
+    .hiw-card { text-align: center; padding: 24px; }
+    .hiw-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .hiw-card h4 { font-size: 0.92rem; margin-bottom: 6px; }
+    .hiw-card p { font-size: 0.82rem; color: var(--text-grey); line-height: 1.6; }
+    .orders-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    .orders-table th, .orders-table td { text-align: left; padding: 12px 14px; font-size: 0.85rem; border-bottom: 1px solid var(--border); }
+    .orders-table th { color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.08em; }
+    .status-pill { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; background: #e8f6ee; color: #27ae60; }
+    @media (max-width: 768px) { .how-it-works { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar"><span data-icon="truck"></span> Free delivery in France from €80 — <a href="collection.html">See the collection →</a></div>
+
+<header class="header" id="header">
+  <div class="container"><div class="header-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <div class="nav-item">
+        <a href="collection.html?cat=montres">Watches <span class="nav-caret" data-icon="chevron"></span></a>
+        <div class="nav-dropdown">
+          <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+          <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+          <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+          <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+          <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+          <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+          <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+          <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+          <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+          <a href="collection.html?cat=montres" class="nav-dropdown-all">All watches →</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="collection.html?cat=bijoux">Jewellery <span class="nav-caret" data-icon="chevron"></span></a>
+        <div class="nav-dropdown">
+          <a href="collection.html?type=bagues">Rings</a>
+          <a href="collection.html?type=colliers">Necklaces</a>
+          <a href="collection.html?type=bracelets">Bracelets</a>
+          <a href="collection.html?type=boucles">Earrings</a>
+          <a href="collection.html?cat=bijoux" class="nav-dropdown-all">All jewellery →</a>
+        </div>
+      </div>
+      <a href="blog.html">Gift ideas</a>
+      <a href="a-propos.html">Our story</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="hdr-btn" id="searchBtn"><span data-icon="search"></span></button>
+      <a href="../fidelite.html" class="hdr-btn hdr-lang" title="Français">FR</a>
+      <a href="fidelite.html" class="hdr-btn active" title="My account"><span data-icon="user"></span></a>
+      <button class="hdr-btn" id="cartBtn"><span data-icon="cart"></span> <span class="cart-badge" id="cartCount">0</span></button>
+      <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+    </div>
+  </div></div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr"><a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a><button class="hdr-btn" id="menuClose">✕</button></div>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Home</a>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Watches <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+        <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+        <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+        <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+        <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+        <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+        <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+        <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+        <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+        <a href="collection.html?cat=montres">All watches →</a>
+      </div>
+    </div>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Jewellery <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=bagues">Rings</a>
+        <a href="collection.html?type=colliers">Necklaces</a>
+        <a href="collection.html?type=bracelets">Bracelets</a>
+        <a href="collection.html?type=boucles">Earrings</a>
+        <a href="collection.html?cat=bijoux">All jewellery →</a>
+      </div>
+    </div>
+    <a href="blog.html">Gift ideas</a>
+    <a href="fidelite.html">Loyalty & referral</a>
+    <a href="a-propos.html">Our story</a>
+    <a href="contact.html">Contact</a>
+    <a href="../fidelite.html" style="font-size:1rem;color:var(--text-muted)">Français (FR)</a>
+  </nav>
+</div>
+<div class="search-overlay" id="searchOverlay"><div class="search-box"><div class="search-input-wrap"><span><span data-icon="search"></span></span><input type="text" placeholder="Search…" id="searchInput" /><button id="searchClose">✕</button></div><div class="search-results" id="searchResults"></div></div></div>
+
+<div class="container breadcrumb-row"><a href="index.html">Home</a> / My Account</div>
+
+<!-- ACCOUNT -->
+<section class="loyalty-hero">
+  <div class="container">
+
+    <div id="loggedOutView">
+      <p class="section-tag">My account</p>
+      <h2 class="section-title reveal visible" style="color:var(--white)">Sign in to see your points</h2>
+
+      <form class="auth-form" id="loginForm" onsubmit="return false">
+        <input type="email" class="nl-input" id="loginEmail" placeholder="Email" required />
+        <input type="password" class="nl-input" id="loginPassword" placeholder="Password" required />
+        <div class="auth-msg error" id="loginError"></div>
+        <button class="btn btn-gold" id="loginSubmit">Sign in</button>
+        <div class="auth-switch">Don't have an account yet? <a onclick="rolfToggleAuthForm()">Create an account</a></div>
+      </form>
+
+      <form class="auth-form" id="signupForm" onsubmit="return false" style="display:none">
+        <input type="text" class="nl-input" id="signupName" placeholder="First name" required />
+        <input type="email" class="nl-input" id="signupEmail" placeholder="Email" required />
+        <input type="password" class="nl-input" id="signupPassword" placeholder="Password (6 characters min.)" required minlength="6" />
+        <div class="auth-msg error" id="signupError"></div>
+        <div class="auth-msg success" id="signupSuccess">Account created — check your inbox to confirm your email address, then sign in.</div>
+        <button class="btn btn-gold" id="signupSubmit">Create my account</button>
+        <div class="auth-switch">Already have an account? <a onclick="rolfToggleAuthForm()">Sign in</a></div>
+      </form>
+    </div>
+
+    <div id="loggedInView" style="display:none">
+      <p class="section-tag">Welcome <span id="accountName"></span></p>
+      <div class="points-balance" id="accountBalance">0 pt</div>
+      <div class="points-balance-lbl">Points balance</div>
+      <p style="margin-top:18px;color:rgba(255,255,255,0.55);font-size:0.88rem;max-width:480px;margin-left:auto;margin-right:auto">
+        1 point earned for every euro spent. Points can be used from 100 pts, in increments of 100 (= €1 off).
+      </p>
+      <div class="account-topline">
+        <button class="btn btn-outline-white" onclick="rolfHandleLogout()">Sign out</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TIERS -->
+<div class="container">
+  <p class="section-tag" style="text-align:center;margin-top:48px">Your benefits</p>
+  <h2 class="section-title reveal">Loyalty tiers</h2>
+  <div class="loyalty-tiers">
+    <div class="tier-card active reveal">
+      <h4 style="font-family:var(--font-serif);margin:10px 0">Bronze <span style="font-size:0.7rem;color:var(--accent)">— you are here</span></h4>
+      <p style="font-size:0.85rem;color:var(--text-grey)">0 – 500 pts<br>1 pt per € spent</p>
+    </div>
+    <div class="tier-card reveal">
+      <h4 style="font-family:var(--font-serif);margin:10px 0">Silver</h4>
+      <p style="font-size:0.85rem;color:var(--text-grey)">500 – 1,500 pts<br>1.25 pt per € + access to private sales 24h early</p>
+    </div>
+    <div class="tier-card reveal">
+      <h4 style="font-family:var(--font-serif);margin:10px 0">Gold</h4>
+      <p style="font-size:0.85rem;color:var(--text-grey)">1,500 pts and up<br>1.5 pt per € + free birthday gift</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="container">
+  <div class="how-it-works">
+    <div class="hiw-card reveal">
+      <div class="hiw-icon"><span data-icon="cart"></span></div>
+      <h4>1. You shop</h4>
+      <p>Every completed order automatically credits your points within 48h.</p>
+    </div>
+    <div class="hiw-card reveal">
+      <div class="hiw-icon"><span data-icon="sparkle"></span></div>
+      <h4>2. You earn</h4>
+      <p>Reviews left (+20 pts), birthdays (+50 pts) and referrals (+150 pts) add up too.</p>
+    </div>
+    <div class="hiw-card reveal">
+      <div class="hiw-icon"><span data-icon="gift"></span></div>
+      <h4>3. You redeem</h4>
+      <p>Convert your points into a discount from 100 pts, directly at checkout.</p>
+    </div>
+  </div>
+</div>
+
+<!-- REFERRAL -->
+<section class="cross-sell-section" id="parrainage">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Referral programme</p>
+    <h2 class="section-title reveal">€15 for you, €15 for your friend</h2>
+    <p class="section-subtitle reveal">Share your code: as soon as your friend places their first order (€30 min.), you each get €15 off.</p>
+
+    <div id="referralLoggedOut" style="text-align:center;color:var(--text-muted);font-size:0.9rem">
+      Sign in to get your personal referral code.
+    </div>
+
+    <div class="referral-box reveal" id="referralLoggedIn" style="display:none">
+      <div>
+        <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Your referral code</div>
+        <div class="referral-code" id="referralCode">—</div>
+      </div>
+      <button class="btn btn-gold" id="referralCopyBtn" onclick="copyReferralCode(document.getElementById('referralCode').textContent, this)">Copy code</button>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER HISTORY -->
+<div class="container" style="padding:64px 0" id="ordersSection">
+  <p class="section-tag" style="text-align:center">History</p>
+  <h2 class="section-title reveal">My orders</h2>
+  <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;max-width:460px;margin:12px auto 0">
+    No orders yet — online payment is coming soon. Your future orders will appear here automatically.
+  </p>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a><p>Multi-brand watches and jewellery for men, women and children. Based in Bruz, France.</p></div>
+      <div><div class="footer-heading">Collections</div><ul class="footer-links"><li><a href="collection.html?type=montres">Watches</a></li><li><a href="collection.html?type=bagues">Jewellery</a></li></ul></div>
+      <div><div class="footer-heading">Information</div><ul class="footer-links"><li><a href="a-propos.html">About us</a></li><li><a href="retours.html">Shipping & returns</a></li><li><a href="cgv.html">Terms & conditions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-heading">Contact</div><ul class="footer-links"><li><span data-icon="pin"></span> Bruz, 35170, France</li><li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 ROLF. All rights reserved.</span><div class="footer-payments"><span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">PayPal</span></div></div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr"><h2>My Cart (<span id="cartItemCount">0</span>)</h2><button class="cart-hdr-close" id="cartClose">✕</button></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon"><span data-icon="cart"></span></div><p>Your cart is empty.</p></div></div>
+  <div class="cart-ftr" id="cartFtr" style="display:none"><div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div><a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Checkout →</a></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="../js/account.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  function rolfToggleAuthForm() {
+    const login = document.getElementById('loginForm');
+    const signup = document.getElementById('signupForm');
+    login.style.display = login.style.display === 'none' ? 'flex' : 'none';
+    signup.style.display = signup.style.display === 'none' ? 'flex' : 'none';
+  }
+
+  function rolfReferralCode(displayName, userId) {
+    const namePart = (displayName || 'ROLF').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 6) || 'ROLF';
+    const idPart = userId.replace(/-/g, '').slice(0, 4).toUpperCase();
+    return `${namePart}-${idPart}`;
+  }
+
+  async function rolfShowLoggedIn(session) {
+    document.getElementById('loggedOutView').style.display = 'none';
+    document.getElementById('loggedInView').style.display = 'block';
+    document.getElementById('referralLoggedOut').style.display = 'none';
+    document.getElementById('referralLoggedIn').style.display = 'flex';
+
+    const displayName = session.user.user_metadata?.display_name || 'ROLF Customer';
+    document.getElementById('accountName').textContent = displayName;
+    document.getElementById('referralCode').textContent = rolfReferralCode(displayName, session.user.id);
+
+    const balance = await rolfGetLoyaltyBalance(session.user.id);
+    document.getElementById('accountBalance').textContent = balance + ' pt' + (balance > 1 ? 's' : '');
+  }
+
+  function rolfShowLoggedOut() {
+    document.getElementById('loggedOutView').style.display = 'block';
+    document.getElementById('loggedInView').style.display = 'none';
+    document.getElementById('referralLoggedOut').style.display = 'block';
+    document.getElementById('referralLoggedIn').style.display = 'none';
+  }
+
+  async function rolfHandleLogout() {
+    await rolfSignOut();
+    rolfShowLoggedOut();
+  }
+
+  document.getElementById('loginSubmit').addEventListener('click', async () => {
+    const errEl = document.getElementById('loginError');
+    errEl.style.display = 'none';
+    try {
+      const { session } = await rolfSignIn(
+        document.getElementById('loginEmail').value.trim(),
+        document.getElementById('loginPassword').value
+      );
+      await rolfShowLoggedIn(session);
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  });
+
+  document.getElementById('signupSubmit').addEventListener('click', async () => {
+    const errEl = document.getElementById('signupError');
+    const okEl = document.getElementById('signupSuccess');
+    errEl.style.display = 'none'; okEl.style.display = 'none';
+    try {
+      await rolfSignUp(
+        document.getElementById('signupEmail').value.trim(),
+        document.getElementById('signupPassword').value,
+        document.getElementById('signupName').value.trim()
+      );
+      okEl.style.display = 'block';
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  });
+
+  (async () => {
+    const session = await rolfGetSession();
+    if (session) await rolfShowLoggedIn(session);
+  })();
+</script>
+</body>
+</html>

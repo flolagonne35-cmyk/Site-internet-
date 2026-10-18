@@ -4,8 +4,15 @@ const SUPABASE_KEY = 'sb_publishable_tLP59OmTBrU7nK-_aF4QXQ_HuPA3laN';
 const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* ========== AUTH ========== */
-function rolfAuthErrorFr(message) {
-  const known = {
+const ROLF_LANG = document.documentElement.lang === 'en' ? 'en' : 'fr';
+
+function rolfAuthError(message) {
+  const known = ROLF_LANG === 'en' ? {
+    'User already registered': 'An account already exists with this email.',
+    'Invalid login credentials': 'Incorrect email or password.',
+    'Password should be at least 6 characters': 'Password must be at least 6 characters.',
+    'Email not confirmed': 'Confirm your email before signing in (check your inbox).',
+  } : {
     'User already registered': 'Un compte existe déjà avec cet email.',
     'Invalid login credentials': 'Email ou mot de passe incorrect.',
     'Password should be at least 6 characters': 'Le mot de passe doit faire au moins 6 caractères.',
@@ -19,13 +26,13 @@ async function rolfSignUp(email, password, displayName) {
     email, password,
     options: { data: { display_name: displayName } },
   });
-  if (error) throw new Error(rolfAuthErrorFr(error.message));
+  if (error) throw new Error(rolfAuthError(error.message));
   return data;
 }
 
 async function rolfSignIn(email, password) {
   const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
-  if (error) throw new Error(rolfAuthErrorFr(error.message));
+  if (error) throw new Error(rolfAuthError(error.message));
   return data;
 }
 
@@ -62,7 +69,7 @@ async function rolfFetchReviews(productRef) {
 
 async function rolfSubmitReview(productRef, rating, body) {
   const session = await rolfGetSession();
-  if (!session) throw new Error('Connecte-toi pour laisser un avis.');
+  if (!session) throw new Error(ROLF_LANG === 'en' ? 'Sign in to leave a review.' : 'Connecte-toi pour laisser un avis.');
   const { error } = await sbClient.from('reviews').insert({
     product_ref: productRef, rating, body, user_id: session.user.id,
   });

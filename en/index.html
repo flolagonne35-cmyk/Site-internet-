@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROLF | Multi-brand Jewellery & Watches for Men, Women & Children</title>
+  <meta name="description" content="ROLF — multi-brand watches and jewellery at honest prices. Rings, bracelets, necklaces, watches: quality pieces, verified reviews, free delivery from €80." />
+  <link rel="alternate" hreflang="fr" href="../index.html" />
+  <link rel="alternate" hreflang="en" href="index.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<!-- ===== ANNOUNCEMENT ===== -->
+<div class="announcement-bar">
+  <span data-icon="truck"></span> Free delivery in France from €80 — <a href="collection.html">Shop the collection →</a>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+
+      <a href="index.html" class="logo">
+        <div class="logo-mark">R</div>
+        <div class="logo-text">ROLF</div>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html" class="active">Home</a>
+        <div class="nav-item">
+          <a href="collection.html?cat=montres">Watches <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+            <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+            <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+            <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+            <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+            <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+            <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+            <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+            <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+            <a href="collection.html?cat=montres" class="nav-dropdown-all">All watches →</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="collection.html?cat=bijoux">Jewellery <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=bagues">Rings</a>
+            <a href="collection.html?type=colliers">Necklaces</a>
+            <a href="collection.html?type=bracelets">Bracelets</a>
+            <a href="collection.html?type=boucles">Earrings</a>
+            <a href="collection.html?cat=bijoux" class="nav-dropdown-all">All jewellery →</a>
+          </div>
+        </div>
+        <a href="blog.html">Gift Ideas</a>
+        <a href="a-propos.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="hdr-btn" id="searchBtn" title="Search"><span data-icon="search"></span></button>
+        <a href="../index.html" class="hdr-btn hdr-lang" title="Français">FR</a>
+        <a href="fidelite.html" class="hdr-btn" title="My account & loyalty"><span data-icon="user"></span></a>
+        <button class="hdr-btn" id="cartBtn" title="Cart">
+          <span data-icon="cart"></span>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+        <button class="hdr-btn hamburger" id="menuBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- ===== MOBILE MENU ===== -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">R</div>
+      <div class="logo-text">ROLF</div>
+    </a>
+    <button class="hdr-btn" id="menuClose">✕</button>
+  </div>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Home</a>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Watches <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+        <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+        <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+        <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+        <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+        <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+        <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+        <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+        <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+        <a href="collection.html?cat=montres">All watches →</a>
+      </div>
+    </div>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Jewellery <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=bagues">Rings</a>
+        <a href="collection.html?type=colliers">Necklaces</a>
+        <a href="collection.html?type=bracelets">Bracelets</a>
+        <a href="collection.html?type=boucles">Earrings</a>
+        <a href="collection.html?cat=bijoux">All jewellery →</a>
+      </div>
+    </div>
+    <a href="blog.html">Gift Ideas</a>
+    <a href="fidelite.html">Loyalty & Referrals</a>
+    <a href="a-propos.html">Our Story</a>
+    <a href="contact.html">Contact</a>
+    <a href="../index.html" style="font-size:1rem;color:var(--text-muted)">Français (FR)</a>
+  </nav>
+</div>
+
+<!-- ===== SEARCH OVERLAY ===== -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span><span data-icon="search"></span></span>
+      <input type="text" placeholder="Search for a watch, ring, necklace…" id="searchInput" />
+      <button id="searchClose">✕</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ New 2026 Collection</div>
+    <h1 class="hero-title">
+      Watches & jewellery<br>made to <em>last</em>
+    </h1>
+    <p class="hero-desc">
+      ROLF curates quality multi-brand watches and jewellery at fair prices. Every piece is chosen with care — no compromise on style, or on budget.
+    </p>
+    <div class="hero-btns">
+      <a href="collection.html" class="btn btn-gold">Shop the collection</a>
+      <a href="a-propos.html" class="btn btn-outline-white">Our story</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">13+</span>
+      <span class="hero-stat-lbl">Brands</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">1386</span>
+      <span class="hero-stat-lbl">References</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">100%</span>
+      <span class="hero-stat-lbl">Authentic pieces</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-arrow">↓</span>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ===== TRUST STRIP ===== -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-strip-inner">
+      <div class="trust-strip-item"><span data-icon="badge-check"></span> <strong>Official retailer</strong> of every brand in the catalogue</div>
+      <div class="trust-strip-item"><span data-icon="return"></span> <strong>Free returns</strong> within 30 days</div>
+      <div class="trust-strip-item"><span data-icon="gift"></span> <strong>Gift wrapping</strong> included</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FEATURES ===== -->
+<section class="features-section">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature reveal">
+        <div class="feature-icon"><span data-icon="truck"></span></div>
+        <h4>Free delivery</h4>
+        <p>Free delivery in France from €80 spent, in 2–4 business days.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><span data-icon="return"></span></div>
+        <h4>30-day returns</h4>
+        <p>Not happy with it? Return your item free of charge within 30 days.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><span data-icon="shield"></span></div>
+        <h4>2-year warranty</h4>
+        <p>Every piece we sell is covered by a 2-year manufacturer warranty.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><span data-icon="gem"></span></div>
+        <h4>Premium quality</h4>
+        <p>A rigorous selection of noble materials for every creation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORIES BY AUDIENCE ===== -->
+<section class="categories-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Shop by category</p>
+    <h2 class="section-title reveal">Our collections</h2>
+    <p class="section-subtitle reveal">Watches and jewellery designed for every personality, every occasion and every age.</p>
+    <div class="categories-grid">
+
+      <a href="collection.html?public=homme" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=600&h=750&fit=crop&q=80" alt="Men" loading="lazy" />
+        <div class="cat-overlay">
+          <div class="cat-name">Men</div>
+          <div class="cat-count">120 styles</div>
+          <div class="cat-cta">Shop the collection →</div>
+        </div>
+      </a>
+
+      <a href="collection.html?public=femme" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=750&fit=crop&q=80" alt="Women" loading="lazy" />
+        <div class="cat-overlay">
+          <div class="cat-name">Women</div>
+          <div class="cat-count">186 styles</div>
+          <div class="cat-cta">Shop the collection →</div>
+        </div>
+      </a>
+
+      <a href="collection.html?public=enfant" class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=600&h=750&fit=crop&q=80" alt="Children" loading="lazy" />
+        <div class="cat-overlay">
+          <div class="cat-name">Children</div>
+          <div class="cat-count">42 styles</div>
+          <div class="cat-cta">Shop the collection →</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORIES BY TYPE ===== -->
+<section class="categories-section" style="background:var(--white); padding-top:0">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Shop by type</p>
+    <h2 class="section-title reveal">Watches & jewellery</h2>
+    <div class="features-grid type-icons-grid">
+      <a href="collection.html?type=montres" class="feature reveal" style="text-decoration:none">
+        <div class="feature-icon">⌚</div><h4>Watches</h4>
+      </a>
+      <a href="collection.html?type=bagues" class="feature reveal" style="text-decoration:none">
+        <div class="feature-icon"><span data-icon="ring"></span></div><h4>Rings</h4>
+      </a>
+      <a href="collection.html?type=bracelets" class="feature reveal" style="text-decoration:none">
+        <div class="feature-icon"><span data-icon="bracelet"></span></div><h4>Bracelets</h4>
+      </a>
+      <a href="collection.html?type=colliers" class="feature reveal" style="text-decoration:none">
+        <div class="feature-icon"><span data-icon="necklace"></span></div><h4>Necklaces</h4>
+      </a>
+      <a href="collection.html?type=pendentifs" class="feature reveal" style="text-decoration:none">
+        <div class="feature-icon"><span data-icon="sparkle"></span></div><h4>Pendants</h4>
+      </a>
+      <a href="collection.html?type=boucles" class="feature reveal" style="text-decoration:none">
+        <div class="feature-icon"><span data-icon="gem"></span></div><h4>Earrings</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="products-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Featured picks</p>
+    <h2 class="section-title reveal">New Arrivals & Bestsellers</h2>
+    <p class="section-subtitle reveal">Discover our most-loved styles and latest creations.</p>
+
+    <div class="products-tabs">
+      <button class="tab-btn active" data-filter="all">All</button>
+      <button class="tab-btn" data-filter="homme">Men</button>
+      <button class="tab-btn" data-filter="femme">Women</button>
+      <button class="tab-btn" data-filter="bijoux">Jewellery</button>
+    </div>
+
+    <div class="products-grid" id="bestsellersGrid">
+
+        <div class="product-card reveal" data-cat="femme" data-type="montres" data-public="femme" data-brand="jacques-du-manoir">
+          <a href="product.html?ref=JWL05501" class="product-img-wrap">
+            <img src="../images/products/JWL05501.jpg" alt="JDM Emily II" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598532213919-078e54dd1f40?w=400&h=400&fit=crop&q=80'" />
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('JWL05501', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=JWL05501"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Women — Watch — Jacques du Manoir</div>
+            <a href="product.html?ref=JWL05501" class="product-name" style="display:block">JDM Emily II</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Swiss quartz movement, rectangular silver-tone stainless steel case with…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">219 €</span></div>
+              <button class="atc-btn" onclick="addToCart('JDM Emily II', 219, this, 'JWL05501.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="jdm-military">
+          <a href="product.html?ref=JDM-WG033-06" class="product-img-wrap">
+            <img src="../images/products/JDM-WG033-06.jpg" alt="JDM Military Challenger Chrono" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&h=400&fit=crop&q=80'" />
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('JDM-WG033-06', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=JDM-WG033-06"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Men — Watch — JDM Military</div>
+            <a href="product.html?ref=JDM-WG033-06" class="product-name" style="display:block">JDM Military Challenger Chrono</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Swiss Ronda chronograph, round black steel case, black bezel…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">319 €</span></div>
+              <button class="atc-btn" onclick="addToCart('JDM Military Challenger Chrono', 319, this, 'JDM-WG033-06.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="avi-8">
+          <a href="product.html?ref=AV-4147-33" class="product-img-wrap">
+            <img src="../images/products/AV-4147-33.jpg" alt="AVI-8 Spitfire Type 300 Automatic" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=400&h=400&fit=crop&q=80'" />
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('AV-4147-33', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=AV-4147-33"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Men — Watch — AVI-8</div>
+            <a href="product.html?ref=AV-4147-33" class="product-name" style="display:block">AVI-8 Spitfire Type 300 Automatic</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Japanese automatic movement, round silver-tone steel case, cream dial…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">400 €</span></div>
+              <button class="atc-btn" onclick="addToCart('AVI-8 Spitfire Type 300 Automatic', 400, this, 'AV-4147-33.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="femme" data-type="montres" data-public="femme" data-brand="trendy-kiss">
+          <a href="product.html?ref=TM10188-01" class="product-img-wrap">
+            <img src="../images/products/TM10188-01.jpg" alt="Trendy Kiss Lou" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&h=400&fit=crop&q=80'" />
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('TM10188-01', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=TM10188-01"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Women — Watch — Trendy Kiss</div>
+            <a href="product.html?ref=TM10188-01" class="product-name" style="display:block">Trendy Kiss Lou</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">2-hand analogue, oblong gold-tone case, sunray champagne dial…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">79,9 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Trendy Kiss Lou', 79.9, this, 'TM10188-01.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="homme" data-brand="earnshaw">
+          <a href="product.html?ref=ES-8326-01" class="product-img-wrap">
+            <img src="../images/products/ES-8326-01.jpg" alt="Earnshaw Scientists Airy Horizon" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&h=400&fit=crop&q=80'" />
+            <span class="product-badge badge-promo">-40%</span>
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('ES-8326-01', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=ES-8326-01"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Men — Watch — Earnshaw</div>
+            <a href="product.html?ref=ES-8326-01" class="product-name" style="display:block">Earnshaw Scientists Airy Horizon</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Limited edition, automatic 3-hand with date, moon phase, …</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">395 €</span><span class="price-was">660 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Earnshaw Scientists Airy Horizon', 395, this, 'ES-8326-01.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="homme" data-type="montres" data-public="mixte" data-brand="smarty">
+          <a href="product.html?ref=SW202A" class="product-img-wrap">
+            <img src="../images/products/SW202A.jpg" alt="Smarty SmartPop" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=400&h=400&fit=crop&q=80'" />
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('SW202A', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=SW202A"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Unisex — Watch — Smarty</div>
+            <a href="product.html?ref=SW202A" class="product-name" style="display:block">Smarty SmartPop</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Smartwatch, Bluetooth calling, NFC payment, interchangeable faces…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">129,9 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Smarty SmartPop', 129.9, this, 'SW202A.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="bijoux" data-type="boucles" data-public="femme" data-brand="orus-bijoux">
+          <a href="product.html?ref=BOD203" class="product-img-wrap">
+            <img src="../images/products/BOD203.jpg" alt="Orus Natural Stone Earrings" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80'" />
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('BOD203', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=BOD203"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Women — Earrings — Orus Bijoux</div>
+            <a href="product.html?ref=BOD203" class="product-name" style="display:block">Orus Natural Stone Earrings</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">Gold-plated 925 silver set with natural pearls and black spinel, clasp…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">115 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Orus Boucles Pierres Naturelles', 115, this, 'BOD203.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-cat="bijoux" data-type="colliers" data-public="femme" data-brand="jackie-gold">
+          <a href="product.html?ref=JKN26.650" class="product-img-wrap">
+            <img src="../images/products/JKN26.650.jpg" alt="Jackie Gold Cheetah Necklace" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=400&h=400&fit=crop&q=80'" />
+          </a>
+          <div class="product-quick-actions"><button class="qa-btn" onclick="rolfToggleWish('JKN26.650', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="product.html?ref=JKN26.650"><span data-icon="eye"></span></a></div>
+          <div class="product-info">
+            <div class="product-cat">Women — Necklace — Jackie Gold 14K</div>
+            <a href="product.html?ref=JKN26.650" class="product-name" style="display:block">Jackie Gold Cheetah Necklace</a>
+            <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">14-carat gold, women's chain necklace with 3 interspersed hearts, 4…</div>
+            <div class="product-footer">
+              <div class="product-price"><span class="price-now">499 €</span></div>
+              <button class="atc-btn" onclick="addToCart('Jackie Gold Collier Cheetah', 499, this, 'JKN26.650.jpg')">+</button>
+            </div>
+          </div>
+        </div>
+
+    </div><!-- /products-grid -->
+
+    <div class="view-all">
+      <a href="collection.html" class="btn btn-outline-dark">Shop the full collection →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BRAND STORY ===== -->
+<section class="brand-section">
+  <div class="container">
+    <div class="brand-grid">
+
+      <div class="brand-content">
+        <p class="section-tag">Our story</p>
+        <h2 class="section-title reveal">Founded by Florian, since 2016</h2>
+        <p class="brand-desc reveal">
+          ROLF was born from a simple conviction: every moment deserves to be celebrated in style, without emptying your wallet. Founded by Florian, the brand curates multi-brand watches and jewellery with a single criterion — real value for money.
+        </p>
+        <p class="brand-desc reveal">
+          Based in Bruz, France, ROLF carefully selects every piece in its catalogue to bring you the best of accessible watchmaking and jewellery craft.
+        </p>
+
+        <div class="brand-values reveal">
+          <div class="brand-val">
+            <div class="brand-val-icon"><span data-icon="gear"></span></div>
+            <div>
+              <h4>Certified pieces</h4>
+              <p>Watches and jewellery tested, hallmarked and guaranteed.</p>
+            </div>
+          </div>
+          <div class="brand-val">
+            <div class="brand-val-icon"><span data-icon="leaf"></span></div>
+            <div>
+              <h4>Responsible materials</h4>
+              <p>A selection of durable, traceable materials.</p>
+            </div>
+          </div>
+          <div class="brand-val">
+            <div class="brand-val-icon"><span data-icon="sparkle"></span></div>
+            <div>
+              <h4>Distinctive design</h4>
+              <p>Shapes that make an impression, not a dent in your wallet.</p>
+            </div>
+          </div>
+          <div class="brand-val">
+            <div class="brand-val-icon"><span data-icon="heart"></span></div>
+            <div>
+              <h4>5★ customer service</h4>
+              <p>A dedicated team to support you before and after your purchase.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="a-propos.html" class="btn btn-gold reveal">Discover our story</a>
+      </div>
+
+      <div class="brand-img-stack reveal">
+        <img class="brand-img-main"
+          src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=700&h=875&fit=crop&q=80"
+          alt="ROLF workshop" />
+        <img class="brand-img-accent"
+          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80"
+          alt="Watch detail" />
+        <div class="brand-badge">
+          <span class="brand-badge-num">8+</span>
+          <div class="brand-badge-lbl">Years of experience</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOYALTY & REFERRAL ===== -->
+<section class="categories-section" style="background:var(--white)">
+  <div class="container">
+    <div class="loyalty-tiers" style="padding:0">
+      <div class="tier-card active reveal">
+        <div style="font-size:2rem;margin-bottom:10px"><span data-icon="trophy"></span></div>
+        <h4 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:8px">Loyalty programme</h4>
+        <p style="font-size:0.88rem;color:var(--text-grey);line-height:1.6;margin-bottom:16px">1 point earned per euro spent, redeemable for a discount on your next order.</p>
+        <a href="fidelite.html" class="btn btn-outline-dark" style="padding:10px 20px;font-size:0.72rem">See my points →</a>
+      </div>
+      <div class="tier-card reveal">
+        <div style="font-size:2rem;margin-bottom:10px"><span data-icon="gift"></span></div>
+        <h4 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:8px">Referrals</h4>
+        <p style="font-size:0.88rem;color:var(--text-grey);line-height:1.6;margin-bottom:16px">€15 for you, €15 for the friend you refer as soon as they place their first order.</p>
+        <a href="fidelite.html#parrainage" class="btn btn-outline-dark" style="padding:10px 20px;font-size:0.72rem">Refer a friend →</a>
+      </div>
+      <div class="tier-card reveal">
+        <div style="font-size:2rem;margin-bottom:10px"><span data-icon="ribbon"></span></div>
+        <h4 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:8px">Gift wrapping</h4>
+        <p style="font-size:0.88rem;color:var(--text-grey);line-height:1.6;margin-bottom:16px">Included on every order — perfect for a proposal or a birthday.</p>
+        <a href="blog.html" class="btn btn-outline-dark" style="padding:10px 20px;font-size:0.72rem">Gift ideas →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials-section" id="avis">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Trusted by our customers</p>
+    <h2 class="section-title reveal">What our customers say</h2>
+    <p class="section-subtitle reveal">Over 1,000 happy customers across France and internationally — reviews collected by Avis Vérifiés.</p>
+
+    <div class="testimonials-grid">
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I gave my father the AVI-8 Flyboy Lafayette for his birthday. He's absolutely delighted — the quality far exceeds expectations for this price."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sophie M.</div>
+            <div class="testi-loc">Lyon, France</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Jacques du Manoir Pro Scuba 40 is a real gem, impeccable Swiss movement. Fast delivery, careful packaging. I recommend ROLF 100%."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">J</div>
+          <div>
+            <div class="testi-name">Julien T.</div>
+            <div class="testi-loc">Paris, France</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Jackie Gold Impala ring was for my proposal. The included gift wrapping made all the difference. She loved it."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">C</div>
+          <div>
+            <div class="testi-name">Camille D.</div>
+            <div class="testi-loc">Nantes, France</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== UGC GALLERY ===== -->
+<section class="ugc-section">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Community</p>
+    <h2 class="section-title reveal">You wear it, we love it</h2>
+    <p class="section-subtitle reveal">Share your photo with the hashtag below — the best ones get reposted every month, and a monthly prize draw rewards one participant.</p>
+    <div class="ugc-grid">
+      <div class="ugc-item reveal"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop&q=80" alt="ROLF customer" loading="lazy"></div>
+      <div class="ugc-item reveal"><img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=300&h=300&fit=crop&q=80" alt="ROLF customer" loading="lazy"></div>
+      <div class="ugc-item reveal"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&h=300&fit=crop&q=80" alt="ROLF customer" loading="lazy"></div>
+      <div class="ugc-item reveal"><img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?w=300&h=300&fit=crop&q=80" alt="ROLF customer" loading="lazy"></div>
+      <div class="ugc-item reveal"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&h=300&fit=crop&q=80" alt="ROLF customer" loading="lazy"></div>
+    </div>
+    <div class="ugc-hashtag">#MonROLF</div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter-section">
+  <div class="container">
+    <p class="section-tag">Stay in touch</p>
+    <h2 class="section-title reveal">Get our new arrivals</h2>
+    <p class="section-subtitle reveal">Sign up and get <strong style="color:var(--gold-muted)">-10%</strong> off your first order.</p>
+    <form class="newsletter-form reveal" onsubmit="handleNewsletter(event)">
+      <input class="nl-input" type="email" placeholder="Your email address" required />
+      <button class="btn btn-gold" type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-mark">R</div>
+          <div class="logo-text">ROLF</div>
+        </a>
+        <p>Multi-brand watches and jewellery for men, women and children. Every piece is selected with passion from Bruz, France.</p>
+        </div>
+
+      <div>
+        <div class="footer-heading">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html?type=montres">Watches</a></li>
+          <li><a href="collection.html?type=bagues">Rings</a></li>
+          <li><a href="collection.html?type=colliers">Necklaces</a></li>
+          <li><a href="collection.html?type=bracelets">Bracelets</a></li>
+          <li><a href="collection.html?type=boucles">Earrings</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Information</div>
+        <ul class="footer-links">
+          <li><a href="a-propos.html">About us</a></li>
+          <li><a href="retours.html">Shipping & returns</a></li>
+          <li><a href="cgv.html">Terms & Conditions</a></li>
+          <li><a href="mentions-legales.html">Legal Notice</a></li>
+          <li><a href="blog.html">Guides & gift ideas</a></li>
+          <li><a href="fidelite.html">Loyalty & referrals</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li><span data-icon="pin"></span> Bruz, 35170, France</li>
+          <li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li>
+          <li><a href="tel:+33XXXXXXXXX">+33 (0)X XX XX XX XX</a></li>
+          <li>Mon–Fri: 9am–6pm</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 ROLF. All rights reserved.</span>
+      <div class="footer-payments">
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">PayPal</span>
+        <span class="pay-icon">Apple Pay</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== CART SIDEBAR ===== -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr">
+    <h2>My Cart (<span id="cartItemCount">0</span>)</h2>
+    <button class="cart-hdr-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="cart-empty-icon"><span data-icon="cart"></span></div>
+      <p>Your cart is empty.<br>Start exploring our watches and jewellery!</p>
+    </div>
+  </div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">0 €</span>
+    </div>
+    <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Checkout →</a>
+    <p class="cart-note"><span data-icon="lock"></span> Secure payment — Free delivery from €80</p>
+  </div>
+</aside>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

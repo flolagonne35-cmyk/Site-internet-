@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collection — Watches & Jewellery | ROLF</title>
+  <meta name="description" content="The full ROLF collection: watches, rings, bracelets, necklaces, pendants and earrings for men, women and children." />
+  <link rel="alternate" hreflang="fr" href="../collection.html" />
+  <link rel="alternate" hreflang="en" href="collection.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+.collection-intro { padding: 36px 0 0; font-size: 0.92rem; color: var(--text-grey); max-width: 760px; line-height: 1.7; }
+
+    .collection-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 36px 0 60px; }
+    .filters-sidebar { position: sticky; top: 100px; align-self: start; }
+    .filters-sidebar-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .filters-sidebar-hdr button { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+    .filter-group { margin-bottom: 32px; }
+    .filter-group h3 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .filter-options { display: flex; flex-direction: column; gap: 8px; }
+    .filter-option { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.88rem; color: var(--text-grey); transition: var(--transition); }
+    .filter-option:hover { color: var(--text-dark); }
+    .filter-option input { accent-color: var(--accent); width: 16px; height: 16px; }
+    .filter-count { margin-left: auto; font-size: 0.75rem; color: var(--text-muted); }
+    .collection-search-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: var(--font-sans); outline: none; }
+    .collection-search-input:focus { border-color: var(--accent); }
+    .price-range { display: flex; gap: 10px; align-items: center; }
+    .price-input { width: 80px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; }
+    .price-input:focus { border-color: var(--accent); }
+
+    .filter-toggle-btn { display: none; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--border); border-radius: 100px; background: var(--white); font-size: 0.85rem; font-weight: 600; color: var(--text-dark); cursor: pointer; }
+    .filter-toggle-btn.active { background: var(--dark); color: var(--gold-muted); border-color: var(--dark); }
+
+    .collection-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+    .collection-count { font-size: 0.88rem; color: var(--text-grey); }
+    .sort-select { padding: 9px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: var(--font-sans); outline: none; cursor: pointer; }
+    .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .no-results { display: none; text-align: center; padding: 60px 20px; color: var(--text-muted); }
+
+    .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 48px; }
+    .page-btn {
+      min-width: 38px; height: 38px; padding: 0 12px;
+      border: 1px solid var(--border); border-radius: 100px;
+      background: var(--white); color: var(--text-dark);
+      font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: var(--transition);
+    }
+    .page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .page-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); font-weight: 700; }
+    .page-btn.page-nav { padding: 0 16px; }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .page-ellipsis { color: var(--text-muted); padding: 0 4px; }
+
+    @media (max-width: 900px) {
+      .collection-layout { grid-template-columns: 1fr; }
+      .filters-sidebar { position: static; display: none; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
+      .filters-sidebar.open { display: block; }
+      .filter-toggle-btn { display: flex; order: -1; width: 100%; justify-content: center; }
+      .collection-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .collection-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar">
+  <span data-icon="truck"></span> Free delivery in France from €80 — <a href="collection.html">Shop the collection →</a>
+</div>
+
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <div class="nav-item">
+          <a href="collection.html?cat=montres">Watches <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+            <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+            <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+            <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+            <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+            <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+            <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+            <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+            <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+            <a href="collection.html?cat=montres" class="nav-dropdown-all">All watches →</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="collection.html?cat=bijoux">Jewellery <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=bagues">Rings</a>
+            <a href="collection.html?type=colliers">Necklaces</a>
+            <a href="collection.html?type=bracelets">Bracelets</a>
+            <a href="collection.html?type=boucles">Earrings</a>
+            <a href="collection.html?cat=bijoux" class="nav-dropdown-all">All jewellery →</a>
+          </div>
+        </div>
+        <a href="blog.html">Gift Ideas</a>
+        <a href="a-propos.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="hdr-btn" id="searchBtn" title="Search"><span data-icon="search"></span></button>
+        <a href="../collection.html" class="hdr-btn hdr-lang" title="Français">FR</a>
+        <a href="fidelite.html" class="hdr-btn" title="My account & loyalty"><span data-icon="user"></span></a>
+        <button class="hdr-btn" id="cartBtn"><span data-icon="cart"></span> <span class="cart-badge" id="cartCount">0</span></button>
+        <button class="hdr-btn hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-hdr">
+    <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+    <button class="hdr-btn" id="menuClose">✕</button>
+  </div>
+  <nav class="mobile-nav-links">
+    <a href="index.html">Home</a>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Watches <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+        <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+        <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+        <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+        <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+        <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+        <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+        <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+        <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+        <a href="collection.html?cat=montres">All watches →</a>
+      </div>
+    </div>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Jewellery <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=bagues">Rings</a>
+        <a href="collection.html?type=colliers">Necklaces</a>
+        <a href="collection.html?type=bracelets">Bracelets</a>
+        <a href="collection.html?type=boucles">Earrings</a>
+        <a href="collection.html?cat=bijoux">All jewellery →</a>
+      </div>
+    </div>
+    <a href="blog.html">Gift Ideas</a>
+    <a href="fidelite.html">Loyalty & Referrals</a>
+    <a href="a-propos.html">Our Story</a>
+    <a href="contact.html">Contact</a>
+    <a href="../collection.html" style="font-size:1rem;color:var(--text-muted)">Français (FR)</a>
+  </nav>
+</div>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span><span data-icon="search"></span></span>
+      <input type="text" placeholder="Search for a watch, ring, necklace…" id="searchInput" />
+      <button id="searchClose">✕</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Collection</div>
+    <h1>Our Collection</h1>
+    <p>Multi-brand watches and jewellery for men, women and children</p>
+  </div>
+</div>
+
+<div class="container">
+  <p class="collection-intro">ROLF is an official retailer of well-known brands — AVI-8, Earnshaw, Nubeo, Spinnaker, Jacques du Manoir and many more — selected for their value for money. Refine your search with the filters below, or let our bestsellers guide you.</p>
+
+  <div class="collection-layout">
+
+    <!-- FILTRES -->
+    <aside class="filters-sidebar">
+      <div class="filters-sidebar-hdr">
+        <h2 style="font-size:1rem;font-family:var(--font-serif)">Filter</h2>
+        <button onclick="clearCatalogFilters()">Reset</button>
+      </div>
+
+      <div class="filter-group">
+        <h3>Search</h3>
+        <input class="collection-search-input" type="text" id="collectionSearch" placeholder="Reference, name, brand…" />
+      </div>
+
+      <div class="filter-group">
+        <h3>Product type</h3>
+        <div class="filter-options" id="filterType"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Audience</h3>
+        <div class="filter-options" id="filterPublic"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Price</h3>
+        <div class="price-range">
+          <input class="price-input" type="number" id="priceMin" placeholder="Min" value="0" />
+          <span>—</span>
+          <input class="price-input" type="number" id="priceMax" placeholder="Max" value="1000" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Brand</h3>
+        <div class="filter-options" id="filterBrand"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Material</h3>
+        <div class="filter-options" id="filterMaterial"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Colour</h3>
+        <div class="filter-options" id="filterColor"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Style</h3>
+        <div class="filter-options" id="filterStyle"></div>
+      </div>
+    </aside>
+
+    <!-- PRODUITS -->
+    <div>
+      <div class="collection-header">
+        <button class="filter-toggle-btn" id="filterToggleBtn" onclick="rolfToggleFilters()"><span data-icon="filter"></span> Filter</button>
+        <span class="collection-count"><span id="resultCount">…</span> items</span>
+        <select class="sort-select" id="sortSelect">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+        </select>
+      </div>
+
+      <div class="collection-grid" id="productsGrid"></div>
+      <div class="no-results" id="noResults">No items match these filters. <button onclick="clearCatalogFilters()" style="color:var(--accent);font-weight:600">Reset filters</button></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+</div>
+
+<section class="newsletter-section" style="margin-top:0">
+  <div class="container">
+    <p class="section-tag">Exclusive offer</p>
+    <h2 class="section-title reveal">Get our new arrivals</h2>
+    <p class="section-subtitle reveal">Sign up and get <strong style="color:var(--gold-muted)">-10%</strong> off your first order.</p>
+    <form class="newsletter-form reveal" onsubmit="handleNewsletter(event)">
+      <input class="nl-input" type="email" placeholder="Your email address" required />
+      <button class="btn btn-gold" type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
+        <p>Multi-brand watches and jewellery for men, women and children. Based in Bruz, France.</p>
+        </div>
+      <div>
+        <div class="footer-heading">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html?type=montres">Watches</a></li>
+          <li><a href="collection.html?type=bagues">Rings</a></li>
+          <li><a href="collection.html?type=colliers">Necklaces</a></li>
+          <li><a href="collection.html?type=bracelets">Bracelets</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Information</div>
+        <ul class="footer-links">
+          <li><a href="a-propos.html">About us</a></li>
+          <li><a href="retours.html">Shipping & returns</a></li>
+          <li><a href="cgv.html">Terms & Conditions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li><span data-icon="pin"></span> Bruz, 35170, France</li>
+          <li><a href="mailto:contact@rolf.fr">contact@rolf.fr</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ROLF. All rights reserved.</span>
+      <div class="footer-payments">
+        <span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">PayPal</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-hdr">
+    <h2>My Cart (<span id="cartItemCount">0</span>)</h2>
+    <button class="cart-hdr-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty"><div class="cart-empty-icon"><span data-icon="cart"></span></div><p>Your cart is empty.</p></div>
+  </div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0 €</span></div>
+    <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Checkout →</a>
+  </div>
+</aside>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
