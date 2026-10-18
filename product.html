@@ -121,6 +121,11 @@
           <h4><span data-icon="pencil"></span> Personnalisation & gravure</h4>
           <p>Gravure disponible sur demande (+12€). Délai supplémentaire de <strong>3 à 5 jours ouvrés</strong> pour les pièces gravées.</p>
         </div>
+
+        <div class="certificate-block">
+          <h4><span data-icon="tag"></span> Caractéristiques</h4>
+          <dl class="specs-table" id="productSpecs"></dl>
+        </div>
       </div>
     </div>
   </div>
@@ -251,6 +256,20 @@
       : `<span>${formatPriceEUR(p.price)}</span>`;
 
     document.getElementById('productDesc').textContent = p.desc || '';
+
+    const specs = [
+      ['Marque', p.brand],
+      ['Référence', p.ref],
+      ['Type', TYPE_LABELS_SINGULAR[p.type] || p.type],
+      ['Public', PUBLIC_LABELS[p.public] || p.public],
+      ['Matière', MATERIAL_LABELS[p.material] || p.material],
+      ['Couleur', COLOR_LABELS[p.color] || p.color],
+      ['Style', STYLE_LABELS[p.style] || p.style],
+    ].filter(([, value]) => value);
+    document.getElementById('productSpecs').innerHTML = specs
+      .map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(String(value))}</dd>`)
+      .join('');
+
     document.getElementById('productBrandBadge').textContent = `Distributeur officiel ${p.brand}`;
     document.getElementById('productWarranty').textContent =
       `Pièce couverte par la garantie fabricant ${p.brand} de 2 ans. Référence EAN ${p.ean || '—'} — traçabilité complète disponible sur demande auprès de notre service client.`;
