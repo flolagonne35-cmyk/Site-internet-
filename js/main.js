@@ -134,6 +134,10 @@ menuBtn?.addEventListener('click', openMenu);
 menuClose?.addEventListener('click', closeMenu);
 mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
+function rolfToggleNavGroup(btn) {
+  btn.closest('.mobile-nav-group')?.classList.toggle('open');
+}
+
 /* ========== SEARCH ========== */
 const searchOverlay = document.getElementById('searchOverlay');
 document.getElementById('searchBtn')?.addEventListener('click', () => {
@@ -510,6 +514,7 @@ const ICONS = {
   family: '<svg viewBox="0 0 20 20" fill="none"><circle cx="6.5" cy="6" r="2" stroke="currentColor" stroke-width="1.4"/><circle cx="13.5" cy="6" r="2" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="12.5" r="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 16c.5-2.5 2-4 3.5-4s3 1.5 3.5 4M10 16.5c.4-1.8 1.4-2.8 3.5-2.8s3.1 1 3.5 2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
   tag: '<svg viewBox="0 0 20 20" fill="none"><path d="M3 3h6.5l7.5 7.5-6.5 6.5L3 9.5V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="6.5" cy="6.5" r="1.1" fill="currentColor"/></svg>',
   filter: '<svg viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="5" r="1.8" fill="currentColor" stroke="var(--white,#fff)" stroke-width="1"/><circle cx="14" cy="10" r="1.8" fill="currentColor" stroke="var(--white,#fff)" stroke-width="1"/><circle cx="9" cy="15" r="1.8" fill="currentColor" stroke="var(--white,#fff)" stroke-width="1"/></svg>',
+  chevron: '<svg viewBox="0 0 20 20" fill="none"><path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 };
 
 function rolfToggleFilters() {

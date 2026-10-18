@@ -68,8 +68,31 @@
       <a href="index.html" class="logo"><div class="logo-mark">R</div><div class="logo-text">ROLF</div></a>
       <nav class="nav">
         <a href="index.html">Accueil</a>
-        <a href="collection.html?cat=montres">Montres</a>
-        <a href="collection.html?cat=bijoux">Bijoux</a>
+        <div class="nav-item">
+          <a href="collection.html?cat=montres">Montres <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+            <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+            <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+            <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+            <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+            <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+            <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+            <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+            <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+            <a href="collection.html?cat=montres" class="nav-dropdown-all">Toutes les montres →</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="collection.html?cat=bijoux">Bijoux <span class="nav-caret" data-icon="chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="collection.html?type=bagues">Bagues</a>
+            <a href="collection.html?type=colliers">Colliers</a>
+            <a href="collection.html?type=bracelets">Bracelets</a>
+            <a href="collection.html?type=boucles">Boucles d'oreilles</a>
+            <a href="collection.html?cat=bijoux" class="nav-dropdown-all">Tous les bijoux →</a>
+          </div>
+        </div>
         <a href="blog.html">Idées cadeaux</a>
         <a href="a-propos.html" class="active">Notre histoire</a>
         <a href="contact.html">Contact</a>
@@ -91,8 +114,31 @@
   </div>
   <nav class="mobile-nav-links">
     <a href="index.html">Accueil</a>
-    <a href="collection.html?cat=montres">Montres</a>
-    <a href="collection.html?cat=bijoux">Bijoux</a>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Montres <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=montres&brand=lee-cooper">Lee Cooper</a>
+        <a href="collection.html?type=montres&brand=trendy-kiss">Trendy Kiss</a>
+        <a href="collection.html?type=montres&brand=smarty">Smarty</a>
+        <a href="collection.html?type=montres&brand=earnshaw">Earnshaw</a>
+        <a href="collection.html?type=montres&brand=avi-8">AVI-8</a>
+        <a href="collection.html?type=montres&brand=jacques-du-manoir">Jacques du Manoir</a>
+        <a href="collection.html?type=montres&brand=spinnaker">Spinnaker</a>
+        <a href="collection.html?type=montres&brand=nubeo">Nubeo</a>
+        <a href="collection.html?type=montres&brand=jdm-military">JDM Military</a>
+        <a href="collection.html?cat=montres">Toutes les montres →</a>
+      </div>
+    </div>
+    <div class="mobile-nav-group">
+      <button type="button" class="mobile-nav-trigger" onclick="rolfToggleNavGroup(this)">Bijoux <span class="mobile-nav-caret" data-icon="chevron"></span></button>
+      <div class="mobile-nav-sub">
+        <a href="collection.html?type=bagues">Bagues</a>
+        <a href="collection.html?type=colliers">Colliers</a>
+        <a href="collection.html?type=bracelets">Bracelets</a>
+        <a href="collection.html?type=boucles">Boucles d'oreilles</a>
+        <a href="collection.html?cat=bijoux">Tous les bijoux →</a>
+      </div>
+    </div>
     <a href="blog.html">Idées cadeaux</a>
     <a href="fidelite.html">Fidélité & parrainage</a>
     <a href="a-propos.html">Notre histoire</a>
