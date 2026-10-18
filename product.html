@@ -15,6 +15,17 @@
     .breadcrumb-row a { color: var(--text-grey); }
     .breadcrumb-row a:hover { color: var(--accent); }
   </style>
+  <link rel="canonical" href="https://flolagonne35-cmyk.github.io/Site-internet-/product.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ROLF" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="Montres et bijoux multi-marques, distributeur officiel, garantie 2 ans, livraison offerte dès 80€." />
+  <meta property="og:url" content="https://flolagonne35-cmyk.github.io/Site-internet-/product.html" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="Montres et bijoux multi-marques, distributeur officiel, garantie 2 ans, livraison offerte dès 80€." />
 </head>
 <body>
 
@@ -282,14 +293,101 @@
 <script src="js/main.js"></script>
 <script>
   const PRODUCT_REF = new URLSearchParams(location.search).get('ref') || 'ES-8326-01';
+  const SITE_BASE_URL = 'https://flolagonne35-cmyk.github.io/Site-internet-/';
+  let _rolfProductData = null;
+  let _rolfReviewSummary = null;
+
+  function absoluteProductImage(p) {
+    const src = productImageSrc(p);
+    return /^https?:\/\//.test(src) ? src : SITE_BASE_URL + src.replace(/^\.\.\//, '');
+  }
+
+  function renderProductLd() {
+    if (!_rolfProductData) return;
+    const p = _rolfProductData;
+    const pageUrl = `${SITE_BASE_URL}product.html?ref=${encodeURIComponent(p.ref)}`;
+    const ld = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: p.name,
+      image: [absoluteProductImage(p)],
+      description: p.desc || `${p.name} — ${p.brand}. Distributeur officiel, garantie 2 ans, livraison offerte dès 80€.`,
+      sku: p.ref,
+      brand: { '@type': 'Brand', name: p.brand },
+      offers: {
+        '@type': 'Offer',
+        url: pageUrl,
+        priceCurrency: 'EUR',
+        price: p.price,
+        availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
+      },
+    };
+    if (_rolfReviewSummary && _rolfReviewSummary.count > 0) {
+      ld.aggregateRating = {
+        '@type': 'AggregateRating',
+        ratingValue: _rolfReviewSummary.average.toFixed(1),
+        reviewCount: _rolfReviewSummary.count,
+      };
+    }
+    let script = document.getElementById('productLd');
+    if (!script) {
+      script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = 'productLd';
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(ld);
+  }
 
   function populateProductPage(p, allProducts) {
-    document.title = `${p.name} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} | ROLF`;
-    document.getElementById('pageMetaDesc').setAttribute('content',
-      `${p.name} — ${p.brand}. Distributeur officiel, garantie 2 ans, livraison offerte dès 80€.`);
+    _rolfProductData = p;
+    const pageTitle = `${p.name} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} | ROLF`;
+    const pageDesc = `${p.name} — ${p.brand}. Distributeur officiel, garantie 2 ans, livraison offerte dès 80€.`;
+    const pageUrl = `${SITE_BASE_URL}product.html?ref=${encodeURIComponent(p.ref)}`;
+    document.title = pageTitle;
+    document.getElementById('pageMetaDesc').setAttribute('content', pageDesc);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', pageUrl);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', pageUrl);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', pageTitle);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', pageDesc);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', pageTitle);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', pageDesc);
+    document.querySelector('meta[name="twitter:card"]')?.setAttribute('content', 'summary_large_image');
+    const absImg = absoluteProductImage(p);
+    ['og:image'].forEach(prop => document.querySelector(`meta[property="${prop}"]`)?.remove());
+    const ogImgTag = document.createElement('meta');
+    ogImgTag.setAttribute('property', 'og:image');
+    ogImgTag.setAttribute('content', absImg);
+    document.head.appendChild(ogImgTag);
+    document.querySelector('meta[name="twitter:image"]')?.remove();
+    const twImgTag = document.createElement('meta');
+    twImgTag.setAttribute('name', 'twitter:image');
+    twImgTag.setAttribute('content', absImg);
+    document.head.appendChild(twImgTag);
+    renderProductLd();
 
     document.getElementById('breadcrumbRow').innerHTML =
       `<a href="index.html">Accueil</a> / <a href="collection.html?brand=${encodeURIComponent(p.brand_slug)}">${escapeHtml(p.brand)}</a> / <a href="collection.html?public=${p.public}">${PUBLIC_LABELS[p.public] || p.public}</a> / ${escapeHtml(p.name)}`;
+
+    const breadcrumbLd = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE_BASE_URL}index.html` },
+        { '@type': 'ListItem', position: 2, name: p.brand, item: `${SITE_BASE_URL}collection.html?brand=${encodeURIComponent(p.brand_slug)}` },
+        { '@type': 'ListItem', position: 3, name: PUBLIC_LABELS[p.public] || p.public, item: `${SITE_BASE_URL}collection.html?public=${p.public}` },
+        { '@type': 'ListItem', position: 4, name: p.name, item: pageUrl },
+      ],
+    };
+    let bcScript = document.getElementById('breadcrumbLd');
+    if (!bcScript) {
+      bcScript = document.createElement('script');
+      bcScript.type = 'application/ld+json';
+      bcScript.id = 'breadcrumbLd';
+      document.head.appendChild(bcScript);
+    }
+    bcScript.textContent = JSON.stringify(breadcrumbLd);
 
     const imgSrc = productImageSrc(p);
     const fallback = productImage(p);
@@ -384,10 +482,16 @@
     if (reviews.length === 0) {
       grid.innerHTML = '';
       empty.style.display = 'block';
+      _rolfReviewSummary = null;
     } else {
       empty.style.display = 'none';
       grid.innerHTML = reviews.map(renderReviewCard).join('');
+      _rolfReviewSummary = {
+        count: reviews.length,
+        average: reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length,
+      };
     }
+    renderProductLd();
   }
 
   document.getElementById('reviewSubmit').addEventListener('click', async () => {

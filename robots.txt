@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flolagonne35-cmyk.github.io/Site-internet-/sitemap.xml
