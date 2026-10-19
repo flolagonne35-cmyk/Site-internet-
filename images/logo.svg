@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 150">
+  <circle cx="75" cy="75" r="72" fill="#144036"/>
+  <circle cx="75" cy="75" r="63" fill="none" stroke="#c9a177" stroke-width="5"/>
+  <text x="75" y="72" text-anchor="middle" dominant-baseline="central" font-family="'Playfair Display', Georgia, serif" font-size="76" font-weight="700" fill="#ffffff">R</text>
+
+  <g transform="translate(180,0)">
+    <text x="46" y="86" text-anchor="end" font-family="'Playfair Display', Georgia, serif" font-size="64" font-weight="700" fill="#144036">R</text>
+    <circle cx="70" cy="62" r="19" fill="none" stroke="#144036" stroke-width="7"/>
+    <polygon points="70,32 79,43 70,54 61,43" fill="#c9a177" stroke="#8a6a46" stroke-width="1"/>
+    <line x1="70" y1="32" x2="70" y2="54" stroke="#8a6a46" stroke-width="0.75"/>
+    <text x="94" y="86" text-anchor="start" font-family="'Playfair Display', Georgia, serif" font-size="64" font-weight="700" fill="#144036">LF</text>
+    <text x="8" y="118" font-family="'Inter', sans-serif" font-size="14" letter-spacing="3.2" fill="#c9a177" font-weight="600">MONTRES &amp; BIJOUX</text>
+  </g>
+</svg>
