@@ -329,8 +329,16 @@ function productImageSrc(p) {
   return p.img ? PRODUCT_IMG_BASE + encodeURIComponent(p.img) : productImage(p);
 }
 
+function localizedName(p) {
+  return LANG === 'en' && p.name_en ? p.name_en : p.name;
+}
+
+function localizedDesc(p) {
+  return LANG === 'en' && p.desc_en ? p.desc_en : (p.desc || '');
+}
+
 function renderProductCard(p) {
-  const nameSafe = escapeHtml(p.name);
+  const nameSafe = escapeHtml(localizedName(p));
   const catLine = `${PUBLIC_LABELS[p.public] || p.public} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} — ${escapeHtml(p.brand)}`;
   const priceHtml = p.was
     ? `<span class="price-now">${formatPriceEUR(p.price)}</span><span class="price-was">${formatPriceEUR(p.was)}</span>`
@@ -350,10 +358,10 @@ function renderProductCard(p) {
       <div class="product-info">
         <div class="product-cat">${catLine}</div>
         <a href="${href}" class="product-name">${nameSafe}</a>
-        <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">${escapeHtml(p.desc || '')}</div>
+        <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">${escapeHtml(localizedDesc(p))}</div>
         <div class="product-footer">
           <div class="product-price">${priceHtml}</div>
-          <button class="atc-btn" onclick="addToCart('${jsAttrString(p.name)}', ${p.price}, this, '${p.img ? jsAttrString(p.img) : ''}')">+</button>
+          <button class="atc-btn" onclick="addToCart('${jsAttrString(localizedName(p))}', ${p.price}, this, '${p.img ? jsAttrString(p.img) : ''}')">+</button>
         </div>
       </div>
     </div>`;
@@ -566,9 +574,9 @@ function initCollectionCatalog() {
 /* ========== HEADER SEARCH (live suggestions, exact-ref and full-text) ========== */
 function queryScore(p, q) {
   const ref = p.ref.toLowerCase();
-  const name = p.name.toLowerCase();
+  const name = (localizedName(p) + ' ' + p.name).toLowerCase();
   const brand = p.brand.toLowerCase();
-  const desc = (p.desc || '').toLowerCase();
+  const desc = (localizedDesc(p) + ' ' + (p.desc || '')).toLowerCase();
   if (ref === q) return 100;
   if (ref.startsWith(q)) return 90;
   if (name.startsWith(q)) return 80;
@@ -611,9 +619,9 @@ function renderSearchResults(rawQuery) {
 
   const rows = matches.map(p => `
     <a class="search-result-row" href="product.html?ref=${encodeURIComponent(p.ref)}">
-      <img src="${productImageSrc(p)}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='${productImage(p)}'" />
+      <img src="${productImageSrc(p)}" alt="${escapeHtml(localizedName(p))}" onerror="this.onerror=null;this.src='${productImage(p)}'" />
       <span class="search-result-info">
-        <span class="search-result-name">${escapeHtml(p.name)}</span>
+        <span class="search-result-name">${escapeHtml(localizedName(p))}</span>
         <span class="search-result-meta">${escapeHtml(p.brand)} — ${formatPriceEUR(p.price)}</span>
       </span>
     </a>`).join('');
