@@ -1,0 +1,17 @@
+name: Keep Supabase alive
+
+on:
+  schedule:
+    # Twice a week, well under Supabase's 7-day free-tier inactivity pause window.
+    - cron: '0 9 * * 1,4'
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          curl -sS -o /dev/null -w "HTTP %{http_code}\n" \
+            "https://yuyfurkzeomniwynfjyj.supabase.co/rest/v1/reviews?select=id&limit=1" \
+            -H "apikey: sb_publishable_tLP59OmTBrU7nK-_aF4QXQ_HuPA3laN"
