@@ -130,11 +130,11 @@ input, textarea { font-family: inherit; }
 
 /* ==================== ANNOUNCEMENT BAR ==================== */
 .announcement-bar {
-  background: var(--dark); color: var(--gold-muted);
+  background: var(--gold-muted); color: var(--accent);
   text-align: center; padding: 10px 24px;
   font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
 }
-.announcement-bar a { color: var(--gold-muted); text-decoration: underline; }
+.announcement-bar a { color: var(--accent); text-decoration: underline; font-weight: 700; }
 
 /* ==================== HEADER ==================== */
 .header {
