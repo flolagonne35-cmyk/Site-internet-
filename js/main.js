@@ -302,6 +302,24 @@ const STYLE_LABELS = LANG === 'en'
   ? { classique: 'Classic', moderne: 'Modern', vintage: 'Vintage', sportif: 'Sporty', romantique: 'Romantic' }
   : { classique: 'Classique', moderne: 'Moderne', vintage: 'Vintage', sportif: 'Sportif', romantique: 'Romantique' };
 
+const BRAND_STORIES = {
+  'avi-8': LANG === 'en' ? {
+    title: 'The story of AVI-8',
+    paragraphs: [
+      "AVI-8 was born from a passion for aviation and its history. Rather than creating just another pilot's watch, the British brand sets out to tell the stories of the men and machines that shaped aviation — from iconic aircraft to the aviators who flew them.",
+      'Every model borrows cues from the cockpit: dials inspired by flight instruments, leather straps echoing pilot flight suits, and details crafted with care. Timeless watches, built to last, honouring the heroism and ingenuity of aviation.',
+      'Aviation heritage, horological precision.',
+    ],
+  } : {
+    title: "L'histoire d'AVI-8",
+    paragraphs: [
+      "AVI-8 est née d'une passion pour l'aviation et son histoire. Plutôt que de créer une énième montre de pilote, la marque britannique s'attache à raconter les histoires d'hommes et de machines qui ont marqué l'aviation — des avions emblématiques aux aviateurs qui les ont fait voler.",
+      "Chaque modèle reprend des codes empruntés au cockpit : cadrans inspirés des instruments de bord, bracelets en cuir évoquant les combinaisons de pilote, finitions pensées dans les moindres détails. Des montres intemporelles, conçues pour durer, qui rendent hommage à l'héroïsme et à l'ingéniosité de l'aviation.",
+      "L'Aéronautisme au service de l'Horlogerie.",
+    ],
+  },
+};
+
 function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
@@ -450,6 +468,17 @@ function applyCatalogFilters() {
   catalogFiltered = list;
   catalogPage = 1;
   renderCatalogPage();
+  renderBrandStory(checked.brand);
+}
+
+function renderBrandStory(activeBrands) {
+  const el = document.getElementById('brandStory');
+  if (!el) return;
+  const brands = activeBrands || getActiveFilters().brand || [];
+  const story = brands.length === 1 ? BRAND_STORIES[brands[0]] : null;
+  if (!story) { el.classList.remove('visible'); el.innerHTML = ''; return; }
+  el.innerHTML = `<h2>${escapeHtml(story.title)}</h2>` + story.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+  el.classList.add('visible');
 }
 
 function paginationRangeList(current, total) {
