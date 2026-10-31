@@ -505,25 +505,28 @@ function buildFilterGroup(containerId, dataGroup, valueField, labelFn) {
   )).join('');
 }
 
-function buildBrandFilterGroup() {
+function buildBrandFilterGroup(activeChecked) {
   const container = document.getElementById('filterBrand');
   if (!container) return;
+  const { brand: checkedBrands, ...otherChecked } = activeChecked || {};
   const counts = new Map();
   const names = new Map();
   CATALOG.forEach(p => {
+    if (!matchesFilters(p, otherChecked)) return;
     counts.set(p.brand_slug, (counts.get(p.brand_slug) || 0) + 1);
     names.set(p.brand_slug, p.brand);
   });
+  const previouslyChecked = new Set(checkedBrands || []);
   const keys = Array.from(counts.keys()).sort((a, b) => names.get(a).localeCompare(names.get(b), 'fr'));
   container.innerHTML = keys.map(key => (
-    `<label class="filter-option"><input type="checkbox" data-group="brand" value="${escapeHtml(key)}" /> ${escapeHtml(names.get(key))} <span class="filter-count">${counts.get(key)}</span></label>`
+    `<label class="filter-option"><input type="checkbox" data-group="brand" value="${escapeHtml(key)}"${previouslyChecked.has(key) ? ' checked' : ''} /> ${escapeHtml(names.get(key))} <span class="filter-count">${counts.get(key)}</span></label>`
   )).join('');
 }
 
 function buildFilterOptions() {
   buildFilterGroup('filterType', 'type', 'type', k => TYPE_LABELS_PLURAL[k] || k);
   buildFilterGroup('filterPublic', 'public', 'public', k => PUBLIC_LABELS[k] || k);
-  buildBrandFilterGroup();
+  buildBrandFilterGroup(getActiveFilters());
   buildFilterGroup('filterMaterial', 'material', 'material', k => MATERIAL_LABELS[k] || k);
   buildFilterGroup('filterColor', 'color', 'color', k => COLOR_LABELS[k] || k);
   buildFilterGroup('filterStyle', 'style', 'style', k => STYLE_LABELS[k] || k);
@@ -551,6 +554,7 @@ function matchesFilters(p, checked) {
 function applyCatalogFilters() {
   if (!CATALOG.length) return;
   const checked = getActiveFilters();
+  buildBrandFilterGroup(checked);
   const minInput = parseFloat(document.getElementById('priceMin')?.value);
   const maxInput = parseFloat(document.getElementById('priceMax')?.value);
   const priceMin = isNaN(minInput) ? 0 : minInput;
@@ -694,7 +698,9 @@ function applyURLParams() {
 }
 
 function wireFilterEvents() {
-  document.querySelectorAll('.filters-sidebar input[type=checkbox][data-group]').forEach(cb => cb.addEventListener('change', applyCatalogFilters));
+  document.querySelector('.filters-sidebar')?.addEventListener('change', e => {
+    if (e.target.matches('input[type=checkbox][data-group]')) applyCatalogFilters();
+  });
   document.getElementById('priceMin')?.addEventListener('input', applyCatalogFilters);
   document.getElementById('priceMax')?.addEventListener('input', applyCatalogFilters);
   document.getElementById('sortSelect')?.addEventListener('change', applyCatalogFilters);
