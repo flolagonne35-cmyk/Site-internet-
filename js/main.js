@@ -385,6 +385,45 @@ const BRAND_STORIES = {
       "100% Swiss Made, garantie 5 ans — une exigence de fiabilité pensée pour durer.",
     ],
   },
+  'jacques-du-manoir': LANG === 'en' ? {
+    title: 'The story of Jacques du Manoir',
+    paragraphs: [
+      'Jacques du Manoir is a Swiss Made house devoted to timeless, elegant watchmaking for women, inspired by the French Riviera lifestyle — from the clean rectangular lines of the Emily to the refined, diamond-set codes of the Inspiration collection.',
+      'Based in Wallbach, Switzerland, the house pairs classic design with quality materials: stainless steel cases, sapphire-ready crystals and mother-of-pearl dials, for pieces made to be worn and passed down.',
+    ],
+  } : {
+    title: "L'histoire de Jacques du Manoir",
+    paragraphs: [
+      "Jacques du Manoir est une maison horlogère Swiss Made dédiée à une élégance intemporelle pour la femme, inspirée de l'art de vivre de la Riviera française — des lignes épurées et rectangulaires de la Emily aux codes raffinés, sertis de diamants, de la collection Inspiration.",
+      "Basée à Wallbach, en Suisse, la maison allie design classique et matériaux nobles : boîtiers en acier inoxydable, verres saphir et cadrans nacre, pour des pièces faites pour durer et se transmettre.",
+    ],
+  },
+  'spinnaker': LANG === 'en' ? {
+    title: 'The story of Spinnaker',
+    paragraphs: [
+      "It was the moment Man first set out to cross the seas that a heritage of courage, skill and ingenuity was born. Sailing is navigation in its purest form — and it is this world of seafaring that Spinnaker watches pay tribute to, through a blend of design, craftsmanship and noble materials.",
+      'The Spinnaker spirit is enterprising, adventurous, bold and dynamic — a style built to be admired just as well on land as at sea.',
+    ],
+  } : {
+    title: "L'histoire de Spinnaker",
+    paragraphs: [
+      "C'est à partir du moment où l'Homme a voulu traverser les mers qu'un héritage de courage, de compétences et d'ingéniosité s'est formé. La navigation à voile est la forme la plus pure de la navigation — et c'est à ce monde du nautisme que les montres Spinnaker rendent hommage, à travers une combinaison de design, d'artisanat et de matériaux nobles.",
+      "L'Homme Spinnaker est entreprenant, aventurier, audacieux et dynamique — un style qui rend chaque pièce admirable tant sur terre qu'en mer.",
+    ],
+  },
+  'jackie-gold': LANG === 'en' ? {
+    title: 'The story of Jackie Gold',
+    paragraphs: [
+      'My jewelry is inspired by stories from all over the world. Inspiration can be found in the smallest details: a color, a line, an atmosphere — like the Savanna necklace, inspired by the colorful sunsets of South Africa, or the Canal ring, whose graceful lines echo Amsterdam’s iconic canal belt. I find inspiration everywhere.',
+      'Every piece is designed with meticulous attention to detail, in 14K gold — made to be layered, mixed and worn every day.',
+    ],
+  } : {
+    title: "L'histoire de Jackie Gold",
+    paragraphs: [
+      "Mes bijoux naissent d'histoires venues du monde entier. L'inspiration se cache dans les petits détails : une couleur, une ligne, une atmosphère. Comme le collier Savanna, inspiré des couchers de soleil colorés d'Afrique du Sud, ou la bague Canal, dont les lignes gracieuses rappellent celles de la ceinture de canaux d'Amsterdam. Je trouve l'inspiration partout.",
+      "Chaque bijou est conçu avec le plus grand soin, en or 14K — pensé pour être superposé, mixé et porté au quotidien.",
+    ],
+  },
 };
 
 function escapeHtml(str) {
