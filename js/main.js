@@ -318,6 +318,73 @@ const BRAND_STORIES = {
       "L'Aéronautisme au service de l'Horlogerie.",
     ],
   },
+  'earnshaw': LANG === 'en' ? {
+    title: 'The story of Earnshaw',
+    paragraphs: [
+      'Earnshaw takes its name from Thomas Earnshaw (1749-1829), a pioneer of marine chronometry. He refined the shipboard chronometers used by the Royal Navy — including the one aboard HMS Beagle on the voyage that inspired Charles Darwin’s "On the Origin of Species".',
+      'Every Earnshaw watch carries that heritage: each model references an explorer, a place or a ship that shaped the history of navigation. A pioneering spirit behind precise, elegant watchmaking, made for enthusiasts and collectors alike.',
+    ],
+  } : {
+    title: "L'histoire d'Earnshaw",
+    paragraphs: [
+      "Earnshaw tire son nom de Thomas Earnshaw (1749-1829), pionnier de l'horlogerie marine. C'est lui qui a perfectionné les chronomètres embarqués de la Royal Navy — dont celui du HMS Beagle, le navire qui emmena Charles Darwin dans le voyage à l'origine de « L'Origine des espèces ».",
+      "Chaque montre Earnshaw porte cet héritage : les modèles font référence à un explorateur, un lieu ou un navire qui a marqué l'histoire de la navigation. Un esprit pionnier au service d'une horlogerie précise et élégante, pensée pour les passionnés comme pour les connaisseurs.",
+    ],
+  },
+  'nubeo': LANG === 'en' ? {
+    title: 'The story of Nubeo',
+    paragraphs: [
+      'NUBEO draws its inspiration from two frontiers still largely unexplored: the ocean depths, only 5% of which have been mapped to date, and space, beyond the Kármán line.',
+      'Every Nubeo watch channels that fascination into its design: timepieces built for performance and function, where natural and industrial design languages meet.',
+      'Between sea & space.',
+    ],
+  } : {
+    title: "L'histoire de Nubeo",
+    paragraphs: [
+      "NUBEO puise son inspiration entre deux frontières encore largement inexplorées : les profondeurs océaniques, dont seulement 5% ont été cartographiées à ce jour, et l'espace, au-delà de la ligne de Kármán.",
+      "Chaque montre Nubeo traduit cette fascination dans son design : des garde-temps pensés pour la performance et la fonctionnalité, à la croisée du naturel et de l'industriel.",
+      "Entre mer et espace.",
+    ],
+  },
+  'lee-cooper': LANG === 'en' ? {
+    title: 'The story of Lee Cooper',
+    paragraphs: [
+      "Lee Cooper was born in 1908 in London's East End, where Morris Cooper founded Europe's first authentic denim brand. In the 1950s, the brand became the first to link music and fashion, dressing artists like the Rolling Stones and Serge Gainsbourg.",
+      "Over a century later, Lee Cooper stays true to that spirit — rock'n'roll, authentic, British — now carried through into its watches too.",
+    ],
+  } : {
+    title: "L'histoire de Lee Cooper",
+    paragraphs: [
+      "Lee Cooper est né en 1908 dans l'East End de Londres, où Morris Cooper fonde la première marque de denim authentique d'Europe. Dans les années 1950, la marque devient la première à relier musique et mode, habillant des artistes comme les Rolling Stones ou Serge Gainsbourg.",
+      "Plus d'un siècle plus tard, Lee Cooper reste fidèle à cet esprit — rock'n'roll, authentique, britannique — et le porte désormais jusque dans ses montres.",
+    ],
+  },
+  'trendy-kiss': LANG === 'en' ? {
+    title: 'The story of Trendy Kiss',
+    paragraphs: [
+      "Founded in 2006 in Besançon, France's historic watchmaking capital, TrendyKiss creates on-trend and classic watches for women looking for an accessory that feels like their own.",
+      'Two new collections a year and over 150 references: a constantly refreshed range at accessible prices. Today, TrendyKiss is sold in more than 1,000 points of sale in France and internationally.',
+    ],
+  } : {
+    title: "L'histoire de Trendy Kiss",
+    paragraphs: [
+      "Créée en 2006 à Besançon, capitale française de l'horlogerie, TrendyKiss propose des montres tendances et classiques pensées pour les femmes en quête d'un accessoire qui leur ressemble.",
+      "Deux nouvelles collections par an, plus de 150 références : une offre renouvelée en permanence, à des prix accessibles. Aujourd'hui, TrendyKiss est distribuée dans plus de 1000 points de vente en France et à l'international.",
+    ],
+  },
+  'jdm-military': LANG === 'en' ? {
+    title: 'The story of JDM Military',
+    paragraphs: [
+      'JDM Military brings Swiss precision to the outdoor spirit. Rugged cases, legible dials, water resistance up to 100m depending on the model: every watch is built to keep up, from the office to the mountains.',
+      '100% Swiss Made, 5-year warranty — reliability built to last.',
+    ],
+  } : {
+    title: "L'histoire de JDM Military",
+    paragraphs: [
+      "JDM Military incarne la précision suisse appliquée à l'esprit outdoor. Boîtiers robustes, cadrans lisibles, étanchéité jusqu'à 100m selon les modèles : chaque montre est conçue pour suivre l'action, du bureau à la montagne.",
+      "100% Swiss Made, garantie 5 ans — une exigence de fiabilité pensée pour durer.",
+    ],
+  },
 };
 
 function escapeHtml(str) {
