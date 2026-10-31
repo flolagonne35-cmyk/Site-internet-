@@ -577,12 +577,27 @@ function applyCatalogFilters() {
   renderBrandStory(checked.brand);
 }
 
+const BRAND_STORY_IMAGES = {
+  'avi-8': 'avi-8.jpg',
+  'earnshaw': 'earnshaw.jpg',
+  'nubeo': 'nubeo.jpg',
+  'lee-cooper': 'lee-cooper.jpg',
+  'trendy-kiss': 'trendy-kiss.jpg',
+  'jdm-military': 'jdm-military.jpg',
+  'jacques-du-manoir': 'jacques-du-manoir.jpg',
+  'spinnaker': 'spinnaker.jpg',
+  'jackie-gold': 'jackie-gold.jpg',
+};
+
 function renderBrandStory(activeBrands) {
   const el = document.getElementById('brandStory');
   if (!el) return;
   const brands = activeBrands || getActiveFilters().brand || [];
-  const story = brands.length === 1 ? BRAND_STORIES[brands[0]] : null;
-  if (!story) { el.classList.remove('visible'); el.innerHTML = ''; return; }
+  const slug = brands.length === 1 ? brands[0] : null;
+  const story = slug ? BRAND_STORIES[slug] : null;
+  if (!story) { el.classList.remove('visible'); el.innerHTML = ''; el.style.backgroundImage = ''; return; }
+  const image = BRAND_STORY_IMAGES[slug];
+  el.style.backgroundImage = image ? `url('${SITE_ROOT}images/brands/${image}')` : '';
   el.innerHTML = `<h2>${escapeHtml(story.title)}</h2>` + story.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
   el.classList.add('visible');
 }
