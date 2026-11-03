@@ -776,7 +776,7 @@ input, textarea { font-family: inherit; }
 .product-gallery-main { aspect-ratio: 1; border-radius: var(--radius); overflow: hidden; background: var(--bg-light); margin-bottom: 14px; cursor: zoom-in; }
 .product-gallery-main img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .product-gallery-main:hover img { transform: scale(1.15); }
-.product-thumbs { display: flex; gap: 10px; }
+.product-thumbs { display: flex; flex-wrap: wrap; gap: 10px; }
 .product-thumb { width: 72px; height: 72px; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.6; background: none; padding: 0; }
 .product-thumb.active, .product-thumb:hover { border-color: var(--accent); opacity: 1; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }

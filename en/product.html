@@ -397,7 +397,11 @@
     mainImg.src = imgSrc; mainImg.alt = localizedName(p);
     mainImg.onerror = () => { mainImg.onerror = null; mainImg.src = fallback; };
     document.getElementById('productThumbs').innerHTML =
-      `<button class="product-thumb active" onclick="switchProductImg('${imgSrc}', this, '${fallback}')"><img src="${imgSrc}" alt="${escapeHtml(localizedName(p))}" onerror="this.onerror=null;this.src='${fallback}'" /></button>`;
+      `<button class="product-thumb active" onclick="switchProductImg('${imgSrc}', this, '${fallback}')"><img src="${imgSrc}" alt="${escapeHtml(localizedName(p))}" onerror="this.onerror=null;this.src='${fallback}'" /></button>` +
+      (p.extra_images || []).map(f => {
+        const xSrc = PRODUCT_IMG_BASE + encodeURIComponent(f);
+        return `<button class="product-thumb" onclick="switchProductImg('${xSrc}', this, '${imgSrc}')"><img src="${xSrc}" alt="${escapeHtml(localizedName(p))}" loading="lazy" onerror="this.closest('button').remove()" /></button>`;
+      }).join('');
 
     document.getElementById('productCat').textContent = `${PUBLIC_LABELS[p.public] || p.public} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} — ${p.brand}`;
     document.getElementById('productName').textContent = localizedName(p);
