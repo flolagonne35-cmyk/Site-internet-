@@ -62,10 +62,25 @@
     .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .page-ellipsis { color: var(--text-muted); padding: 0 4px; }
 
+    .filters-handle, .filters-close, .filters-sheet-footer { display: none; }
     @media (max-width: 900px) {
       .collection-layout { grid-template-columns: 1fr; }
-      .filters-sidebar { position: static; display: none; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
-      .filters-sidebar.open { display: block; }
+      .filters-sidebar {
+        position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 1100;
+        height: 60vh; height: 60dvh; overflow-y: auto; overscroll-behavior: contain;
+        background: var(--white); border-radius: 18px 18px 0 0; box-shadow: 0 -12px 40px rgba(0,0,0,0.18);
+        padding: 6px 20px 0; transform: translateY(105%); visibility: hidden;
+        transition: transform 0.3s ease, visibility 0s linear 0.3s;
+      }
+      .filters-sidebar.open { transform: translateY(0); visibility: visible; transition: transform 0.3s ease, visibility 0s; }
+      .filters-handle { display: block; width: 40px; height: 4px; border-radius: 4px; background: var(--border); margin: 4px auto 0; }
+      .filters-sidebar-hdr { position: sticky; top: -6px; z-index: 2; background: var(--white); padding: 12px 0; margin-bottom: 8px; gap: 12px; }
+      .filters-sidebar-hdr h2 { margin-right: auto; }
+      .filters-close { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); color: var(--text-dark) !important; font-size: 0.9rem !important; }
+      .filter-group { margin-bottom: 22px; }
+      .filters-sheet-footer { display: flex; gap: 12px; align-items: center; position: sticky; bottom: 0; z-index: 2; background: var(--white); border-top: 1px solid var(--border); padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); margin-top: 8px; }
+      .filters-clear { font-size: 0.85rem; font-weight: 600; color: var(--text-grey); padding: 10px 4px; }
+      .filters-apply { flex: 1; justify-content: center; }
       .filter-toggle-btn { display: flex; order: -1; width: 100%; justify-content: center; }
       .collection-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -109,19 +124,16 @@
 
     <!-- FILTRES -->
     <aside class="filters-sidebar">
+      <div class="filters-handle"></div>
       <div class="filters-sidebar-hdr">
         <h2 style="font-size:1rem;font-family:var(--font-serif)">Filtrer</h2>
         <button onclick="clearCatalogFilters()">Réinitialiser</button>
+        <button type="button" class="filters-close" aria-label="Fermer les filtres" onclick="rolfToggleFilters(false)">✕</button>
       </div>
 
       <div class="filter-group">
-        <h3>Rechercher</h3>
-        <input class="collection-search-input" type="text" id="collectionSearch" placeholder="Référence, nom, marque…" />
-      </div>
-
-      <div class="filter-group">
-        <h3>Type de produit</h3>
-        <div class="filter-options" id="filterType"></div>
+        <h3>Marque</h3>
+        <div class="filter-options" id="filterBrand"></div>
       </div>
 
       <div class="filter-group">
@@ -130,17 +142,8 @@
       </div>
 
       <div class="filter-group">
-        <h3>Prix</h3>
-        <div class="price-range">
-          <input class="price-input" type="number" id="priceMin" placeholder="Min" value="0" />
-          <span>—</span>
-          <input class="price-input" type="number" id="priceMax" placeholder="Max" value="1000" />
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <h3>Marque</h3>
-        <div class="filter-options" id="filterBrand"></div>
+        <h3>Type de produit</h3>
+        <div class="filter-options" id="filterType"></div>
       </div>
 
       <div class="filter-group">
@@ -156,6 +159,25 @@
       <div class="filter-group">
         <h3>Style</h3>
         <div class="filter-options" id="filterStyle"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Prix</h3>
+        <div class="price-range">
+          <input class="price-input" type="number" id="priceMin" placeholder="Min" value="0" />
+          <span>—</span>
+          <input class="price-input" type="number" id="priceMax" placeholder="Max" value="1000" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Rechercher</h3>
+        <input class="collection-search-input" type="text" id="collectionSearch" placeholder="Référence, nom, marque…" />
+      </div>
+
+      <div class="filters-sheet-footer">
+        <button type="button" class="filters-clear" onclick="clearCatalogFilters()">Tout effacer</button>
+        <button type="button" class="btn btn-gold filters-apply" onclick="rolfToggleFilters(false)">Voir <span class="js-result-count">…</span> produits</button>
       </div>
     </aside>
 
