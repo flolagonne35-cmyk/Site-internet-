@@ -13,6 +13,8 @@ const STR = LANG === 'en' ? {
   newsletterThanks: '✓ Thank you!',
   newsletterSubscribe: 'Subscribe',
   copied: '✓ Copied!',
+  prevImg: 'Previous photo',
+  nextImg: 'Next photo',
 } : {
   remove: 'Retirer',
   catalogUnavailable: 'Catalogue momentanément indisponible.',
@@ -24,6 +26,8 @@ const STR = LANG === 'en' ? {
   newsletterThanks: '✓ Merci !',
   newsletterSubscribe: "S'inscrire",
   copied: '✓ Copié !',
+  prevImg: 'Photo précédente',
+  nextImg: 'Photo suivante',
 };
 
 /* ========== CART STATE ========== */
@@ -461,6 +465,10 @@ function localizedDesc(p) {
   return LANG === 'en' && p.desc_en ? p.desc_en : (p.desc || '');
 }
 
+function productImages(p) {
+  return [productImageSrc(p)].concat((p.extra_images || []).map(f => PRODUCT_IMG_BASE + encodeURIComponent(f)));
+}
+
 function renderProductCard(p) {
   const nameSafe = escapeHtml(localizedName(p));
   const catLine = `${PUBLIC_LABELS[p.public] || p.public} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} — ${escapeHtml(p.brand)}`;
@@ -472,12 +480,21 @@ function renderProductCard(p) {
     : '';
   const href = `product.html?ref=${encodeURIComponent(p.ref)}`;
   const wished = rolfIsWished(p.ref);
+  const imgs = productImages(p);
+  const slides = imgs.map((src, i) => i === 0
+    ? `<img src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="this.onerror=null;this.src='${productImage(p)}'" />`
+    : `<img src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="rolfDropSlide(this)" />`).join('');
+  const sliderUi = imgs.length > 1
+    ? `<div class="card-dots">${imgs.map((_, i) => `<span${i === 0 ? ' class="on"' : ''}></span>`).join('')}</div>` +
+      `<button type="button" class="card-arrow prev" aria-label="${STR.prevImg}" onclick="rolfCardSlide(this,-1)">‹</button>` +
+      `<button type="button" class="card-arrow next" aria-label="${STR.nextImg}" onclick="rolfCardSlide(this,1)">›</button>`
+    : '';
   return `
     <div class="product-card" data-type="${p.type}" data-public="${p.public}" data-brand="${p.brand_slug}" data-material="${p.material}" data-color="${p.color}" data-style="${p.style}" data-price="${p.price}">
-      <a href="${href}" class="product-img-wrap">
-        <img src="${productImageSrc(p)}" alt="${nameSafe}" loading="lazy" onerror="this.onerror=null;this.src='${productImage(p)}'" />
-        ${badgeHtml}
-      </a>
+      <div class="product-img-wrap">
+        <a href="${href}" class="card-track">${slides}</a>
+        ${badgeHtml}${sliderUi}
+      </div>
       <div class="product-quick-actions"><button class="qa-btn${wished ? ' active' : ''}" onclick="rolfToggleWish('${p.ref}', this)"><span data-icon="heart"></span></button><a class="qa-btn" href="${href}"><span data-icon="eye"></span></a></div>
       <div class="product-info">
         <div class="product-cat">${catLine}</div>
@@ -490,6 +507,27 @@ function renderProductCard(p) {
       </div>
     </div>`;
 }
+
+function rolfCardSlide(btn, dir) {
+  const track = btn.parentElement.querySelector('.card-track');
+  if (track) track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' });
+}
+
+function rolfDropSlide(img) {
+  const wrap = img.closest('.product-img-wrap');
+  img.remove();
+  const dots = wrap && wrap.querySelector('.card-dots');
+  if (dots && dots.lastElementChild) dots.lastElementChild.remove();
+  if (wrap && wrap.querySelectorAll('.card-track img').length < 2) wrap.querySelectorAll('.card-dots, .card-arrow').forEach(el => el.remove());
+}
+
+document.addEventListener('scroll', e => {
+  const track = e.target;
+  if (!track.classList || !track.classList.contains('card-track')) return;
+  const idx = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+  const dots = track.parentElement.querySelectorAll('.card-dots span');
+  dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+}, true);
 
 function buildFilterGroup(containerId, dataGroup, valueField, labelFn) {
   const container = document.getElementById(containerId);
@@ -551,8 +589,9 @@ function matchesFilters(p, checked) {
   return true;
 }
 
-function applyCatalogFilters() {
+function applyCatalogFilters(opts) {
   if (!CATALOG.length) return;
+  const keepPage = !!(opts && opts.keepPage === true);
   const checked = getActiveFilters();
   buildBrandFilterGroup(checked);
   const minInput = parseFloat(document.getElementById('priceMin')?.value);
@@ -560,6 +599,7 @@ function applyCatalogFilters() {
   const priceMin = isNaN(minInput) ? 0 : minInput;
   const priceMax = isNaN(maxInput) ? Infinity : maxInput;
   const query = (document.getElementById('collectionSearch')?.value || '').trim().toLowerCase();
+  const sortKey = document.getElementById('sortSelect')?.value;
 
   let list = CATALOG.filter(p => matchesFilters(p, checked) && p.price >= priceMin && p.price <= priceMax);
 
@@ -571,14 +611,40 @@ function applyCatalogFilters() {
       .map(x => x.p);
   }
 
-  const sortKey = document.getElementById('sortSelect')?.value;
+  // Jewellery-only listing with no brand chosen: Orus's Spiral collection leads page 1.
+  const types = checked.type || [];
+  if ((!sortKey || sortKey === 'relevance') && !query && !(checked.brand || []).length && types.length && !types.includes('montres')) {
+    const isSpiral = p => /spiral/i.test(`${p.name} ${p.name_en || ''}`);
+    list = list.filter(isSpiral).concat(list.filter(p => !isSpiral(p)));
+  }
+
   if (sortKey === 'price-asc') list = list.slice().sort((a, b) => a.price - b.price);
   else if (sortKey === 'price-desc') list = list.slice().sort((a, b) => b.price - a.price);
 
   catalogFiltered = list;
-  catalogPage = 1;
+  if (!keepPage) catalogPage = 1;
   renderCatalogPage();
   renderBrandStory(checked.brand);
+  syncCatalogURL(checked);
+}
+
+const URL_FILTER_GROUPS = ['brand', 'public', 'type', 'material', 'color', 'style'];
+
+function syncCatalogURL(checked) {
+  if (!document.getElementById('productsGrid')) return;
+  checked = checked || getActiveFilters();
+  const params = new URLSearchParams();
+  URL_FILTER_GROUPS.forEach(g => { if (checked[g] && checked[g].length) params.set(g, checked[g].join(',')); });
+  const min = document.getElementById('priceMin'), max = document.getElementById('priceMax');
+  if (min && min.value !== min.defaultValue) params.set('min', min.value);
+  if (max && max.value !== max.defaultValue) params.set('max', max.value);
+  const q = (document.getElementById('collectionSearch')?.value || '').trim();
+  if (q) params.set('q', q);
+  const sort = document.getElementById('sortSelect')?.value;
+  if (sort && sort !== 'relevance') params.set('sort', sort);
+  if (catalogPage > 1) params.set('page', catalogPage);
+  const qs = params.toString().replace(/%2C/g, ',');
+  try { history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash); } catch (e) {}
 }
 
 const BRAND_STORY_IMAGES = {
@@ -636,11 +702,10 @@ function renderPagination(totalPages) {
 
 function renderCatalogPage() {
   const grid = document.getElementById('productsGrid');
-  const countEl = document.getElementById('resultCount');
   const noResults = document.getElementById('noResults');
   const total = catalogFiltered.length;
 
-  if (countEl) countEl.textContent = total;
+  document.querySelectorAll('#resultCount, .js-result-count').forEach(el => { el.textContent = total; });
   if (noResults) noResults.style.display = total === 0 ? 'block' : 'none';
 
   const totalPages = Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE));
@@ -656,6 +721,7 @@ function renderCatalogPage() {
 function goToCatalogPage(n) {
   catalogPage = n;
   renderCatalogPage();
+  syncCatalogURL();
   document.querySelector('.collection-header')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -674,27 +740,32 @@ function clearCatalogFilters() {
 
 function applyURLParams() {
   const params = new URLSearchParams(location.search);
-  const type = params.get('type');
-  const pub = params.get('public');
   const cat = params.get('cat');
-  const brand = params.get('brand');
-  const q = params.get('q');
   const bijouxTypes = ['bagues', 'bracelets', 'colliers', 'boucles'];
 
   function check(group, value) {
-    const box = document.querySelector(`.filters-sidebar input[data-group="${group}"][value="${value}"]`);
+    const box = Array.from(document.querySelectorAll(`.filters-sidebar input[data-group="${group}"]`)).find(b => b.value === value);
     if (box) box.checked = true;
   }
 
-  if (type) check('type', type);
-  if (pub) check('public', pub);
-  if (brand) check('brand', brand);
+  URL_FILTER_GROUPS.forEach(g => {
+    const v = params.get(g);
+    if (v) v.split(',').filter(Boolean).forEach(x => check(g, x));
+  });
   if (cat === 'montres') check('type', 'montres');
   if (cat === 'bijoux') bijouxTypes.forEach(t => check('type', t));
+  const q = params.get('q');
   if (q) {
     const search = document.getElementById('collectionSearch');
     if (search) search.value = q;
   }
+  const min = params.get('min'), max = params.get('max'), sort = params.get('sort');
+  if (min !== null && document.getElementById('priceMin')) document.getElementById('priceMin').value = min;
+  if (max !== null && document.getElementById('priceMax')) document.getElementById('priceMax').value = max;
+  const sortSel = document.getElementById('sortSelect');
+  if (sort && sortSel && Array.from(sortSel.options).some(o => o.value === sort)) sortSel.value = sort;
+  const page = parseInt(params.get('page'), 10);
+  if (page > 1) catalogPage = page;
 }
 
 function wireFilterEvents() {
@@ -723,7 +794,25 @@ function initCollectionCatalog() {
     buildFilterOptions();
     applyURLParams();
     wireFilterEvents();
-    applyCatalogFilters();
+    applyCatalogFilters({ keepPage: true });
+    rolfRestoreCatalogScroll();
+  });
+}
+
+function rolfCatalogScrollKey() { return 'rolf_scroll:' + location.pathname + location.search; }
+
+function rolfRestoreCatalogScroll() {
+  const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+  if (!nav || nav.type !== 'back_forward') return;
+  let y = null;
+  try { y = sessionStorage.getItem(rolfCatalogScrollKey()); } catch (e) {}
+  if (y !== null) requestAnimationFrame(() => window.scrollTo({ top: parseInt(y, 10) || 0, behavior: 'instant' }));
+}
+
+if (document.getElementById('productsGrid')) {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('pagehide', () => {
+    try { sessionStorage.setItem(rolfCatalogScrollKey(), String(window.scrollY)); } catch (e) {}
   });
 }
 
@@ -843,12 +932,13 @@ const ICONS = {
   chevron: '<svg viewBox="0 0 20 20" fill="none"><path d="M5.5 7.5L10 12l4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 };
 
-function rolfToggleFilters() {
+function rolfToggleFilters(force) {
   const sidebar = document.querySelector('.filters-sidebar');
   const btn = document.getElementById('filterToggleBtn');
   if (!sidebar) return;
-  const open = sidebar.classList.toggle('open');
+  const open = typeof force === 'boolean' ? sidebar.classList.toggle('open', force) : sidebar.classList.toggle('open');
   if (btn) btn.classList.toggle('active', open);
+  document.body.classList.toggle('filters-open', open);
 }
 
 function renderIcons(root) {
@@ -858,9 +948,229 @@ function renderIcons(root) {
   });
 }
 
+/* ========== PRODUCT PAGE HELPERS ========== */
+const SPEC_LABELS = LANG === 'en' ? {
+  brand: 'Brand', ref: 'Reference', ean: 'EAN', type: 'Type', public: 'For', model: 'Model',
+  display: 'Display', movement: 'Movement', case: 'Case', diameter: 'Case diameter', bezel: 'Bezel',
+  dial: 'Dial', strap: 'Strap', glass: 'Glass', water: 'Water resistance', clasp: 'Clasp',
+  material: 'Material', color: 'Colour', style: 'Style',
+} : {
+  brand: 'Marque', ref: 'Référence', ean: 'EAN', type: 'Type', public: 'Public', model: 'Modèle',
+  display: 'Affichage', movement: 'Mouvement', case: 'Boîtier', diameter: 'Diamètre du boîtier', bezel: 'Lunette',
+  dial: 'Cadran', strap: 'Bracelet', glass: 'Verre', water: 'Étanchéité', clasp: 'Fermoir',
+  material: 'Matière', color: 'Couleur', style: 'Style',
+};
+
+const SPEC_RULES = [
+  ['water', /(\b\d+\s*(atm|bar)\b|étanch|water[- ]resist)/i],
+  ['movement', /\b(mouvement|movement)\b/i],
+  ['display', /^(analogique|analog|digital|numérique)\b/i],
+  ['case', /\b(bo[iî]tier|case)\b/i],
+  ['bezel', /\b(lunette|bezel)\b/i],
+  ['dial', /\b(cadran|dial)\b/i],
+  ['strap', /\b(bracelet|strap|cordon)\b/i, 'montres'],
+  ['glass', /\b(verre|glass|crystal)\b/i],
+  ['clasp', /\b(fermoir|clasp)\b/i],
+];
+
+function rolfParseDescSpecs(p) {
+  const text = (LANG === 'en' && p.desc_en ? p.desc_en : p.desc || '').trim();
+  const parts = text.split(/\s*,\s*(?!\d)/).map(x => x.trim()).filter(Boolean);
+  if (text.endsWith('…')) parts.pop();
+  const out = new Map();
+  parts.forEach((seg, i) => {
+    if (i === 0 && /^[A-Z0-9][A-Z0-9 '&.\-]{2,}$/.test(seg) && !/^(ATM|GMT)$/.test(seg)) { out.set('model', seg); return; }
+    const rule = SPEC_RULES.find(([, re, onlyType]) => re.test(seg) && (!onlyType || onlyType === p.type));
+    if (!rule || out.has(rule[0])) return;
+    let val = seg.replace(/^(mouvement|bo[iî]tier|cadran|lunette|bracelet|verre|fermoir|étanchéité)\s*:?\s*/i, '').replace(/^(en|de)\s+/i, '');
+    val = val.charAt(0).toUpperCase() + val.slice(1);
+    out.set(rule[0], val);
+    if (rule[0] === 'case') {
+      const m = seg.match(/(\d+(?:[.,]\d+)?)\s*mm\b/i);
+      if (m) out.set('diameter', `${m[1]} mm`);
+    }
+  });
+  return Array.from(out.entries());
+}
+
+function rolfProductSpecs(p) {
+  const L = SPEC_LABELS;
+  return [
+    [L.brand, p.brand],
+    [L.ref, p.ref],
+    [L.ean, p.ean],
+    [L.type, TYPE_LABELS_SINGULAR[p.type] || p.type],
+    [L.public, PUBLIC_LABELS[p.public] || p.public],
+    ...rolfParseDescSpecs(p).map(([k, v]) => [L[k], v]),
+    [L.material, MATERIAL_LABELS[p.material] || p.material],
+    [L.color, COLOR_LABELS[p.color] || p.color],
+    [L.style, STYLE_LABELS[p.style] || p.style],
+  ].filter(([, v]) => v);
+}
+
+let _rolfGalleryFallback = '';
+
+function rolfInitProductGallery(p) {
+  const main = document.getElementById('productMainImg');
+  const thumbsEl = document.getElementById('productThumbs');
+  const box = document.querySelector('.product-gallery-main');
+  if (!main || !thumbsEl) return;
+  const name = escapeHtml(localizedName(p));
+  const imgs = productImages(p);
+  _rolfGalleryFallback = productImage(p);
+  main.src = imgs[0]; main.alt = localizedName(p);
+  main.onerror = () => { main.onerror = null; main.src = _rolfGalleryFallback; };
+  thumbsEl.innerHTML = imgs.map((src, i) =>
+    `<button type="button" class="product-thumb${i === 0 ? ' active' : ''}" onclick="rolfGalleryGo(this)"><img src="${src}" alt="${name}"${i ? ' loading="lazy"' : ''} onerror="${i ? "this.closest('button').remove();rolfGalleryCounter()" : `this.onerror=null;this.src='${_rolfGalleryFallback}'`}" /></button>`
+  ).join('');
+  if (box && !box.querySelector('.gallery-counter')) {
+    box.insertAdjacentHTML('beforeend', '<span class="gallery-counter"></span>');
+    let x0 = null, y0 = null;
+    box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    box.addEventListener('touchend', e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+      x0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) rolfGalleryStep(dx < 0 ? 1 : -1);
+    });
+  }
+  rolfGalleryCounter();
+}
+
+function rolfGalleryThumbs() { return Array.from(document.querySelectorAll('#productThumbs .product-thumb')); }
+
+function rolfGalleryGo(thumb) {
+  const img = thumb && thumb.querySelector('img');
+  if (!img) return;
+  switchProductImg(img.currentSrc || img.src, thumb, _rolfGalleryFallback);
+  rolfGalleryCounter();
+}
+
+function rolfGalleryStep(dir) {
+  const thumbs = rolfGalleryThumbs();
+  if (thumbs.length < 2) return;
+  const cur = Math.max(0, thumbs.findIndex(t => t.classList.contains('active')));
+  rolfGalleryGo(thumbs[(cur + dir + thumbs.length) % thumbs.length]);
+}
+
+function rolfGalleryCounter() {
+  const el = document.querySelector('.product-gallery-main .gallery-counter');
+  if (!el) return;
+  const thumbs = rolfGalleryThumbs();
+  const cur = Math.max(0, thumbs.findIndex(t => t.classList.contains('active')));
+  el.textContent = thumbs.length > 1 ? `${cur + 1} / ${thumbs.length}` : '';
+  el.style.display = thumbs.length > 1 ? '' : 'none';
+}
+
+function rolfInitBackLink() {
+  const a = document.getElementById('backLink');
+  if (!a) return;
+  let ref = null;
+  try { ref = document.referrer ? new URL(document.referrer) : null; } catch (e) {}
+  if (ref && ref.origin === location.origin && ref.href !== location.href) {
+    a.href = ref.href;
+    a.addEventListener('click', e => {
+      if (history.length > 1) { e.preventDefault(); history.back(); }
+    });
+  }
+}
+
+const VIEWED_KEY = 'rolf_viewed';
+
+function rolfGetViewed() {
+  try { const v = JSON.parse(localStorage.getItem(VIEWED_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+}
+
+function rolfRecordView(ref) {
+  try {
+    const v = rolfGetViewed().filter(r => r !== ref);
+    v.unshift(ref);
+    localStorage.setItem(VIEWED_KEY, JSON.stringify(v.slice(0, 20)));
+  } catch (e) {}
+}
+
+function rolfSimilarity(a, b) {
+  let s = 0;
+  if (a.brand_slug === b.brand_slug) s += 3;
+  if (a.type === b.type) s += 3;
+  if (a.public === b.public) s += 2;
+  if (a.style === b.style) s += 1.5;
+  if (a.color === b.color) s += 1;
+  if (a.material === b.material) s += 1;
+  const hi = Math.max(a.price, b.price) || 1;
+  s += 2 * (1 - Math.min(1, Math.abs(a.price - b.price) / hi));
+  return s;
+}
+
+// Score = 50% similarity to the product on screen + 50% recency-weighted similarity to the visitor's last viewed products;
+// when there is a history, the last slot goes to the best match for that history alone.
+function rolfRecommend(p, all, n) {
+  const byRef = new Map(all.map(x => [x.ref, x]));
+  const hist = rolfGetViewed().filter(r => r !== p.ref).map(r => byRef.get(r)).filter(Boolean).slice(0, 10);
+  const histRefs = new Set(hist.map(h => h.ref));
+  const histScore = c => {
+    let acc = 0, w = 0;
+    hist.forEach((h, i) => { const wi = 1 / (i + 1); acc += wi * rolfSimilarity(c, h); w += wi; });
+    return w ? acc / w : 0;
+  };
+  const pool = all.filter(c => c.ref !== p.ref && !histRefs.has(c.ref) && c.img);
+  const rank = fn => pool.map(c => ({ c, score: fn(c) })).sort((a, b) => b.score - a.score).map(x => x.c);
+  const picked = [], names = new Set([localizedName(p)]);
+  const take = (list, upto) => {
+    for (const c of list) {
+      if (picked.length >= upto) break;
+      const key = localizedName(c);
+      if (names.has(key)) continue;
+      names.add(key); picked.push(c);
+    }
+  };
+  if (hist.length) {
+    take(rank(c => 0.5 * rolfSimilarity(c, p) + 0.5 * histScore(c)), n - 1);
+    take(rank(histScore), n);
+  } else {
+    take(rank(c => rolfSimilarity(c, p)), n);
+  }
+  return picked;
+}
+
+function rolfMiniCards(list) {
+  return list.map(c => {
+    const cImg = productImageSrc(c), cFallback = productImage(c);
+    return `<a href="product.html?ref=${encodeURIComponent(c.ref)}" class="bundle-card reveal visible" style="text-decoration:none;color:inherit">
+      <div class="bundle-imgs"><img src="${cImg}" alt="${escapeHtml(localizedName(c))}" loading="lazy" onerror="this.onerror=null;this.src='${cFallback}'" /></div>
+      <div>
+        <div style="font-weight:600;font-size:0.9rem">${escapeHtml(localizedName(c))}</div>
+        <div style="font-size:0.8rem;color:var(--text-muted)">${escapeHtml(c.brand)} — ${formatPriceEUR(c.price)}</div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function rolfRenderProductSuggestions(p, all) {
+  const recSection = document.getElementById('crossSellSection');
+  const recs = rolfRecommend(p, all, 3);
+  if (recSection) {
+    if (recs.length) document.getElementById('crossSellGrid').innerHTML = rolfMiniCards(recs);
+    else recSection.style.display = 'none';
+  }
+  const recentSection = document.getElementById('recentSection');
+  if (recentSection) {
+    const byRef = new Map(all.map(x => [x.ref, x]));
+    const recent = rolfGetViewed().filter(r => r !== p.ref).map(r => byRef.get(r)).filter(Boolean).slice(0, 6);
+    if (recent.length >= 2) {
+      document.getElementById('recentGrid').innerHTML = rolfMiniCards(recent);
+      recentSection.style.display = '';
+    } else {
+      recentSection.style.display = 'none';
+    }
+  }
+  rolfRecordView(p.ref);
+}
+
 /* ========== INIT ========== */
 updateCartUI();
 loadCatalog();
 initCollectionCatalog();
 initHeaderSearch();
+rolfInitBackLink();
 renderIcons();

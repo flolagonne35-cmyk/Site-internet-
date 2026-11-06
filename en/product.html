@@ -38,6 +38,8 @@
 
 <script src="../js/layout.js"></script>
 
+<div class="container back-row"><a href="collection.html" class="back-link" id="backLink">← Back</a></div>
+
 <div class="container breadcrumb-row" id="breadcrumbRow">
   <a href="index.html">Home</a> / <a href="collection.html">Collection</a> / <span id="bcName">…</span>
 </div>
@@ -66,7 +68,7 @@
 
         <div class="reassurance-badges">
           <div class="r-badge"><span class="ic"><span data-icon="badge-check"></span></span> <span id="productBrandBadge">Official retailer</span></div>
-          <div class="r-badge"><span class="ic"><span data-icon="shield"></span></span> 2-year warranty</div>
+          <div class="r-badge"><span class="ic"><span data-icon="shield"></span></span> <span id="productWarrantyBadge">2-year warranty</span></div>
           <div class="r-badge"><span class="ic"><span data-icon="truck"></span></span> Free delivery from €80</div>
           <div class="r-badge"><span class="ic"><span data-icon="return"></span></span> Free returns within 30 days</div>
         </div>
@@ -85,11 +87,6 @@
         <div class="certificate-block">
           <h4><span data-icon="gem"></span> Manufacturer's warranty</h4>
           <p id="productWarranty"></p>
-        </div>
-
-        <div class="certificate-block">
-          <h4><span data-icon="pencil"></span> Personalisation & engraving</h4>
-          <p>Engraving available on request (+€12). Allow an extra <strong>3 to 5 business days</strong> for engraved pieces.</p>
         </div>
 
         <div class="certificate-block">
@@ -115,6 +112,14 @@
     <p class="section-tag" style="text-align:center">Complete your look</p>
     <h2 class="section-title reveal">You might also like</h2>
     <div id="crossSellGrid" class="cross-sell-grid"></div>
+  </div>
+</section>
+
+<section class="cross-sell-section" id="recentSection" style="display:none;background:var(--white)">
+  <div class="container">
+    <p class="section-tag" style="text-align:center">Recently viewed</p>
+    <h2 class="section-title">Products you looked at</h2>
+    <div id="recentGrid" class="cross-sell-grid"></div>
   </div>
 </section>
 
@@ -171,10 +176,15 @@
       '@context': 'https://schema.org',
       '@type': 'Product',
       name: localizedName(p),
-      image: [absoluteProductImage(p)],
+      image: productImages(p).map(src => /^https?:\/\//.test(src) ? src : SITE_BASE_URL + src.replace(/^\.\.\//, '')),
       description: localizedDesc(p) || `${localizedName(p)} — ${p.brand}. Official retailer, 2-year warranty, free delivery from €80.`,
       sku: p.ref,
+      mpn: p.ref,
+      ...(/^\d{13}$/.test(p.ean || '') ? { gtin13: p.ean } : {}),
       brand: { '@type': 'Brand', name: p.brand },
+      color: COLOR_LABELS[p.color] || p.color || undefined,
+      material: MATERIAL_LABELS[p.material] || p.material || undefined,
+      additionalProperty: rolfProductSpecs(p).map(([name, value]) => ({ '@type': 'PropertyValue', name, value: String(value) })),
       offers: {
         '@type': 'Offer',
         url: pageUrl,
@@ -250,17 +260,7 @@
     }
     bcScript.textContent = JSON.stringify(breadcrumbLd);
 
-    const imgSrc = productImageSrc(p);
-    const fallback = productImage(p);
-    const mainImg = document.getElementById('productMainImg');
-    mainImg.src = imgSrc; mainImg.alt = localizedName(p);
-    mainImg.onerror = () => { mainImg.onerror = null; mainImg.src = fallback; };
-    document.getElementById('productThumbs').innerHTML =
-      `<button class="product-thumb active" onclick="switchProductImg('${imgSrc}', this, '${fallback}')"><img src="${imgSrc}" alt="${escapeHtml(localizedName(p))}" onerror="this.onerror=null;this.src='${fallback}'" /></button>` +
-      (p.extra_images || []).map(f => {
-        const xSrc = PRODUCT_IMG_BASE + encodeURIComponent(f);
-        return `<button class="product-thumb" onclick="switchProductImg('${xSrc}', this, '${imgSrc}')"><img src="${xSrc}" alt="${escapeHtml(localizedName(p))}" loading="lazy" onerror="this.closest('button').remove()" /></button>`;
-      }).join('');
+    rolfInitProductGallery(p);
 
     document.getElementById('productCat').textContent = `${PUBLIC_LABELS[p.public] || p.public} — ${TYPE_LABELS_SINGULAR[p.type] || p.type} — ${p.brand}`;
     document.getElementById('productName').textContent = localizedName(p);
@@ -271,22 +271,16 @@
 
     document.getElementById('productDesc').textContent = localizedDesc(p);
 
-    const specs = [
-      ['Brand', p.brand],
-      ['Reference', p.ref],
-      ['Type', TYPE_LABELS_SINGULAR[p.type] || p.type],
-      ['Audience', PUBLIC_LABELS[p.public] || p.public],
-      ['Material', MATERIAL_LABELS[p.material] || p.material],
-      ['Colour', COLOR_LABELS[p.color] || p.color],
-      ['Style', STYLE_LABELS[p.style] || p.style],
-    ].filter(([, value]) => value);
+    const specs = rolfProductSpecs(p);
     document.getElementById('productSpecs').innerHTML = specs
       .map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(String(value))}</dd>`)
       .join('');
 
     document.getElementById('productBrandBadge').textContent = `Official ${p.brand} retailer`;
+    const warrantyYears = p.type === 'montres' ? '2-year' : '1-year';
+    document.getElementById('productWarrantyBadge').textContent = `${warrantyYears.charAt(0).toUpperCase() + warrantyYears.slice(1)} warranty`;
     document.getElementById('productWarranty').textContent =
-      `This piece is covered by ${p.brand}'s 2-year manufacturer warranty. EAN reference ${p.ean || '—'} — full traceability available on request from our customer service.`;
+      `This piece is covered by ${p.brand}'s ${warrantyYears} manufacturer warranty. EAN reference ${p.ean || '—'} — full traceability available on request from our customer service.`;
 
     const atcBtn = document.getElementById('addToCartBtn');
     atcBtn.textContent = `Add to cart — ${formatPriceEUR(p.price)}`;
@@ -296,23 +290,7 @@
     if (rolfIsWished(p.ref)) wishBtn.classList.add('active');
     wishBtn.onclick = () => rolfToggleWish(p.ref, wishBtn);
 
-    const pool = allProducts.filter(x => x.ref !== p.ref && x.type === p.type);
-    const chosen = pool.sort(() => Math.random() - 0.5).slice(0, 3);
-    const crossSellSection = document.getElementById('crossSellSection');
-    if (chosen.length === 0) {
-      crossSellSection.style.display = 'none';
-    } else {
-      document.getElementById('crossSellGrid').innerHTML = chosen.map(c => {
-        const cImg = productImageSrc(c), cFallback = productImage(c);
-        return `<a href="product.html?ref=${encodeURIComponent(c.ref)}" class="bundle-card reveal visible" style="text-decoration:none;color:inherit">
-          <div class="bundle-imgs"><img src="${cImg}" alt="${escapeHtml(localizedName(c))}" onerror="this.onerror=null;this.src='${cFallback}'" /></div>
-          <div>
-            <div style="font-weight:600;font-size:0.9rem">${escapeHtml(localizedName(c))}</div>
-            <div style="font-size:0.8rem;color:var(--text-muted)">${formatPriceEUR(c.price)}</div>
-          </div>
-        </a>`;
-      }).join('');
-    }
+    rolfRenderProductSuggestions(p, allProducts);
   }
 
   fetch('../data/products.json')
