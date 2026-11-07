@@ -180,7 +180,7 @@
       description: localizedDesc(p) || `${localizedName(p)} — ${p.brand}. Distributeur officiel, garantie 2 ans, livraison offerte dès 80€.`,
       sku: p.ref,
       mpn: p.ref,
-      ...(/^\d{13}$/.test(p.ean || '') ? { gtin13: p.ean } : {}),
+      ...(/^\d{13}$/.test(p.ean || '') ? { gtin13: p.ean } : /^(\d{8}|\d{12}|\d{14})$/.test(p.ean || '') ? { gtin: p.ean } : {}),
       brand: { '@type': 'Brand', name: p.brand },
       color: COLOR_LABELS[p.color] || p.color || undefined,
       material: MATERIAL_LABELS[p.material] || p.material || undefined,
