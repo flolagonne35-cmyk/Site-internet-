@@ -288,11 +288,11 @@ const PLACEHOLDER_IMAGES = {
 };
 
 const TYPE_LABELS_PLURAL = LANG === 'en'
-  ? { montres: 'Watches', bagues: 'Rings', bracelets: 'Bracelets', colliers: 'Necklaces', boucles: 'Earrings' }
-  : { montres: 'Montres', bagues: 'Bagues', bracelets: 'Bracelets', colliers: 'Colliers', boucles: "Boucles d'oreilles" };
+  ? { montres: 'Watches', bagues: 'Rings', bracelets: 'Bracelets', colliers: 'Necklaces', boucles: 'Earrings', ecouteurs: 'Bluetooth earbuds' }
+  : { montres: 'Montres', bagues: 'Bagues', bracelets: 'Bracelets', colliers: 'Colliers', boucles: "Boucles d'oreilles", ecouteurs: 'Oreillettes Bluetooth' };
 const TYPE_LABELS_SINGULAR = LANG === 'en'
-  ? { montres: 'Watch', bagues: 'Ring', bracelets: 'Bracelet', colliers: 'Necklace', boucles: 'Earrings' }
-  : { montres: 'Montre', bagues: 'Bague', bracelets: 'Bracelet', colliers: 'Collier', boucles: "Boucles d'oreilles" };
+  ? { montres: 'Watch', bagues: 'Ring', bracelets: 'Bracelet', colliers: 'Necklace', boucles: 'Earrings', ecouteurs: 'Bluetooth earbuds' }
+  : { montres: 'Montre', bagues: 'Bague', bracelets: 'Bracelet', colliers: 'Collier', boucles: "Boucles d'oreilles", ecouteurs: 'Oreillettes Bluetooth' };
 const PUBLIC_LABELS = LANG === 'en'
   ? { homme: 'Men', femme: 'Women', mixte: 'Unisex', enfant: 'Kids' }
   : { homme: 'Homme', femme: 'Femme', mixte: 'Mixte', enfant: 'Enfant' };

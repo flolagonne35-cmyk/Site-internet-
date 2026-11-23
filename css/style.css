@@ -311,9 +311,10 @@ input, textarea { font-family: inherit; }
 /* ==================== CATEGORIES ==================== */
 .categories-section { padding: 96px 0; background: var(--bg-light); }
 .categories-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 24px; margin-top: 0;
 }
+@media (max-width: 1024px) { .categories-grid { grid-template-columns: repeat(2, 1fr); } }
 .cat-card {
   position: relative; border-radius: var(--radius);
   overflow: hidden; aspect-ratio: 3/4; cursor: pointer;
@@ -867,7 +868,7 @@ input, textarea { font-family: inherit; }
   .hero-btns { justify-content: center; }
   .hero-stats { right: 20px; gap: 24px; }
   .hero-stat-num { font-size: 1.5rem; }
-  .categories-grid { grid-template-columns: 1fr; gap: 16px; }
+  .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .brand-values { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; }
