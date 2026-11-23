@@ -68,7 +68,7 @@
       .collection-layout { grid-template-columns: 1fr; }
       .filters-sidebar {
         position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 1100;
-        height: 60vh; height: 60dvh; overflow-y: auto; overscroll-behavior: contain;
+        height: 60vh; height: 60dvh; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y;
         background: var(--white); border-radius: 18px 18px 0 0; box-shadow: 0 -12px 40px rgba(0,0,0,0.18);
         padding: 6px 20px 0; transform: translateY(105%); visibility: hidden;
         transition: transform 0.3s ease, visibility 0s linear 0.3s;
@@ -133,6 +133,11 @@
       </div>
 
       <div class="filter-group">
+        <h3>Rechercher</h3>
+        <input class="collection-search-input" type="text" id="collectionSearch" placeholder="Référence, nom, marque…" />
+      </div>
+
+      <div class="filter-group">
         <h3>Marque</h3>
         <div class="filter-options" id="filterBrand"></div>
       </div>
@@ -169,11 +174,6 @@
           <span>—</span>
           <input class="price-input" type="number" id="priceMax" placeholder="Max" value="" />
         </div>
-      </div>
-
-      <div class="filter-group">
-        <h3>Rechercher</h3>
-        <input class="collection-search-input" type="text" id="collectionSearch" placeholder="Référence, nom, marque…" />
       </div>
 
       <div class="filters-sheet-footer">
