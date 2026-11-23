@@ -294,11 +294,11 @@ const TYPE_LABELS_SINGULAR = LANG === 'en'
   ? { montres: 'Watch', bagues: 'Ring', bracelets: 'Bracelet', colliers: 'Necklace', boucles: 'Earrings' }
   : { montres: 'Montre', bagues: 'Bague', bracelets: 'Bracelet', colliers: 'Collier', boucles: "Boucles d'oreilles" };
 const PUBLIC_LABELS = LANG === 'en'
-  ? { homme: 'Men', femme: 'Women', mixte: 'Unisex' }
-  : { homme: 'Homme', femme: 'Femme', mixte: 'Mixte' };
+  ? { homme: 'Men', femme: 'Women', mixte: 'Unisex', enfant: 'Kids' }
+  : { homme: 'Homme', femme: 'Femme', mixte: 'Mixte', enfant: 'Enfant' };
 const MATERIAL_LABELS = LANG === 'en'
-  ? { acier: 'Steel', or: 'Gold-plated', argent: 'Silver', cuir: 'Leather', silicone: 'Silicone' }
-  : { acier: 'Acier', or: 'Plaqué or', argent: 'Argent', cuir: 'Cuir', silicone: 'Silicone' };
+  ? { acier: 'Steel', or: 'Gold', argent: 'Silver', metal: 'Metal', plastique: 'Plastic', cuir: 'Leather', silicone: 'Silicone' }
+  : { acier: 'Acier', or: 'Or', argent: 'Argent', metal: 'Métal', plastique: 'Plastique', cuir: 'Cuir', silicone: 'Silicone' };
 const COLOR_LABELS = LANG === 'en'
   ? { or: 'Gold', argent: 'Silver', noir: 'Black', rose: 'Pink', blanc: 'White', bleu: 'Blue', vert: 'Green', rouge: 'Red', multicolore: 'Multicolour' }
   : { or: 'Or', argent: 'Argent', noir: 'Noir', rose: 'Rose', blanc: 'Blanc', bleu: 'Bleu', vert: 'Vert', rouge: 'Rouge', multicolore: 'Multicolore' };
