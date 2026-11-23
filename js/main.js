@@ -465,8 +465,15 @@ function localizedDesc(p) {
   return LANG === 'en' && p.desc_en ? p.desc_en : (p.desc || '');
 }
 
+// Lifestyle photos first, the plain packshot last; products without lifestyle keep the packshot.
 function productImages(p) {
-  return [productImageSrc(p)].concat((p.extra_images || []).map(f => PRODUCT_IMG_BASE + encodeURIComponent(f)));
+  const lifestyle = (p.extra_images || []).map(f => PRODUCT_IMG_BASE + encodeURIComponent(f));
+  if (!lifestyle.length) return [productImageSrc(p)];
+  return p.img ? lifestyle.concat(PRODUCT_IMG_BASE + encodeURIComponent(p.img)) : lifestyle;
+}
+
+function productImageFallback(p) {
+  return p.img && (p.extra_images || []).length ? productImageSrc(p) : productImage(p);
 }
 
 function renderProductCard(p) {
@@ -482,7 +489,7 @@ function renderProductCard(p) {
   const wished = rolfIsWished(p.ref);
   const imgs = productImages(p);
   const slides = imgs.map((src, i) => i === 0
-    ? `<img src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="this.onerror=null;this.src='${productImage(p)}'" />`
+    ? `<img src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="this.onerror=null;this.src='${productImageFallback(p)}'" />`
     : `<img src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="rolfDropSlide(this)" />`).join('');
   const sliderUi = imgs.length > 1
     ? `<div class="card-dots">${imgs.map((_, i) => `<span${i === 0 ? ' class="on"' : ''}></span>`).join('')}</div>` +
@@ -611,11 +618,14 @@ function applyCatalogFilters(opts) {
       .map(x => x.p);
   }
 
-  // Jewellery-only listing with no brand chosen: Orus's Spiral collection leads page 1.
+  // No brand chosen, relevance order: Spinnaker leads any listing that includes watches,
+  // Orus's Spiral collection leads jewellery-only listings.
   const types = checked.type || [];
-  if ((!sortKey || sortKey === 'relevance') && !query && !(checked.brand || []).length && types.length && !types.includes('montres')) {
-    const isSpiral = p => /spiral/i.test(`${p.name} ${p.name_en || ''}`);
-    list = list.filter(isSpiral).concat(list.filter(p => !isSpiral(p)));
+  if ((!sortKey || sortKey === 'relevance') && !query && !(checked.brand || []).length) {
+    const lead = (!types.length || types.includes('montres'))
+      ? p => p.brand_slug === 'spinnaker'
+      : p => /spiral/i.test(`${p.name} ${p.name_en || ''}`);
+    list = list.filter(lead).concat(list.filter(p => !lead(p)));
   }
 
   if (sortKey === 'price-asc') list = list.slice().sort((a, b) => a.price - b.price);
@@ -939,6 +949,22 @@ function rolfToggleFilters(force) {
   const open = typeof force === 'boolean' ? sidebar.classList.toggle('open', force) : sidebar.classList.toggle('open');
   if (btn) btn.classList.toggle('active', open);
   document.body.classList.toggle('filters-open', open);
+  rolfLockPageScroll(open && window.matchMedia('(max-width: 900px)').matches);
+}
+
+// Freezes the page behind the mobile filter sheet so swipes scroll the sheet (iOS ignores overflow:hidden on body).
+let _rolfLockedY = null;
+function rolfLockPageScroll(lock) {
+  const b = document.body.style;
+  if (lock && _rolfLockedY === null) {
+    _rolfLockedY = window.scrollY;
+    Object.assign(b, { position: 'fixed', top: `-${_rolfLockedY}px`, left: '0', right: '0', width: '100%' });
+  } else if (!lock && _rolfLockedY !== null) {
+    const y = _rolfLockedY;
+    _rolfLockedY = null;
+    Object.assign(b, { position: '', top: '', left: '', right: '', width: '' });
+    window.scrollTo({ top: y, behavior: 'instant' });
+  }
 }
 
 function renderIcons(root) {
@@ -1049,7 +1075,7 @@ function rolfInitProductGallery(p) {
   if (!main || !thumbsEl) return;
   const name = escapeHtml(localizedName(p));
   const imgs = productImages(p);
-  _rolfGalleryFallback = productImage(p);
+  _rolfGalleryFallback = productImageFallback(p);
   main.src = imgs[0]; main.alt = localizedName(p);
   main.onerror = () => { main.onerror = null; main.src = _rolfGalleryFallback; };
   thumbsEl.innerHTML = imgs.map((src, i) =>
