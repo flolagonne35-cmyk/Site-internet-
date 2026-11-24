@@ -303,8 +303,9 @@
           : 'Précommande — date de disponibilité bientôt communiquée';
       } else if (availability === 'order') {
         stockNote.textContent = 'Expédié sous 10 à 15 jours';
-      } else if (p.sizes_in_stock && p.sizes_in_stock.length) {
-        stockNote.textContent = 'Tailles disponibles : ' + p.sizes_in_stock.join(', ');
+      } else {
+        stockNote.classList.add('in-stock');
+        stockNote.textContent = 'En stock — expédié sous 2 à 4 jours' + (p.sizes_in_stock && p.sizes_in_stock.length ? ' · Tailles disponibles : ' + p.sizes_in_stock.join(', ') : '');
       }
     }
 
