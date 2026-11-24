@@ -42,5 +42,10 @@ jobs:
           refs={p['ref'] for p in cat}; st={r[0].strip() for r in rows}
           print('catalog',len(refs),'in stock file',len(refs&st),'catalog missing from file',len(refs-st),sorted(refs-st)[:25])
           inst=[r for r in rows if r[0].strip() in refs]
+          bb=collections.Counter(p['brand'] for p in cat if p['ref'] not in st); print('missing by brand',dict(bb))
+          tot=collections.Counter(p['brand'] for p in cat); print('catalog by brand',dict(tot))
+          z={r[0].strip() for r in rows if int(r[2] or 0)<=0}; print('qty0 by brand',dict(collections.Counter(p['brand'] for p in cat if p['ref'] in z)))
+          lim=[p for p in cat if 'limit' in (p.get('name','')+' '+p.get('desc','')+' '+json.dumps(p.get('specs',{}),ensure_ascii=False)).lower()]
+          print('limited',len(lim),'in file',sum(p['ref'] in st for p in lim),'qty0',sum(p['ref'] in z for p in lim),[p['ref'] for p in lim][:10])
           print('catalog qty buckets',collections.Counter('0' if int(r[2] or 0)<=0 else '>0' for r in inst))
           PY
