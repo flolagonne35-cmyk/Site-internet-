@@ -24,9 +24,8 @@ jobs:
           lftp -p "${FTP_PORT:-21}" -u "$FTP_USER,$FTP_PASSWORD" "$FTP_HOST" \
             -e "$LFTP_SET; find -l / | head -n 200; bye" | tee listing.txt
           mkdir -p probe
-          grep -E '\.(csv|txt|xml|xlsx?|json)$' listing.txt | awk '{print $NF}' | head -n 5 | while read -r f; do
-            lftp -p "${FTP_PORT:-21}" -u "$FTP_USER,$FTP_PASSWORD" "$FTP_HOST" \
-              -e "$LFTP_SET; get \"$f\" -o probe/sample; bye" || continue
-            echo "===== $f ($(wc -l < probe/sample) lines)"
-            head -n 4 probe/sample | cut -c1-400
-          done
+          lftp -p "${FTP_PORT:-21}" -u "$FTP_USER,$FTP_PASSWORD" "$FTP_HOST" \
+            -e "$LFTP_SET; set xfer:clobber on; get /odeis_cat_web_stocks.csv -o probe/stock.csv; bye"
+          echo "===== lines: $(wc -l < probe/stock.csv)"
+          file probe/stock.csv
+          head -n 6 probe/stock.csv | cut -c1-400
