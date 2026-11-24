@@ -238,6 +238,7 @@ function switchProductImg(src, thumb, fallback) {
   const main = document.getElementById('productMainImg');
   if (main) {
     main.src = src;
+    main.classList.toggle('is-pack', rolfIsPackshot(src));
     main.onerror = fallback ? () => { main.onerror = null; main.src = fallback; } : null;
   }
   document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
@@ -466,7 +467,12 @@ function localizedDesc(p) {
 }
 
 // Lifestyle photos first, the plain packshot last; products without lifestyle keep the packshot.
+function rolfIsPackshot(src) {
+  return /(^|\/)images\/products\//.test(src) && !/_[1-9]\.jpg$/i.test(decodeURIComponent(src));
+}
+
 function productImages(p) {
+  if (Array.isArray(p.images) && p.images.length) return p.images.map(f => PRODUCT_IMG_BASE + encodeURIComponent(f));
   const lifestyle = (p.extra_images || []).map(f => PRODUCT_IMG_BASE + encodeURIComponent(f));
   if (!lifestyle.length) return [productImageSrc(p)];
   return p.img ? lifestyle.concat(PRODUCT_IMG_BASE + encodeURIComponent(p.img)) : lifestyle;
@@ -488,9 +494,12 @@ function renderProductCard(p) {
   const href = `product.html?ref=${encodeURIComponent(p.ref)}`;
   const wished = rolfIsWished(p.ref);
   const imgs = productImages(p);
-  const slides = imgs.map((src, i) => i === 0
-    ? `<img src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="this.onerror=null;this.src='${productImageFallback(p)}'" />`
-    : `<img src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="rolfDropSlide(this)" />`).join('');
+  const slides = imgs.map((src, i) => {
+    const cls = rolfIsPackshot(src) ? ' class="is-pack"' : '';
+    return i === 0
+      ? `<img${cls} src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="this.onerror=null;this.src='${productImageFallback(p)}'" />`
+      : `<img${cls} src="${src}" alt="${nameSafe}" loading="lazy" draggable="false" onerror="rolfDropSlide(this)" />`;
+  }).join('');
   const sliderUi = imgs.length > 1
     ? `<div class="card-dots">${imgs.map((_, i) => `<span${i === 0 ? ' class="on"' : ''}></span>`).join('')}</div>` +
       `<button type="button" class="card-arrow prev" aria-label="${STR.prevImg}" onclick="rolfCardSlide(this,-1)">‹</button>` +
@@ -874,7 +883,7 @@ function renderSearchResults(rawQuery) {
 
   const rows = matches.map(p => `
     <a class="search-result-row" href="product.html?ref=${encodeURIComponent(p.ref)}">
-      <img src="${productImageSrc(p)}" alt="${escapeHtml(localizedName(p))}" onerror="this.onerror=null;this.src='${productImage(p)}'" />
+      <img class="is-pack" src="${productImageSrc(p)}" alt="${escapeHtml(localizedName(p))}" onerror="this.onerror=null;this.src='${productImage(p)}'" />
       <span class="search-result-info">
         <span class="search-result-name">${escapeHtml(localizedName(p))}</span>
         <span class="search-result-meta">${escapeHtml(p.brand)} — ${formatPriceEUR(p.price)}</span>
@@ -1077,9 +1086,10 @@ function rolfInitProductGallery(p) {
   const imgs = productImages(p);
   _rolfGalleryFallback = productImageFallback(p);
   main.src = imgs[0]; main.alt = localizedName(p);
+  main.classList.toggle('is-pack', rolfIsPackshot(imgs[0]));
   main.onerror = () => { main.onerror = null; main.src = _rolfGalleryFallback; };
   thumbsEl.innerHTML = imgs.map((src, i) =>
-    `<button type="button" class="product-thumb${i === 0 ? ' active' : ''}" onclick="rolfGalleryGo(this)"><img src="${src}" alt="${name}"${i ? ' loading="lazy"' : ''} onerror="${i ? "this.closest('button').remove();rolfGalleryCounter()" : `this.onerror=null;this.src='${_rolfGalleryFallback}'`}" /></button>`
+    `<button type="button" class="product-thumb${i === 0 ? ' active' : ''}" onclick="rolfGalleryGo(this)"><img${rolfIsPackshot(src) ? ' class="is-pack"' : ''} src="${src}" alt="${name}"${i ? ' loading="lazy"' : ''} onerror="${i ? "this.closest('button').remove();rolfGalleryCounter()" : `this.onerror=null;this.src='${_rolfGalleryFallback}'`}" /></button>`
   ).join('');
   if (box && !box.querySelector('.gallery-counter')) {
     box.insertAdjacentHTML('beforeend', '<span class="gallery-counter"></span>');
@@ -1195,7 +1205,7 @@ function rolfMiniCards(list) {
   return list.map(c => {
     const cImg = productImageSrc(c), cFallback = productImage(c);
     return `<a href="product.html?ref=${encodeURIComponent(c.ref)}" class="bundle-card reveal visible" style="text-decoration:none;color:inherit">
-      <div class="bundle-imgs"><img src="${cImg}" alt="${escapeHtml(localizedName(c))}" loading="lazy" onerror="this.onerror=null;this.src='${cFallback}'" /></div>
+      <div class="bundle-imgs"><img${rolfIsPackshot(cImg) ? ' class="is-pack"' : ''} src="${cImg}" alt="${escapeHtml(localizedName(c))}" loading="lazy" onerror="this.onerror=null;this.src='${cFallback}'" /></div>
       <div>
         <div style="font-weight:600;font-size:0.9rem">${escapeHtml(localizedName(c))}</div>
         <div style="font-size:0.8rem;color:var(--text-muted)">${escapeHtml(c.brand)} — ${formatPriceEUR(c.price)}</div>
