@@ -191,7 +191,7 @@
         url: pageUrl,
         priceCurrency: 'EUR',
         price: p.price,
-        availability: { out: 'https://schema.org/OutOfStock', preorder: 'https://schema.org/PreOrder' }[p.availability] || 'https://schema.org/InStock',
+        availability: { out: 'https://schema.org/OutOfStock', preorder: 'https://schema.org/PreOrder', order: 'https://schema.org/BackOrder' }[p.availability] || 'https://schema.org/InStock',
         itemCondition: 'https://schema.org/NewCondition',
       },
     };
@@ -301,6 +301,8 @@
         stockNote.textContent = p.restock
           ? 'Pre-order — available on ' + new Date(p.restock + 'T00:00:00').toLocaleDateString('en-GB')
           : 'Pre-order — availability date coming soon';
+      } else if (availability === 'order') {
+        stockNote.textContent = 'Ships within 10–15 days';
       } else if (p.sizes_in_stock && p.sizes_in_stock.length) {
         stockNote.textContent = 'Available sizes: ' + p.sizes_in_stock.join(', ');
       }

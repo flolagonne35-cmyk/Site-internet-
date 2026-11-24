@@ -3,7 +3,8 @@
 Usage: python scripts/sync_stock.py odeis_cat_web_stocks.csv
 
 Sets on each product:
-  availability  "in" (shown), "out" (hidden) or "preorder" (limited editions out of stock)
+  availability  "in" (shown), "out" (hidden), "preorder" (limited editions out of stock)
+                or "order" (Orus out of our stock: still sold, supplier ships in 10-15 days)
   restock       ISO date of the next delivery when known, else null
   sizes_in_stock  Jackie rings only: sizes currently available
 
@@ -24,6 +25,7 @@ JACKIE = ROOT / 'data' / 'stock' / 'jackie.json'
 LAST_SYNC = ROOT / 'data' / 'stock' / 'last_sync.json'
 MIN_ROWS = 500
 JACKIE_SLUG = 'jackie-gold'
+ORDER_SLUG = 'orus-bijoux'
 
 
 def to_int(v):
@@ -92,7 +94,12 @@ def main(csv_path):
         if in_stock:
             state, restock = 'in', None
         else:
-            state = 'preorder' if is_limited(p) else 'out'
+            if is_limited(p):
+                state = 'preorder'
+            elif p.get('brand_slug') == ORDER_SLUG:
+                state, restock = 'order', None
+            else:
+                state = 'out'
         p['availability'] = state
         p['restock'] = restock
         if sizes and state == 'in':
@@ -112,8 +119,8 @@ def main(csv_path):
         counts = summary[brand]
         for k, v in counts.items():
             totals[k] += v
-        print(f'  {brand:<22} in={counts["in"]:<4} out={counts["out"]:<4} preorder={counts["preorder"]}')
-    print(f'  {"TOTAL":<22} in={totals["in"]:<4} out={totals["out"]:<4} preorder={totals["preorder"]}')
+        print(f'  {brand:<22} in={counts["in"]:<4} out={counts["out"]:<4} preorder={counts["preorder"]:<4} order={counts["order"]}')
+    print(f'  {"TOTAL":<22} in={totals["in"]:<4} out={totals["out"]:<4} preorder={totals["preorder"]:<4} order={totals["order"]}')
 
 
 if __name__ == '__main__':
