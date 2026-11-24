@@ -24,7 +24,8 @@
     .timeline { position: relative; max-width: 720px; margin: 0 auto; }
     .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--border); transform: translateX(-50%); }
     .tl-item { display: flex; gap: 32px; margin-bottom: 48px; position: relative; }
-    .tl-item:nth-child(odd) { flex-direction: row-reverse; text-align: right; }
+    .tl-item:nth-child(odd) { flex-direction: row-reverse; }
+    .tl-item:nth-child(even) { text-align: right; }
     .tl-dot { position: absolute; left: 50%; top: 8px; transform: translateX(-50%); width: 14px; height: 14px; background: var(--accent); border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--accent); }
     .tl-content { flex: 1; background: var(--white); padding: 22px 24px; border-radius: var(--radius); border: 1px solid var(--border); max-width: calc(50% - 28px); }
     .tl-year { font-size: 0.75rem; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
@@ -50,9 +51,10 @@
     @media (max-width: 768px) {
       .about-intro-grid { grid-template-columns: 1fr; }
       .timeline::before { left: 16px; }
-      .tl-item, .tl-item:nth-child(odd) { flex-direction: column; text-align: left; padding-left: 44px; }
+      .tl-item, .tl-item:nth-child(odd), .tl-item:nth-child(even) { flex-direction: column; text-align: left; padding-left: 44px; }
       .tl-dot { left: 10px; }
       .tl-content { max-width: 100%; }
+      .tl-content:empty { display: none; }
       .team-grid { grid-template-columns: 1fr 1fr; }
       .values-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -125,18 +127,18 @@
 
       <div class="tl-item reveal">
         <div class="tl-dot"></div>
-        <div class="tl-content" style="background:transparent;border:none"></div>
         <div class="tl-content">
           <div class="tl-year">11 marques</div>
           <div class="tl-title">Une sélection multi-marques</div>
           <p class="tl-desc">AVI-8, Earnshaw, Jacques du Manoir, Lee Cooper, Spinnaker, Nubeo… et pour les bijoux, Orus Bijoux et Jackie Gold.</p>
         </div>
+        <div class="tl-content" style="background:transparent;border:none"></div>
       </div>
 
       <div class="tl-item reveal">
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <div class="tl-year">1 400+</div>
+          <div class="tl-year">1 200+</div>
           <div class="tl-title">Montres & bijoux</div>
           <p class="tl-desc">Montres, bagues, colliers, bracelets et boucles d'oreilles, chacun avec sa fiche détaillée.</p>
         </div>
@@ -145,12 +147,12 @@
 
       <div class="tl-item reveal">
         <div class="tl-dot"></div>
-        <div class="tl-content" style="background:transparent;border:none"></div>
         <div class="tl-content">
           <div class="tl-year">La suite</div>
           <div class="tl-title">Et ce n’est que le début</div>
           <p class="tl-desc">De nouvelles pièces à chaque saison et un programme de fidélité pour remercier nos clients.</p>
         </div>
+        <div class="tl-content" style="background:transparent;border:none"></div>
       </div>
 
     </div>
