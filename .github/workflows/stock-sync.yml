@@ -1,0 +1,70 @@
+name: Stock sync
+
+on:
+  schedule:
+    # Every 2 hours, off the hour to avoid the scheduler's busiest minute.
+    - cron: '17 */2 * * *'
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - 'data/stock/jackie.json'
+      - 'scripts/sync_stock.py'
+      - '.github/workflows/stock-sync.yml'
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: stock-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Download supplier stock file
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          lftp -p "${FTP_PORT:-21}" -u "$FTP_USER,$FTP_PASSWORD" "$FTP_HOST" \
+            -e "set net:timeout 20; set net:max-retries 3; set ftp:ssl-allow yes; set xfer:clobber on; get /odeis_cat_web_stocks.csv -o $RUNNER_TEMP/stock.csv; bye"
+          test -s "$RUNNER_TEMP/stock.csv"
+
+      - name: Apply stock to the catalogue
+        run: python3 scripts/sync_stock.py "$RUNNER_TEMP/stock.csv"
+
+      - name: Commit and push if availability changed
+        id: commit
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/products.json; then
+            echo "No availability change."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/products.json data/stock/last_sync.json
+          git commit -q -m "Stock sync"
+          for i in 1 2 3; do
+            git pull -q --rebase origin main && git push -q origin HEAD:main && break
+            sleep $((i * 5))
+          done
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Request a Pages rebuild
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "Pages rebuild request failed (a push-triggered build may still run)."

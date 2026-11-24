@@ -63,6 +63,7 @@
         <div class="product-stars" style="font-size:0.95rem;color:var(--text-muted)">Nouveau sur ROLF — soyez le premier à donner votre avis</div>
 
         <div class="product-detail-price" id="productPrice"></div>
+        <p class="product-stock-note" id="productStockNote"></p>
 
         <p class="product-detail-desc" id="productDesc"></p>
 
@@ -190,7 +191,7 @@
         url: pageUrl,
         priceCurrency: 'EUR',
         price: p.price,
-        availability: 'https://schema.org/InStock',
+        availability: { out: 'https://schema.org/OutOfStock', preorder: 'https://schema.org/PreOrder' }[p.availability] || 'https://schema.org/InStock',
         itemCondition: 'https://schema.org/NewCondition',
       },
     };
@@ -283,8 +284,27 @@
       `Pièce couverte par la garantie fabricant ${p.brand} de ${warrantyYears}. Référence EAN ${p.ean || '—'} — traçabilité complète disponible sur demande auprès de notre service client.`;
 
     const atcBtn = document.getElementById('addToCartBtn');
-    atcBtn.textContent = `Ajouter au panier — ${formatPriceEUR(p.price)}`;
-    atcBtn.onclick = () => addToCart(localizedName(p), p.price, atcBtn, p.img);
+    atcBtn.textContent = '';
+    const availability = p.availability || 'in';
+    const stockNote = document.getElementById('productStockNote');
+    stockNote.textContent = '';
+    if (availability === 'out') {
+      atcBtn.textContent = 'Actuellement indisponible';
+      atcBtn.disabled = true;
+      atcBtn.onclick = null;
+      stockNote.textContent = 'Actuellement indisponible';
+    } else {
+      const label = availability === 'preorder' ? 'Précommander' : 'Ajouter au panier';
+      atcBtn.textContent = `${label} — ${formatPriceEUR(p.price)}`;
+      atcBtn.onclick = () => addToCart(localizedName(p), p.price, atcBtn, p.img);
+      if (availability === 'preorder') {
+        stockNote.textContent = p.restock
+          ? 'Précommande — disponible le ' + new Date(p.restock + 'T00:00:00').toLocaleDateString('fr-FR')
+          : 'Précommande — date de disponibilité bientôt communiquée';
+      } else if (p.sizes_in_stock && p.sizes_in_stock.length) {
+        stockNote.textContent = 'Tailles disponibles : ' + p.sizes_in_stock.join(', ');
+      }
+    }
 
     const wishBtn = document.getElementById('wishBtn');
     if (rolfIsWished(p.ref)) wishBtn.classList.add('active');

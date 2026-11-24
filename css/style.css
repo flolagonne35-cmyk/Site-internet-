@@ -815,6 +815,9 @@ img.is-pack, .product-img-wrap img.is-pack, .product-gallery-main img.is-pack, .
 .product-detail-cat { font-size: 0.78rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
 .product-detail-name { font-family: var(--font-serif); font-size: clamp(1.3rem, 1rem + 1.2vw, 2rem); line-height: 1.2; margin: 10px 0 12px; }
 .product-detail-price { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 700; margin: 14px 0; display: flex; align-items: baseline; gap: 10px; }
+.product-stock-note { margin: -6px 0 14px; font-size: 0.9rem; font-weight: 600; color: var(--accent); }
+.product-stock-note:empty { display: none; }
+#addToCartBtn:disabled { opacity: 0.55; cursor: not-allowed; }
 .product-detail-desc { color: var(--text-grey); line-height: 1.8; margin-bottom: 20px; }
 .product-video-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 20px; border: 1px solid var(--border); padding: 10px 16px; border-radius: 100px; }
 .certificate-block { background: var(--bg-light); border-radius: var(--radius); padding: 20px; margin: 24px 0; font-size: 0.85rem; color: var(--text-grey); }

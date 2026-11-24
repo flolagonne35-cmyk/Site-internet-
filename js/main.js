@@ -252,6 +252,41 @@ let catalogPage = 1;
 const CATALOG_PAGE_SIZE = 30;
 let catalogLoadPromise = null;
 
+// "out" products stay reachable by direct link (product page) but are hidden everywhere else.
+function rolfIsListed(p) {
+  return (p.availability || 'in') !== 'out';
+}
+
+function rolfFillHomeSelection() {
+  const grid = document.getElementById('bestsellersGrid');
+  if (!grid) return;
+  const listed = new Set(CATALOG.map(p => p.ref));
+  const cards = [...grid.querySelectorAll('.product-card')];
+  const wanted = cards.length;
+  const shown = new Set();
+  cards.forEach(card => {
+    const m = (card.querySelector('a[href*="ref="]')?.getAttribute('href') || '').match(/ref=([^&"]+)/);
+    const ref = m ? decodeURIComponent(m[1]) : null;
+    if (ref && listed.has(ref)) shown.add(ref);
+    else card.remove();
+  });
+  if (shown.size >= wanted) return;
+  const usedBrands = new Set(CATALOG.filter(p => shown.has(p.ref)).map(p => p.brand_slug));
+  const pool = CATALOG.filter(p => !shown.has(p.ref) && (p.availability || 'in') === 'in' && p.img);
+  const pick = [];
+  for (const p of pool) {
+    if (shown.size + pick.length >= wanted) break;
+    if (usedBrands.has(p.brand_slug)) continue;
+    usedBrands.add(p.brand_slug); pick.push(p);
+  }
+  for (const p of pool) {
+    if (shown.size + pick.length >= wanted) break;
+    if (!pick.includes(p)) pick.push(p);
+  }
+  grid.insertAdjacentHTML('beforeend', pick.map(renderProductCard).join(''));
+  renderIcons(grid);
+}
+
 function loadCatalog() {
   if (catalogLoadPromise) return catalogLoadPromise;
   catalogLoadPromise = fetch(SITE_ROOT + 'data/products.json')
@@ -260,8 +295,9 @@ function loadCatalog() {
       return res.json();
     })
     .then(data => {
-      CATALOG = data;
-      CATALOG.forEach((p, i) => { p._idx = i; });
+      data.forEach((p, i) => { p._idx = i; });
+      CATALOG = data.filter(rolfIsListed);
+      rolfFillHomeSelection();
       return CATALOG;
     })
     .catch(err => {
@@ -1215,6 +1251,7 @@ function rolfMiniCards(list) {
 }
 
 function rolfRenderProductSuggestions(p, all) {
+  all = all.filter(rolfIsListed);
   const recSection = document.getElementById('crossSellSection');
   const recs = rolfRecommend(p, all, 3);
   if (recSection) {

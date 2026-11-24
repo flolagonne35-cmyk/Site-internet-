@@ -63,6 +63,7 @@
         <div class="product-stars" style="font-size:0.95rem;color:var(--text-muted)">New to ROLF — be the first to leave a review</div>
 
         <div class="product-detail-price" id="productPrice"></div>
+        <p class="product-stock-note" id="productStockNote"></p>
 
         <p class="product-detail-desc" id="productDesc"></p>
 
@@ -190,7 +191,7 @@
         url: pageUrl,
         priceCurrency: 'EUR',
         price: p.price,
-        availability: 'https://schema.org/InStock',
+        availability: { out: 'https://schema.org/OutOfStock', preorder: 'https://schema.org/PreOrder' }[p.availability] || 'https://schema.org/InStock',
         itemCondition: 'https://schema.org/NewCondition',
       },
     };
@@ -283,8 +284,27 @@
       `This piece is covered by ${p.brand}'s ${warrantyYears} manufacturer warranty. EAN reference ${p.ean || '—'} — full traceability available on request from our customer service.`;
 
     const atcBtn = document.getElementById('addToCartBtn');
-    atcBtn.textContent = `Add to cart — ${formatPriceEUR(p.price)}`;
-    atcBtn.onclick = () => addToCart(localizedName(p), p.price, atcBtn, p.img);
+    atcBtn.textContent = '';
+    const availability = p.availability || 'in';
+    const stockNote = document.getElementById('productStockNote');
+    stockNote.textContent = '';
+    if (availability === 'out') {
+      atcBtn.textContent = 'Currently unavailable';
+      atcBtn.disabled = true;
+      atcBtn.onclick = null;
+      stockNote.textContent = 'Currently unavailable';
+    } else {
+      const label = availability === 'preorder' ? 'Pre-order' : 'Add to cart';
+      atcBtn.textContent = `${label} — ${formatPriceEUR(p.price)}`;
+      atcBtn.onclick = () => addToCart(localizedName(p), p.price, atcBtn, p.img);
+      if (availability === 'preorder') {
+        stockNote.textContent = p.restock
+          ? 'Pre-order — available on ' + new Date(p.restock + 'T00:00:00').toLocaleDateString('en-GB')
+          : 'Pre-order — availability date coming soon';
+      } else if (p.sizes_in_stock && p.sizes_in_stock.length) {
+        stockNote.textContent = 'Available sizes: ' + p.sizes_in_stock.join(', ');
+      }
+    }
 
     const wishBtn = document.getElementById('wishBtn');
     if (rolfIsWished(p.ref)) wishBtn.classList.add('active');
