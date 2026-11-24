@@ -77,7 +77,7 @@ input, textarea { font-family: inherit; }
   line-height: 1.75;
 }
 .section-tag {
-  display: inline-block;
+  display: block;
   color: var(--accent);
   font-size: 0.75rem;
   font-weight: 700;
@@ -135,6 +135,7 @@ input, textarea { font-family: inherit; }
   font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
 }
 .announcement-bar a { color: var(--gold-muted); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+.announcement-bar a { display: inline-block; padding: 12px 4px; margin: -12px -4px; }
 
 /* ==================== HEADER ==================== */
 .header {
@@ -447,10 +448,13 @@ input, textarea { font-family: inherit; }
   font-family: var(--font-serif); font-size: 1rem;
   font-weight: 600; line-height: 1.35; margin-bottom: 8px;
   color: var(--text-dark);
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+}
+.product-card .product-name {
+  display: -webkit-box !important; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
   min-height: calc(1.35em * 2);
 }
-.product-stars { color: var(--accent); font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 12px; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; min-height: calc(1.5em * 2); }
+.product-stars { color: var(--accent); font-size: 0.75rem; margin-bottom: 12px; }
+.product-card .product-stars { line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; min-height: calc(1.5em * 2); }
 .product-stars span { color: var(--text-muted); font-size: 0.72rem; margin-left: 4px; }
 .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
 .product-price { display: flex; align-items: baseline; gap: 8px; }
@@ -890,3 +894,37 @@ img.is-pack, .product-img-wrap img.is-pack, .product-gallery-main img.is-pack, .
   .footer-grid { grid-template-columns: 1fr; }
   .hero-stats { display: none; }
 }
+
+/* Touch targets: at least 40px on phones */
+@media (max-width: 767px) {
+  .atc-btn { width: 40px; height: 40px; }
+  .qty-ctrl { width: 40px; height: 40px; }
+}
+
+/* Small phones: header fits 360px (language switch stays in the menu) */
+@media (max-width: 400px) {
+  .container { padding-left: 20px; padding-right: 20px; }
+  .header-actions .hdr-lang { display: none; }
+}
+
+/* Collection cards: the hover-only CTA must not push the label up on touch screens */
+@media (hover: none), (max-width: 767px) {
+  .cat-cta { display: none; }
+}
+@media (max-width: 767px) {
+  .cat-overlay { padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.05) 60%); }
+  .cat-name { font-size: 1.25rem; }
+}
+
+/* Type tiles: centre an incomplete last row instead of leaving it left-aligned */
+@media (max-width: 900px) {
+  .features-grid.type-icons-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px 16px; }
+  .features-grid.type-icons-grid > .feature { flex: 0 0 calc((100% - 32px) / 3); }
+}
+
+/* Product page: add-to-cart and wishlist stay on one row */
+.atc-row { display: flex; gap: 12px; margin-top: 18px; }
+.atc-row #addToCartBtn { flex: 1; min-width: 0; white-space: normal; }
+.atc-row #wishBtn { flex: 0 0 52px; padding-left: 0; padding-right: 0; justify-content: center; }
+.product-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); }
+.product-thumb { width: auto; height: auto; aspect-ratio: 1; }
