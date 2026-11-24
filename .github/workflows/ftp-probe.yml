@@ -10,6 +10,7 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
       - name: List stock files and preview headers
@@ -26,6 +27,20 @@ jobs:
           mkdir -p probe
           lftp -p "${FTP_PORT:-21}" -u "$FTP_USER,$FTP_PASSWORD" "$FTP_HOST" \
             -e "$LFTP_SET; set xfer:clobber on; get /odeis_cat_web_stocks.csv -o probe/stock.csv; bye"
-          echo "===== lines: $(wc -l < probe/stock.csv)"
-          file probe/stock.csv
-          head -n 6 probe/stock.csv | cut -c1-400
+          python3 - <<'PY'
+          import csv, json, collections
+          rows=[r for r in csv.reader(open('probe/stock.csv',encoding='latin-1'),delimiter=';') if r and r[0].strip()]
+          print('rows',len(rows),'cols',collections.Counter(len(r) for r in rows))
+          for i in (1,3):
+              c=collections.Counter(r[i].strip() for r in rows if len(r)>i); print('col',i+1,c.most_common(12))
+          q=collections.Counter('neg' if int(r[2] or 0)<0 else ('0' if int(r[2] or 0)==0 else ('1-2' if int(r[2])<3 else '3+')) for r in rows)
+          print('qty buckets',q)
+          for v in sorted({r[1].strip() for r in rows})[:8]:
+              print('sample',v,[r for r in rows if r[1].strip()==v][:3])
+          print('col4!=0 sample',[r for r in rows if len(r)>3 and r[3].strip() not in ('','0')][:5])
+          cat=json.load(open('data/products.json',encoding='utf-8'))
+          refs={p['ref'] for p in cat}; st={r[0].strip() for r in rows}
+          print('catalog',len(refs),'in stock file',len(refs&st),'catalog missing from file',len(refs-st),sorted(refs-st)[:25])
+          inst=[r for r in rows if r[0].strip() in refs]
+          print('catalog qty buckets',collections.Counter('0' if int(r[2] or 0)<=0 else '>0' for r in inst))
+          PY
