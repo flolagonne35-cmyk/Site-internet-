@@ -25,7 +25,7 @@ const SHIPPING = {
 } as const;
 
 type Product = {
-  ref: string; name: string; name_en?: string; brand: string; type: string; price: number;
+  ref: string; name: string; name_en?: string; brand: string; brand_slug: string; type: string; price: number;
   img?: string; availability?: string; sizes_in_stock?: string[]; specs?: Record<string, string>;
 };
 
@@ -88,6 +88,11 @@ Deno.serve(async (req) => {
     return json({ error: t("Catalogue momentanément indisponible.", "Catalogue temporarily unavailable.") }, 502, origin);
   }
 
+  // Business days before shipping, per item — keep in sync with product.html.
+  const leadDays = (p: Product) =>
+    p.availability === "order" || p.availability === "preorder" ? 15
+      : p.brand_slug === "jackie-gold" ? 15 : p.brand_slug === "orus-bijoux" ? 10 : 0;
+  let maxLead = 0;
   const lineItems: unknown[] = [];
   let subtotalCents = 0;
   const summary: string[] = [];
@@ -111,9 +116,12 @@ Deno.serve(async (req) => {
     const unit = Math.round(p.price * 100);
     if (!(unit > 0)) return json({ error: t("Prix invalide.", "Invalid price.") }, 400, origin);
     subtotalCents += unit * qty;
+    maxLead = Math.max(maxLead, leadDays(p));
     summary.push(`${p.ref}${size ? ` T${size}` : ""} x${qty}`);
+    const lead = leadDays(p);
     const status = p.availability === "preorder" ? t(" · Précommande", " · Pre-order")
-      : p.availability === "order" ? t(" · Expédié sous 10 à 15 jours", " · Ships in 10–15 days") : "";
+      : p.availability === "order" ? t(" · Expédié sous 10 à 15 jours", " · Ships in 10–15 days")
+      : lead ? t(` · Expédié sous ${lead} jours`, ` · Ships within ${lead} days`) : "";
     lineItems.push({
       quantity: qty,
       price_data: {
@@ -143,7 +151,7 @@ Deno.serve(async (req) => {
         type: "fixed_amount",
         display_name: zone.label[lang],
         fixed_amount: { amount: shippingCents, currency: "eur" },
-        delivery_estimate: { minimum: { unit: "business_day", value: zone.days[0] }, maximum: { unit: "business_day", value: zone.days[1] } },
+        delivery_estimate: { minimum: { unit: "business_day", value: zone.days[0] + maxLead }, maximum: { unit: "business_day", value: zone.days[1] + maxLead } },
       },
     }],
     phone_number_collection: { enabled: true },

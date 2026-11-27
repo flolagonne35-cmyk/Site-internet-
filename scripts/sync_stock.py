@@ -4,8 +4,9 @@ Usage: python scripts/sync_stock.py odeis_cat_web_stocks.csv
 
 Sets on each product:
   availability  "in" (shown), "out" (hidden), "preorder" (limited editions out of stock)
-                or "order" (Orus out of our stock: still sold, supplier ships in 10-15 days;
-                while data/stock/orus.json is valid, only if the supplier has it, else hidden)
+                or "order" (Orus out of our stock: still sold, supplier ships in 10-15 days).
+                While data/stock/orus.json is valid, Orus ignores the FTP entirely:
+                "in" if the spreadsheet has it, else hidden.
   restock       ISO date of the next delivery when known, else null
   sizes_in_stock  Jackie rings only: sizes currently available
 
@@ -89,7 +90,9 @@ def main(csv_path):
     for p in products:
         ref = p['ref'].strip().upper()
         sizes = None
-        if p.get('brand_slug') == JACKIE_SLUG:
+        if p.get('brand_slug') == ORDER_SLUG and orus is not None:
+            in_stock, restock = bool(orus.get(ref)), None
+        elif p.get('brand_slug') == JACKIE_SLUG:
             j = jackie.get(ref)
             in_stock = bool(j and j['a'] == 'in')
             restock = j.get('restock') if j else None
@@ -103,7 +106,7 @@ def main(csv_path):
         else:
             if is_limited(p):
                 state = 'preorder'
-            elif p.get('brand_slug') == ORDER_SLUG and (orus is None or orus.get(ref)):
+            elif p.get('brand_slug') == ORDER_SLUG and orus is None:
                 state, restock = 'order', None
             else:
                 state = 'out'
