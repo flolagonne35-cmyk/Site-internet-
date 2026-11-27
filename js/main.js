@@ -1024,20 +1024,20 @@ const SPEC_LABELS = LANG === 'en' ? {
   brand: 'Brand', ref: 'Reference', ean: 'EAN', type: 'Type', public: 'For', model: 'Model', collection: 'Collection',
   display: 'Display', movement: 'Movement', case: 'Case', diameter: 'Case size', case_thickness: 'Case thickness', bezel: 'Bezel',
   dial: 'Dial', strap: 'Strap', strap_width: 'Strap width', glass: 'Glass', water: 'Water resistance', clasp: 'Clasp',
-  metal_color: 'Metal finish', stone_type: 'Stone', stone_color: 'Stone colour', length: 'Length', width: 'Width',
+  metal: 'Metal', metal_color: 'Metal finish', stone_type: 'Stone', stone_color: 'Stone colour', length: 'Length', width: 'Width',
   thickness: 'Thickness', height: 'Height', size: 'Available sizes', weight: 'Weight', sale_unit: 'Sold', app: 'App',
   bluetooth_name: 'Bluetooth name', edition: 'Edition', material: 'Material', color: 'Colour', style: 'Style',
 } : {
   brand: 'Marque', ref: 'Référence', ean: 'EAN', type: 'Type', public: 'Public', model: 'Modèle', collection: 'Collection',
   display: 'Affichage', movement: 'Mouvement', case: 'Boîtier', diameter: 'Taille du boîtier', case_thickness: 'Épaisseur du boîtier', bezel: 'Lunette',
   dial: 'Cadran', strap: 'Bracelet', strap_width: 'Largeur du bracelet', glass: 'Verre', water: 'Étanchéité', clasp: 'Fermoir',
-  metal_color: 'Finition du métal', stone_type: 'Pierre', stone_color: 'Couleur de la pierre', length: 'Longueur', width: 'Largeur',
+  metal: 'Métal', metal_color: 'Finition du métal', stone_type: 'Pierre', stone_color: 'Couleur de la pierre', length: 'Longueur', width: 'Largeur',
   thickness: 'Épaisseur', height: 'Hauteur', size: 'Tailles disponibles', weight: 'Poids', sale_unit: 'Vendu', app: 'Application',
   bluetooth_name: 'Nom Bluetooth', edition: 'Édition', material: 'Matière', color: 'Couleur', style: 'Style',
 };
 
 const SPEC_VALUE_EN = {
-  'Doré': 'Gold-plated', 'Rhodié': 'Rhodium-plated', 'Mousqueton': 'Lobster clasp', 'Crochet': 'Hook', 'Poussette': 'Push-back',
+  'Or 14 carats (585 ‰)': '14-carat gold (585‰)', 'Doré': 'Gold-plated', 'Rhodié': 'Rhodium-plated', 'Mousqueton': 'Lobster clasp', 'Crochet': 'Hook', 'Poussette': 'Push-back',
   'Tourmaline': 'Tourmaline', 'Spinelle noire': 'Black spinel', 'Spinelle': 'Spinel', 'Amazonite': 'Amazonite', 'Onyx vert': 'Green onyx',
   'Quartz fumé': 'Smoky quartz', 'Perles': 'Pearls', 'Emeraude': 'Emerald', 'Rubis': 'Ruby', 'Saphir': 'Sapphire', 'Diamant': 'Diamond',
   "Perle Naturelle d'eau douce": 'Natural freshwater pearl', 'Topaze blanche': 'White topaz',
@@ -1056,7 +1056,7 @@ function rolfSpecValue(key, v) {
 }
 
 const SPEC_KEY_MAP = { water_resistance: 'water' };
-const SPEC_ORDER = ['collection', 'model', 'display', 'movement', 'case', 'diameter', 'case_thickness', 'bezel', 'dial', 'strap', 'strap_width',
+const SPEC_ORDER = ['collection', 'metal', 'model', 'display', 'movement', 'case', 'diameter', 'case_thickness', 'bezel', 'dial', 'strap', 'strap_width',
   'glass', 'water', 'clasp', 'metal_color', 'stone_type', 'stone_color', 'length', 'width', 'thickness', 'height', 'size', 'weight',
   'sale_unit', 'app', 'bluetooth_name', 'edition'];
 
