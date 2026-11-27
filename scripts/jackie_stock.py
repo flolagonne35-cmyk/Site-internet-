@@ -59,6 +59,8 @@ def main(path):
     refs = {}
     for ref, q in sorted(qty.items()):
         entry = {'a': 'in' if q > 0 else 'out', 'restock': None if q > 0 else restock.get(ref)}
+        if q == 1:
+            entry['last'] = True  # only one piece left (all sizes together)
         if sizes.get(ref):
             entry['sizes'] = sorted(set(sizes[ref]), key=lambda s: float(s) if re.fullmatch(r'[\d.]+', s) else 0)
         refs[ref] = entry

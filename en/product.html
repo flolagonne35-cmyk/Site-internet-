@@ -323,7 +323,7 @@
         stockNote.textContent = 'Ships within 10–15 days';
       } else {
         stockNote.classList.add('in-stock');
-        stockNote.textContent = 'In stock — ships within ' + ({ 'orus-bijoux': '10 days', 'jackie-gold': '15 days' }[p.brand_slug] || '2–4 days') + (p.sizes_in_stock && p.sizes_in_stock.length ? ' · Available sizes: ' + p.sizes_in_stock.join(', ') : '');
+        stockNote.textContent = (p.last_one ? (p.type === 'boucles' || p.type === 'ecouteurs' ? 'Only 1 pair left — ships within ' : 'Only 1 left — ships within ') : 'In stock — ships within ') + ({ 'orus-bijoux': '10 days', 'jackie-gold': '15 days' }[p.brand_slug] || '2–4 days') + (p.sizes_in_stock && p.sizes_in_stock.length ? ' · Available sizes: ' + p.sizes_in_stock.join(', ') : '');
       }
     }
 

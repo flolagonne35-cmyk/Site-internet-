@@ -9,6 +9,7 @@ Sets on each product:
                 "in" if the spreadsheet has it, else hidden.
   restock       ISO date of the next delivery when known, else null
   sizes_in_stock  Jackie rings only: sizes currently available
+  last_one      true when a single piece is left in stock (else absent)
 
 Jackie Gold comes from data/stock/jackie.json (see jackie_stock.py); every
 other brand from the supplier FTP CSV (latin-1, ';', no header):
@@ -90,17 +91,21 @@ def main(csv_path):
     for p in products:
         ref = p['ref'].strip().upper()
         sizes = None
+        last = False
         if p.get('brand_slug') == ORDER_SLUG and orus is not None:
             in_stock, restock = bool(orus.get(ref)), None
+            last = orus.get(ref) == 1
         elif p.get('brand_slug') == JACKIE_SLUG:
             j = jackie.get(ref)
             in_stock = bool(j and j['a'] == 'in')
             restock = j.get('restock') if j else None
             sizes = j.get('sizes') if j else None
+            last = bool(j and j.get('last'))
         else:
             s = stock.get(ref)
             in_stock = bool(s and s['qty'] > 0)
             restock = s['restock'] if s else None
+            last = bool(s and s['qty'] == 1)
         if in_stock:
             state, restock = 'in', None
         else:
@@ -112,6 +117,10 @@ def main(csv_path):
                 state = 'out'
         p['availability'] = state
         p['restock'] = restock
+        if last and state == 'in':
+            p['last_one'] = True
+        else:
+            p.pop('last_one', None)
         if sizes and state == 'in':
             p['sizes_in_stock'] = sizes
         else:

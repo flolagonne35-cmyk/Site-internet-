@@ -323,7 +323,11 @@
         stockNote.textContent = 'Expédié sous 10 à 15 jours';
       } else {
         stockNote.classList.add('in-stock');
-        stockNote.textContent = 'En stock — expédié sous ' + ({ 'orus-bijoux': '10 jours', 'jackie-gold': '15 jours' }[p.brand_slug] || '2 à 4 jours') + (p.sizes_in_stock && p.sizes_in_stock.length ? ' · Tailles disponibles : ' + p.sizes_in_stock.join(', ') : '');
+        const fem = !!{ montres: 1, bagues: 1, boucles: 1, ecouteurs: 1 }[p.type];
+        const pair = p.type === 'boucles' || p.type === 'ecouteurs';
+        stockNote.textContent = (p.last_one
+          ? (pair ? "Plus qu'une paire en stock — expédiée sous " : fem ? "Plus qu'une en stock — expédiée sous " : "Plus qu'un en stock — expédié sous ")
+          : 'En stock — expédié sous ') + ({ 'orus-bijoux': '10 jours', 'jackie-gold': '15 jours' }[p.brand_slug] || '2 à 4 jours') + (p.sizes_in_stock && p.sizes_in_stock.length ? ' · Tailles disponibles : ' + p.sizes_in_stock.join(', ') : '');
       }
     }
 
