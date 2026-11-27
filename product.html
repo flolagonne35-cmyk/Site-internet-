@@ -74,6 +74,11 @@
           <div class="r-badge"><span class="ic"><span data-icon="return"></span></span> Retours sous 30 jours</div>
         </div>
 
+        <div class="size-row" id="sizeRow" style="display:none">
+          <label for="productSize">Taille</label>
+          <select id="productSize"><option value="">Choisir…</option></select>
+        </div>
+
         <div class="qty-stepper">
           <button class="qty-ctrl" onclick="this.nextElementSibling.textContent = Math.max(1, parseInt(this.nextElementSibling.textContent) - 1)">−</button>
           <span id="productQty" style="min-width:24px;text-align:center;font-weight:600">1</span>
@@ -296,7 +301,20 @@
     } else {
       const label = availability === 'preorder' ? 'Précommander' : 'Ajouter au panier';
       atcBtn.textContent = `${label} — ${formatPriceEUR(p.price)}`;
-      atcBtn.onclick = () => addToCart(localizedName(p), p.price, atcBtn, p.img);
+      const sizeRow = document.getElementById('sizeRow');
+      const sizeSel = document.getElementById('productSize');
+      const sizeSrc = availability === 'in' && p.sizes_in_stock && p.sizes_in_stock.length
+        ? p.sizes_in_stock : String((p.specs && p.specs.size) || '').split(/[,;]\s*/).filter(Boolean);
+      const needsSize = p.type === 'bagues' && sizeSrc.length > 0;
+      sizeRow.style.display = needsSize ? '' : 'none';
+      sizeSel.length = 1;
+      sizeSrc.forEach(s => sizeSel.add(new Option(s, s)));
+      atcBtn.onclick = () => {
+        if (needsSize && !sizeSel.value) { sizeSel.focus(); sizeSel.setCustomValidity('Choisissez une taille'); sizeSel.reportValidity(); return; }
+        sizeSel.setCustomValidity('');
+        addToCart(localizedName(p), p.price, atcBtn, p.img, p.ref, needsSize ? sizeSel.value : '', document.getElementById('productQty').textContent);
+      };
+      sizeSel.onchange = () => sizeSel.setCustomValidity('');
       if (availability === 'preorder') {
         stockNote.textContent = p.restock
           ? 'Précommande — disponible le ' + new Date(p.restock + 'T00:00:00').toLocaleDateString('fr-FR')

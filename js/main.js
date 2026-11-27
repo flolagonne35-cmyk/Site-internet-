@@ -15,6 +15,10 @@ const STR = LANG === 'en' ? {
   copied: '✓ Copied!',
   prevImg: 'Previous photo',
   nextImg: 'Next photo',
+  size: 'Size',
+  checkoutSoon: 'Online payment opens very soon. In the meantime, email us at contact@rolf.fr to order.',
+  checkoutError: 'Payment could not be started. Please try again, or email us at contact@rolf.fr.',
+  checkoutLoading: 'Redirecting to secure payment…',
 } : {
   remove: 'Retirer',
   catalogUnavailable: 'Catalogue momentanément indisponible.',
@@ -28,10 +32,17 @@ const STR = LANG === 'en' ? {
   copied: '✓ Copié !',
   prevImg: 'Photo précédente',
   nextImg: 'Photo suivante',
+  size: 'Taille',
+  checkoutSoon: 'Le paiement en ligne ouvre très bientôt. En attendant, écrivez-nous à contact@rolf.fr pour commander.',
+  checkoutError: "Le paiement n'a pas pu démarrer. Réessayez, ou écrivez-nous à contact@rolf.fr.",
+  checkoutLoading: 'Redirection vers le paiement sécurisé…',
 };
 
 /* ========== CART STATE ========== */
-let cart = JSON.parse(localStorage.getItem('rolf_cart') || '[]');
+// Each line is { ref, size, name, price, qty, img }. Lines saved before refs existed can't be paid for: drop them.
+let cart = (() => {
+  try { return JSON.parse(localStorage.getItem('rolf_cart') || '[]').filter(i => i && i.ref); } catch (e) { return []; }
+})();
 
 function saveCart() { localStorage.setItem('rolf_cart', JSON.stringify(cart)); }
 
@@ -55,8 +66,11 @@ function updateCartUI() {
   document.querySelectorAll('#cartCount').forEach(el => el.textContent = count);
   const countEl = document.getElementById('cartItemCount');
   if (countEl) countEl.textContent = count;
+  const shipping = rolfShippingCost(total, document.getElementById('cartShipZone')?.value || 'FR');
+  const shipEl = document.getElementById('cartShipCost');
+  if (shipEl) shipEl.textContent = shipping === 0 ? (LANG === 'en' ? 'Free' : 'Offerte') : formatPriceEUR(shipping);
   const totalEl = document.getElementById('cartTotal');
-  if (totalEl) totalEl.textContent = total.toFixed(2) + ' €';
+  if (totalEl) totalEl.textContent = formatPriceEUR(total + (cart.length ? shipping : 0));
 
   const body = document.getElementById('cartBody');
   const empty = document.getElementById('cartEmpty');
@@ -81,7 +95,8 @@ function updateCartUI() {
       <img class="cart-item-img" src="${imgSrc}" alt="${escapeHtml(item.name)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMAGES.montres[0]}'" />
       <div class="cart-item-info">
         <div class="cart-item-name">${escapeHtml(item.name)}</div>
-        <div class="cart-item-price">${item.price} €</div>
+        ${item.size ? `<div class="cart-item-size">${STR.size} ${escapeHtml(item.size)}</div>` : ''}
+        <div class="cart-item-price">${formatPriceEUR(item.price)}</div>
         <div class="cart-item-qty">
           <button class="qty-ctrl" onclick="changeQty(${idx}, -1)">−</button>
           <span class="qty-num">${item.qty}</span>
@@ -94,18 +109,71 @@ function updateCartUI() {
   });
 }
 
-function addToCart(name, price, btn, img) {
-  const existing = cart.find(i => i.name === name);
-  if (existing) { existing.qty++; }
-  else { cart.push({ name, price, qty: 1, img }); }
+function addToCart(name, price, btn, img, ref, size, qty) {
+  if (!ref) ref = (img || '').replace(/\.jpg$/i, '');
+  size = size || '';
+  qty = Math.max(1, parseInt(qty, 10) || 1);
+  const existing = cart.find(i => i.ref === ref && (i.size || '') === size);
+  if (existing) { existing.qty += qty; }
+  else { cart.push({ ref, size, name, price, qty, img }); }
   saveCart(); updateCartUI();
 
   if (btn) {
+    const label = btn.textContent;
     btn.textContent = '✓';
     btn.style.background = '#27ae60';
-    setTimeout(() => { btn.textContent = '+'; btn.style.background = ''; }, 1200);
+    setTimeout(() => { btn.textContent = label; btn.style.background = ''; }, 1200);
   }
   openCart();
+}
+
+/* Shipping rules — keep in sync with supabase/functions/create-checkout/index.ts */
+const SHIPPING = { FR: { cost: 4.90, freeFrom: 80 }, EU: { cost: 14.90, freeFrom: null } };
+function rolfShippingCost(subtotal, zone) {
+  const s = SHIPPING[zone] || SHIPPING.FR;
+  return s.freeFrom !== null && subtotal >= s.freeFrom ? 0 : s.cost;
+}
+
+/* ========== CHECKOUT (Stripe Checkout via a Supabase Edge Function) ==========
+   The function re-reads every price from data/products.json on the live site, so the
+   amounts sent from this browser are never trusted. Set CHECKOUT_ENABLED to true once
+   the function is deployed with the Stripe keys (see docs/STRIPE.md). */
+const CHECKOUT_ENABLED = false;
+const CHECKOUT_ENDPOINT = 'https://yuyfurkzeomniwynfjyj.supabase.co/functions/v1/create-checkout';
+
+function rolfCartMsg(text, isError) {
+  const ftr = document.getElementById('cartFtr');
+  if (!ftr) return;
+  let el = document.getElementById('cartMsg');
+  if (!el) {
+    el = document.createElement('p');
+    el.id = 'cartMsg';
+    el.className = 'cart-msg';
+    ftr.insertBefore(el, ftr.querySelector('.btn'));
+  }
+  el.textContent = text;
+  el.classList.toggle('error', !!isError);
+}
+
+async function rolfCheckout(btn) {
+  if (!cart.length) return;
+  if (!CHECKOUT_ENABLED) { rolfCartMsg(STR.checkoutSoon); return; }
+  const zone = document.getElementById('cartShipZone')?.value || 'FR';
+  btn.disabled = true;
+  rolfCartMsg(STR.checkoutLoading);
+  try {
+    const res = await fetch(CHECKOUT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart.map(i => ({ ref: i.ref, size: i.size || '', qty: i.qty })), zone, lang: LANG }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.url) throw new Error(data.error || 'checkout');
+    window.location.href = data.url;
+  } catch (e) {
+    rolfCartMsg(e.message && e.message !== 'checkout' ? e.message : STR.checkoutError, true);
+    btn.disabled = false;
+  }
 }
 
 function changeQty(idx, delta) {
@@ -480,7 +548,7 @@ function jsAttrString(str) {
 function formatPriceEUR(n) {
   const rounded = Math.round(n * 100) / 100;
   if (Number.isInteger(rounded)) return `${rounded} €`;
-  const s = rounded.toFixed(2).replace(/0$/, '').replace(/\.$/, '').replace('.', ',');
+  const s = rounded.toFixed(2).replace('.', ',');
   return `${s} €`;
 }
 
@@ -554,7 +622,7 @@ function renderProductCard(p) {
         <div class="product-stars" style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0;font-style:italic">${escapeHtml(localizedDesc(p))}</div>
         <div class="product-footer">
           <div class="product-price">${priceHtml}</div>
-          <button class="atc-btn" onclick="addToCart('${jsAttrString(localizedName(p))}', ${p.price}, this, '${p.img ? jsAttrString(p.img) : ''}')">+</button>
+          <button class="atc-btn" onclick="${p.type === 'bagues' ? `location.href='product.html?ref=${encodeURIComponent(p.ref)}'` : `addToCart('${jsAttrString(localizedName(p))}', ${p.price}, this, '${p.img ? jsAttrString(p.img) : ''}', '${jsAttrString(p.ref)}')`}">+</button>
         </div>
       </div>
     </div>`;
@@ -1274,6 +1342,8 @@ function rolfRenderProductSuggestions(p, all) {
 
 /* ========== INIT ========== */
 updateCartUI();
+// Back from Stripe after cancelling: reopen the cart where the visitor left it.
+if (new URLSearchParams(location.search).has('panier')) openCart();
 loadCatalog();
 initCollectionCatalog();
 initHeaderSearch();

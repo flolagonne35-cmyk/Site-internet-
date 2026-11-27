@@ -652,6 +652,15 @@ input, textarea { font-family: inherit; }
 .cart-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.05rem; margin-bottom: 16px; }
 .cart-total span:last-child { color: var(--accent); }
 .cart-note { font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 10px; }
+.cart-ship { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; margin: 0 0 12px; color: var(--text-muted); }
+.cart-ship select { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font: inherit; color: var(--text); background: #fff; min-height: 40px; }
+.cart-ship #cartShipCost { font-weight: 600; color: var(--text); white-space: nowrap; }
+.cart-item-size { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+.cart-msg { font-size: 0.82rem; line-height: 1.45; margin: 0 0 12px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--bg-light); color: var(--text); }
+.cart-msg.error { background: #fde8e8; color: #b33; }
+.size-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.size-row label { font-weight: 600; font-size: 0.9rem; }
+.size-row select { padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font: inherit; min-width: 140px; min-height: 44px; background: #fff; }
 
 /* ==================== SEARCH MODAL ==================== */
 .search-overlay {
