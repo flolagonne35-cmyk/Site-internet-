@@ -849,7 +849,7 @@ img.is-pack, .product-img-wrap img.is-pack, .product-gallery-main img.is-pack, .
 .cross-sell-section { padding: 72px 0; background: var(--bg-light); }
 .cross-sell-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
 .bundle-card { display: flex; align-items: center; gap: 20px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-.bundle-imgs { display: flex; }
+.bundle-imgs { display: flex; flex-shrink: 0; width: 64px; justify-content: center; }
 .bundle-imgs img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 3px solid var(--white); margin-left: -16px; }
 .bundle-imgs img:first-child { margin-left: 0; }
 
@@ -940,3 +940,8 @@ img.is-pack, .product-img-wrap img.is-pack, .product-gallery-main img.is-pack, .
 .atc-row #wishBtn { flex: 0 0 52px; padding-left: 0; padding-right: 0; justify-content: center; }
 .product-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); }
 .product-thumb { width: auto; height: auto; aspect-ratio: 1; }
+
+/* iOS zooms the page when a form field under 16px gets focus; keep fields at 16px on phones */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}

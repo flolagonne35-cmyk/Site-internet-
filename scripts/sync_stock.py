@@ -10,6 +10,7 @@ Sets on each product:
   restock       ISO date of the next delivery when known, else null
   sizes_in_stock  Jackie rings only: sizes currently available
   last_one      true when a single piece is left in stock (else absent)
+  size_stock    Jackie rings only: {size: pieces left}, shown in the size picker
 
 Jackie Gold comes from data/stock/jackie.json (see jackie_stock.py); every
 other brand from the supplier FTP CSV (latin-1, ';', no header):
@@ -91,6 +92,7 @@ def main(csv_path):
     for p in products:
         ref = p['ref'].strip().upper()
         sizes = None
+        size_qty = None
         last = False
         if p.get('brand_slug') == ORDER_SLUG and orus is not None:
             in_stock, restock = bool(orus.get(ref)), None
@@ -101,6 +103,7 @@ def main(csv_path):
             restock = j.get('restock') if j else None
             sizes = j.get('sizes') if j else None
             last = bool(j and j.get('last'))
+            size_qty = j.get('size_qty') if j else None
         else:
             s = stock.get(ref)
             in_stock = bool(s and s['qty'] > 0)
@@ -125,6 +128,10 @@ def main(csv_path):
             p['sizes_in_stock'] = sizes
         else:
             p.pop('sizes_in_stock', None)
+        if size_qty and state == 'in' and p.get('type') == 'bagues':
+            p['size_stock'] = size_qty
+        else:
+            p.pop('size_stock', None)
         summary[p['brand']][state] += 1
 
     after = json.dumps(products, ensure_ascii=False, separators=(',', ':'))

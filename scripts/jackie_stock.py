@@ -35,6 +35,7 @@ def main(path):
 
     qty = defaultdict(float)
     sizes = defaultdict(list)
+    size_qty = defaultdict(lambda: defaultdict(int))
     restock = {}
     for r in range(1, sheet.nrows):
         row = sheet.row(r)
@@ -49,6 +50,7 @@ def main(path):
         size = size_label(row[col['TAILLE']].value)
         if size and q > 0:
             sizes[ref].append(size)
+            size_qty[ref][size] += int(q)
         if date_col is not None:
             cell = row[date_col]
             if cell.ctype in (xlrd.XL_CELL_NUMBER, xlrd.XL_CELL_DATE) and cell.value:
@@ -63,6 +65,7 @@ def main(path):
             entry['last'] = True  # only one piece left (all sizes together)
         if sizes.get(ref):
             entry['sizes'] = sorted(set(sizes[ref]), key=lambda s: float(s) if re.fullmatch(r'[\d.]+', s) else 0)
+            entry['size_qty'] = {s: size_qty[ref][s] for s in entry['sizes']}  # shown to customers for rings
         refs[ref] = entry
 
     m = re.search(r'(\d{2})-(\d{2})-(\d{4})', Path(path).name)

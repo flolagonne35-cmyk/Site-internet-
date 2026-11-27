@@ -308,7 +308,7 @@
       const needsSize = p.type === 'bagues' && sizeSrc.length > 0;
       sizeRow.style.display = needsSize ? '' : 'none';
       sizeSel.length = 1;
-      sizeSrc.forEach(s => sizeSel.add(new Option(s, s)));
+      sizeSrc.forEach(s => { const q = (p.size_stock || {})[s]; sizeSel.add(new Option(s + (q ? ' — ' + (q === 1 ? "plus qu'une" : q + ' en stock') : ''), s)); });
       atcBtn.onclick = () => {
         if (needsSize && !sizeSel.value) { sizeSel.focus(); sizeSel.setCustomValidity('Choisissez une taille'); sizeSel.reportValidity(); return; }
         sizeSel.setCustomValidity('');
