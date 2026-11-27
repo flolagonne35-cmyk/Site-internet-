@@ -4,7 +4,8 @@ Usage: python scripts/sync_stock.py odeis_cat_web_stocks.csv
 
 Sets on each product:
   availability  "in" (shown), "out" (hidden), "preorder" (limited editions out of stock)
-                or "order" (Orus out of our stock: still sold, supplier ships in 10-15 days)
+                or "order" (Orus out of our stock: still sold, supplier ships in 10-15 days;
+                while data/stock/orus.json is valid, only if the supplier has it, else hidden)
   restock       ISO date of the next delivery when known, else null
   sizes_in_stock  Jackie rings only: sizes currently available
 
@@ -22,6 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PRODUCTS = ROOT / 'data' / 'products.json'
 JACKIE = ROOT / 'data' / 'stock' / 'jackie.json'
+ORUS = ROOT / 'data' / 'stock' / 'orus.json'
 LAST_SYNC = ROOT / 'data' / 'stock' / 'last_sync.json'
 MIN_ROWS = 500
 JACKIE_SLUG = 'jackie-gold'
@@ -75,6 +77,11 @@ def main(csv_path):
         sys.exit(f'Stock file has only {rows} rows (< {MIN_ROWS}); refusing to update the catalogue.')
     jackie = json.loads(JACKIE.read_text(encoding='utf-8'))['refs'] if JACKIE.exists() else {}
     jackie = {k.upper(): v for k, v in jackie.items()}
+    orus = None  # None = no supplier list in force: every Orus item is sold on order
+    if ORUS.exists():
+        o = json.loads(ORUS.read_text(encoding='utf-8'))
+        if datetime.now(timezone.utc).date().isoformat() < o['valid_until']:
+            orus = {k.upper(): v for k, v in o['refs'].items()}
 
     products = json.loads(PRODUCTS.read_text(encoding='utf-8'))
     before = json.dumps(products, ensure_ascii=False, separators=(',', ':'))
@@ -96,7 +103,7 @@ def main(csv_path):
         else:
             if is_limited(p):
                 state = 'preorder'
-            elif p.get('brand_slug') == ORDER_SLUG:
+            elif p.get('brand_slug') == ORDER_SLUG and (orus is None or orus.get(ref)):
                 state, restock = 'order', None
             else:
                 state = 'out'

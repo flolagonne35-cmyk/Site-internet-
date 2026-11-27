@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - 'data/stock/jackie.json'
+      - 'data/stock/orus.json'
       - 'scripts/sync_stock.py'
       - '.github/workflows/stock-sync.yml'
 
